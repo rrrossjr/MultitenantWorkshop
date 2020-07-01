@@ -617,7 +617,11 @@ The tasks you will accomplish in this lab are:
     ````
     ![](./images/oedevremoved.png " ")
 
-9. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.
+9. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.  You may need to restart the write-load.sh script (as it only runs for around 15 minutes) in your other terminal window.
+    ````
+    <copy> ./write-load.sh
+    </copy>
+    ````
 
 You can see that the clone of the pluggable database worked without having to stop the load on the source database. In the next lab you will look at how to refresh a clone.
 
@@ -634,9 +638,10 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB2**  
 
     ````
-    <copy>
-    sqlplus /nolog
-    connect sys/oracle@localhost:1524/cdb2 as sysdba
+    <copy> sqlplus /nolog
+    connect sys/oracle@localhost:1524/cdb2 as sysdba </copy>
+    @whoami
+    show pdbs
     </copy>
     ````
 
@@ -646,6 +651,7 @@ The tasks you will accomplish in this lab are:
     <copy>
     create pluggable database oe_refresh from oe@cdb1_link refresh mode manual;
     alter pluggable database oe_refresh open read only;
+    show pdbs
     </copy>
     ````
 
