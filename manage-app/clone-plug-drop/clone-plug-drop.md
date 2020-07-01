@@ -573,14 +573,13 @@ The tasks you will accomplish in this lab are:
     CUSTOMER_ID   number); </copy>
     ````
 
- 4. Open a **new terminal window**.  As the oracle user, execute write-load.sh. Leave this window open and running throughout the rest of the multitenant labs.  
-
+ 4. Open a **new terminal window**.  As the oracle user, execute write-load.sh.  This shell script inserts rows into the SALES\_ORDERS table.  It also queries a row count for number of rows in SALES\_ORDERS.
      ````
     <copy> cd /home/oracle/labs/multitenant
     ./write-load.sh
     </copy>
     ````
-    Leave this window open and running for the next few labs.
+    Leave this window open and running for the next few labs. 
 
 5. Go back to your original terminal window.  Connect to **CDB2** and create the pluggable database **OE\_DEV** from the database link **oe@cdb1\_link**  
 
