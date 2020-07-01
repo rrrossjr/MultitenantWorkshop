@@ -295,6 +295,8 @@ The tasks you will accomplish in this lab are:
     sqlplus /nolog
     connect sys/oracle@localhost:1524/cdb2 as sysdba
     </copy>
+    ````
+    ````
     <copy>
     @whoami
     show pdbs
