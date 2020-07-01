@@ -25,11 +25,12 @@ The tasks you will accomplish in this lab are:
 
     ````
 
-    <copy>select
+    <copy>
+  select
   'DB Name: '  ||Sys_Context('Userenv', 'DB_Name')||
-  ' / CDB Name: '   ||Sys_Context('Userenv', 'CDB_NAME')||
+  ' / in CDB: '   ||Nvl(Sys_Context('Userenv', 'CDB_NAME'), 'n/a')||
   ' / Auth-ID: '   ||Sys_Context('Userenv', 'Authenticated_Identity')||
-  ' / Sessn-User: '||Sys_Context('Userenv', 'Session_User')||
+  ' / User: '||Sys_Context('Userenv', 'Session_User')||
   ' / Container: ' ||Nvl(Sys_Context('Userenv', 'Con_Name'), 'n/a')
   "Who am I?"
   from Dual
