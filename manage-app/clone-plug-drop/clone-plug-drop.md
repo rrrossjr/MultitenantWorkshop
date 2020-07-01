@@ -579,7 +579,7 @@ The tasks you will accomplish in this lab are:
     ./write-load.sh
     </copy>
     ````
-    Leave this window open and running for the next few labs. 
+    Leave this window open and running for the rest of the multitenant workshop. 
 
 5. Go back to your original terminal window.  Connect to **CDB2** and create the pluggable database **OE\_DEV** from the database link **oe@cdb1\_link**  
 
