@@ -706,16 +706,8 @@ The refreshable PDB OE_REFRESH is the source PDB for snapshots and is always in 
     show pdbs
     @whoami
     show parameter CLONEDB</copy>
-
-    show parameter CLONEDB
-    SQL>
-
-    NAME                                 TYPE        VALUE
-    ------------------------------------ ----------- ------------------------------
-    clonedb                              boolean     TRUE
-    clonedb_dir                          string
-
     ````
+    ![](./images/clonedb_set.png " ")
 
 2. Create a SNAPSHOT COPY PDB database
 
