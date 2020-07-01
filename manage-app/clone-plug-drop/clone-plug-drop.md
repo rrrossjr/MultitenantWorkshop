@@ -590,6 +590,7 @@ The tasks you will accomplish in this lab are:
     alter pluggable database oe_dev open;
     show pdbs </copy>
     ````
+    ![](./images/oedevopen.png " ")
 
 6. Connect as **SOE** to **OE\_DEV** and check the number of records in the **sale\_orders** table.  This **OE\_DEV** table has rows at the time the database was created from the **OE** pdb on CDB1.
 
