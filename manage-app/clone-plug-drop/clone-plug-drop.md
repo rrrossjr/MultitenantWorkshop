@@ -15,8 +15,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**  
 
     ````
-    <copy>
-    sqlplus /nolog
+    <copy>sqlplus /nolog
     connect sys/oracle@localhost:1523/cdb1 as sysdba
     </copy>
     ````
@@ -52,8 +51,7 @@ The tasks you will accomplish in this lab are:
 3. Create a pluggable database **PDB2**.  
 
     ````
-    <copy>
-    show  pdbs;
+    <copy>show  pdbs;
     create pluggable database PDB2 admin user PDB_Admin identified by oracle;
     alter pluggable database PDB2 open;
     show pdbs;
@@ -75,8 +73,7 @@ The tasks you will accomplish in this lab are:
 5. Grant **PDB_ADMIN** the necessary privileges and create the **USERS** tablespace for **PDB2**.  
 
     ````
-    <copy>
-    grant sysdba to pdb_admin;
+    <copy>grant sysdba to pdb_admin;
     create tablespace users datafile size 20M autoextend on next 1M maxsize unlimited segment space management auto;
     alter database default tablespace Users;
     grant create table, unlimited tablespace to pdb_admin;
@@ -104,8 +101,7 @@ The tasks you will accomplish in this lab are:
 8. Change back to **SYS** in the container database **CDB1** and show the tablespaces and datafiles created.  
 
     ````
-    <copy>
-    connect sys/oracle@localhost:1523/cdb1 as sysdba
+    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
 
     COLUMN "Con_Name" FORMAT A10
     COLUMN "T'space_Name" FORMAT A12
@@ -147,8 +143,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**.  
 
     ````
-    <copy>
-    sqlplus /nolog
+    <copy>sqlplus /nolog
     connect sys/oracle@localhost:1523/cdb1 as sysdba
     </copy>
     ````
@@ -209,8 +204,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**.  
 
     ````
-    <copy>
-    sqlplus /nolog
+    <copy>sqlplus /nolog
     connect sys/oracle@localhost:1523/cdb1 as sysdba
     </copy>
     ````
@@ -243,8 +237,7 @@ The tasks you will accomplish in this lab are:
 4. Show the datafiles in **CDB1**.  
 
     ````
-    <copy>
-    COLUMN "Con_Name" FORMAT A10
+    <copy>COLUMN "Con_Name" FORMAT A10
     COLUMN "T'space_Name" FORMAT A12
     COLUMN "File_Name" FORMAT A120
     SET LINESIZE 220
@@ -334,8 +327,7 @@ The tasks you will accomplish in this lab are:
 4. Review the datafiles in **CDB2**  
 
     ````
-    <copy>
-    COLUMN "Con_Name" FORMAT A10
+    <copy>COLUMN "Con_Name" FORMAT A10
     COLUMN "T'space_Name" FORMAT A12
     COLUMN "File_Name" FORMAT A120
     SET LINESIZE 220
@@ -386,8 +378,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB2**  
 
     ````
-    <copy>
-    sqlplus /nolog
+    <copy>sqlplus /nolog
     connect sys/oracle@localhost:1524/cdb2 as sysdba
     </copy>
     ````
@@ -395,8 +386,7 @@ The tasks you will accomplish in this lab are:
 2. Drop **PDB3** from **CDB2**  
 
     ````
-    <copy>
-    show pdbs
+    <copy>show pdbs
     alter pluggable database PDB3 close immediate;
     drop pluggable database PDB3 including datafiles;
     show pdbs
@@ -454,8 +444,7 @@ The tasks you will accomplish in this lab are:
 5. Unplug **GOLDPDB** from **CDB1**  
 
     ````
-    <copy>
-    show pdbs
+    <copy>show pdbs
     alter pluggable database GOLDPDB close immediate;
 
     alter pluggable database GOLDPDB
@@ -484,8 +473,7 @@ The tasks you will accomplish in this lab are:
 8. Validate **GOLDPDB** is compatibile with **CDB2**  
 
     ````
-    <copy>
-    begin
+    <copy>begin
       if not
         Sys.DBMS_PDB.Check_Plug_Compatibility
     ('/u01/app/oracle/oradata/CDB1/goldpdb.xml')
@@ -500,8 +488,7 @@ The tasks you will accomplish in this lab are:
 9. Create a clone of **GOLDPDB** as **COPYPDB1**  
 
     ````
-    <copy>
-    create pluggable database COPYPDB1 as clone
+    <copy>create pluggable database COPYPDB1 as clone
     using '/u01/app/oracle/oradata/CDB1/goldpdb.xml'
     storage (maxsize unlimited max_shared_temp_size unlimited)
     copy;
@@ -514,8 +501,7 @@ The tasks you will accomplish in this lab are:
 10. Create another clone of **GOLDPDB** as **COPYPDB2**  
 
     ````
-    <copy>
-    create pluggable database COPYPDB2 as clone
+    <copy>create pluggable database COPYPDB2 as clone
     using '/u01/app/oracle/oradata/CDB1/goldpdb.xml'
     storage (maxsize unlimited max_shared_temp_size unlimited)
     copy;
@@ -746,17 +732,17 @@ Refreshable PDBs need to be in **read only** mode in order to refresh. You can q
 6. Close and remove the **OE_REFRESH** and **SNAP1** pluggable databases.  
 
     ````
-    <copy>
-    conn sys/oracle@localhost:1524/cdb2 as sysdba
+    <copy>conn sys/oracle@localhost:1524/cdb2 as sysdba
+    show pdbs
     alter pluggable database snap1 close;
     alter pluggable database oe_refresh close;
     drop pluggable database snap1 including datafiles;
     drop pluggable database oe_refresh including datafiles;
-    </copy>
+    show pdbs </copy>
     ````
+    ![](./images/snapshot_drop.png " ")
 
-7. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.
-
+7. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.  You may need to restart the shell script if it completed. 
 
 ## Step 10: PDB Relocation
 
@@ -770,8 +756,7 @@ The tasks you will accomplish in this lab are:
 1. Change **CDB2** to use the listener **LISTCDB1**  
 
     ````
-    <copy>
-    sqlplus /nolog
+    <copy>sqlplus /nolog
     conn sys/oracle@localhost:1524/cdb2 as sysdba;
     alter system set local_listener='LISTCDB1' scope=both;
     </copy>
@@ -822,8 +807,7 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
 4. Test the connection forwarding by connecting to **OE** from **CDB1** and **CDB2.**  
 
     ````
-    <copy>
-    connect soe/soe@localhost:1523/oe
+    <copy>connect soe/soe@localhost:1523/oe
     select count(*) from sale_orders;
     connect soe/soe@localhost:1524/oe
     select count(*) from sale_orders; </copy>
