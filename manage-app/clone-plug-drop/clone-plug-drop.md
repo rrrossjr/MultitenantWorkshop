@@ -588,26 +588,21 @@ The tasks you will accomplish in this lab are:
     @whoami
     create pluggable database oe_dev from oe@cdb1_link;
     alter pluggable database oe_dev open;
-    show pdbs
-    </copy>
+    show pdbs </copy>
     ````
 
-6. Connect as **SOE** to **OE\_DEV** and check the number of records in the **sale\_orders** table  
+6. Connect as **SOE** to **OE\_DEV** and check the number of records in the **sale\_orders** table.  This **OE\_DEV** table has rows at the time the database was created from the **OE** pdb on CDB1.
 
     ````
-    <copy>
-    connect soe/soe@localhost:1524/oe_dev
-    select count(*) from sale_orders;
-    </copy>
+    <copy> connect soe/soe@localhost:1524/oe_dev
+    select count(*) from sale_orders; </copy>
     ````
 
-7. Connect as **SOE** to **OE** and check the number of records in the **sale_orders** table  
+7. Connect as **SOE** to **OE** and check the number of records in the **sale_orders** table.  This table should have more rows as the running script in your other terminal window is adding rows.
 
     ````
-    <copy>
-    connect soe/soe@localhost:1523/oe
-    select count(*) from sale_orders;
-    </copy>
+    <copy> connect soe/soe@localhost:1523/oe
+    select count(*) from sale_orders; </copy>
     ````
 
 8. Close and remove the **OE_DEV** pluggable database  
