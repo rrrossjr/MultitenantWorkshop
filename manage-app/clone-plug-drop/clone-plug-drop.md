@@ -147,8 +147,10 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**.  
 
     ````
-    <copy>sqlplus /nolog
-    connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
+    <copy>
+    sqlplus /nolog
+    connect sys/oracle@localhost:1523/cdb1 as sysdba
+    </copy>
     ````
 
 2. Change **PDB2** to read only.  
@@ -189,7 +191,7 @@ The tasks you will accomplish in this lab are:
 
    ![](./images/pdb2mytab.png " ")
 
-6. Connect to **PDB3** and show the table **MY_TAB**.  Since **PDB3** was created from **PDB2**, the table **MY_TAB** should be the same in both pdbs.
+6. Connect to **PDB3** and show the table **MY\_TAB**.  Since **PDB3** was created from **PDB2**, the table **MY\_TAB** should be the same in both pdbs.
 
     ````
     <copy>connect pdb_admin/oracle@localhost:1523/pdb3
@@ -207,8 +209,10 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**.  
 
     ````
-    <copy>sqlplus /nolog
-    connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
+    <copy>
+    sqlplus /nolog
+    connect sys/oracle@localhost:1523/cdb1 as sysdba
+    </copy>
     ````
 
 2. Unplug **PDB3** from **CDB1**.  
@@ -287,31 +291,16 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB2**  
 
     ````
+    <copy>
     sqlplus /nolog
     connect sys/oracle@localhost:1524/cdb2 as sysdba
-
-    COLUMN "Who am I?" FORMAT A120
-    select
-      'DB Name: '  ||Sys_Context('Userenv', 'DB_Name')||
-      ' / CDB?: '     ||case
-        when Sys_Context('Userenv', 'CDB_Name') is not null then 'YES'
-        else 'NO'
-        end||
-      ' / Auth-ID: '   ||Sys_Context('Userenv', 'Authenticated_Identity')||
-      ' / Sessn-User: '||Sys_Context('Userenv', 'Session_User')||
-      ' / Container: ' ||Nvl(Sys_Context('Userenv', 'Con_Name'), 'n/a')
-      "Who am I?"
-    from Dual
-    /
-
+    <copy>
+    </copy>
+    @whoami
     show pdbs
+    </copy>
     ````
     ![](./images/whoamicdb2.png " ")
-
-     If you have saved the query as whoami.sql earlier, you can run the query as below.
-     ````
-     <copy>@whoami.sql</copy>
-     ````
 
 
 2. Check the compatibility of **PDB3** with **CDB2**  
@@ -335,13 +324,13 @@ The tasks you will accomplish in this lab are:
 3. Plug **PDB3** into **CDB2**  
 
     ````
-      <copy>create pluggable database PDB3
+    <copy>create pluggable database PDB3
     using '/u01/app/oracle/oradata/CDB1/pdb3.xml'
     move;
 
     show pdbs
     alter pluggable database PDB3 open;
-    show pdbs   </copy>
+    show pdbs</copy>
     ````
 
     ![](./images/createwithxml.png " ")
@@ -349,7 +338,7 @@ The tasks you will accomplish in this lab are:
 4. Review the datafiles in **CDB2**  
 
     ````
-      <copy>
+    <copy>
     COLUMN "Con_Name" FORMAT A10
     COLUMN "T'space_Name" FORMAT A12
     COLUMN "File_Name" FORMAT A120
@@ -375,7 +364,8 @@ The tasks you will accomplish in this lab are:
       File_Name "File_Name"
     from CDB_Temp_Files inner join Containers using (Con_ID)
     order by 1, 3
-    /   </copy>
+    /
+    </copy>
     ````
 
     ![](./images/mtdbfcdb2.png " ")
