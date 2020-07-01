@@ -697,8 +697,7 @@ The two main requirements for snapshot copy to work are
 - CLONEDB initialization parameter should be set to TRUE.
 - The source PDB is in Read Only mode.
 
-Creating a snapshot copy of a refreshable PDB is a good use case for snapshot copy PDBs. Refreshable PDBs need to be in **read only** mode in order to refresh. You can quickly create a Snapshot Clone PDB from the refreshable PDB and use it in reporting, test and dev environments.
-The refreshable PDB OE_REFRESH is the source PDB for snapshots and is always in read only mode.
+Refreshable PDBs need to be in **read only** mode in order to refresh. You can quickly create a Snapshot Clone PDB from the refreshable PDB and use it in reporting, test and dev environments.  In our exercise, we will create a **Snapshot Clone PDB** from the read only PDB OE_REFRESH.
 
 1. Verify that the initialization parameter CLONEDB is set.
     ````
