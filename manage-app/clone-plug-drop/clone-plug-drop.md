@@ -575,7 +575,7 @@ The tasks you will accomplish in this lab are:
 
  4. Open a **new terminal window**.  As the oracle user, execute write-load.sh.  This shell script inserts rows into the SALES\_ORDERS table.  It also queries a row count for number of rows in SALES\_ORDERS.
      ````
-    <copy> cd /home/oracle/labs/multitenant
+    <copy>cd /home/oracle/labs/multitenant
     ./write-load.sh
     </copy>
     ````
@@ -595,14 +595,14 @@ The tasks you will accomplish in this lab are:
 6. Connect as **SOE** to **OE\_DEV** and check the number of records in the **sale\_orders** table.  This **OE\_DEV** table has rows at the time the database was created from the **OE** pdb on CDB1.
 
     ````
-    <copy> connect soe/soe@localhost:1524/oe_dev
+    <copy>connect soe/soe@localhost:1524/oe_dev
     select count(*) from sale_orders; </copy>
     ````
 
 7. Connect as **SOE** to **OE** and check the number of records in the **sale_orders** table.  This table should have more rows as the running script in your other terminal window is adding rows.
 
     ````
-    <copy> connect soe/soe@localhost:1523/oe
+    <copy>connect soe/soe@localhost:1523/oe
     select count(*) from sale_orders; </copy>
     ````
     ![](./images/oerowcount.png " ")
@@ -610,7 +610,7 @@ The tasks you will accomplish in this lab are:
 8. Close and remove the **OE_DEV** pluggable database  
 
     ````
-    <copy> connect sys/oracle@localhost:1524/cdb2 as sysdba
+    <copy>connect sys/oracle@localhost:1524/cdb2 as sysdba
     alter pluggable database oe_dev close;
     drop pluggable database oe_dev including datafiles; 
     show pdbs </copy>
@@ -619,7 +619,7 @@ The tasks you will accomplish in this lab are:
 
 9. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.  You may need to restart the write-load.sh script (as it only runs for around 15 minutes) in your other terminal window.
     ````
-    <copy> ./write-load.sh
+    <copy>./write-load.sh
     </copy>
     ````
 
@@ -638,7 +638,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB2**  
 
     ````
-    <copy> sqlplus /nolog
+    <copy>sqlplus /nolog
     connect sys/oracle@localhost:1524/cdb2 as sysdba </copy>
     @whoami
     show pdbs
@@ -648,8 +648,7 @@ The tasks you will accomplish in this lab are:
 2. Create a pluggable database **OE\_REFRESH** with manual refresh mode from the database link **oe@cdb1\_link**  
 
     ````
-    <copy>
-    create pluggable database oe_refresh from oe@cdb1_link refresh mode manual;
+    <copy>create pluggable database oe_refresh from oe@cdb1_link refresh mode manual;
     alter pluggable database oe_refresh open read only;
     show pdbs
     </copy>
@@ -658,8 +657,7 @@ The tasks you will accomplish in this lab are:
 3. Connect as **SOE** to the pluggable database **OE\_REFRESH** and count the number of records in the sale\_orders table  
 
     ````
-    <copy>
-    conn soe/soe@localhost:1524/oe_refresh
+    <copy>conn soe/soe@localhost:1524/oe_refresh
     select count(*) from sale_orders;
     </copy>
     ````
@@ -667,8 +665,7 @@ The tasks you will accomplish in this lab are:
 4. Close the pluggable database **OE_REFRESH**` and refresh it from the **OE** pluggable database  
 
     ````
-    <copy>
-    conn sys/oracle@localhost:1524/oe_refresh as sysdba
+    <copy>conn sys/oracle@localhost:1524/oe_refresh as sysdba
 
     alter pluggable database oe_refresh close;
 
@@ -681,8 +678,7 @@ The tasks you will accomplish in this lab are:
 5. Connect as **SOE** to the pluggable databse **OE\_REFRESH** and count the number of records in the **sale\_orders** table. You should see the number of records change.  
 
     ````
-    <copy>
-    conn soe/soe@localhost:1524/oe_refresh
+    <copy>conn soe/soe@localhost:1524/oe_refresh
     select count(*) from sale_orders;
     </copy>
     ````
@@ -692,7 +688,7 @@ Observe that the count of sale_orders has increased after the refresh.
 
 You can create a snapshot copy PDB by executing a CREATE PLUGGABLE DATABASE ... FROM ... SNAPSHOT COPY statement. The source PDB is specified in the FROM clause.
 
-A snapshot copy reduces the time required to create the clone because it does not include a complete copy of the source data files. Furthermore, the snapshot copy PDB occupies a fraction of the space of the source PDB. The snapshot copy can be created in any filesystem like ext3, ext4, ntfs for local disks. It also supports NFS, ZSF, ACFS,etc.
+A snapshot copy reduces the time required to create the clone because it does not include a complete copy of the source data files. Furthermore, the snapshot copy PDB occupies a fraction of the space of the source PDB. The snapshot copy can be created in any filesystem like ext3, ext4, ntfs for local disks. It also supports NFS, ZFS, ACFS,etc.
 
 The two main requirements for snapshot copy to work are
 - CLONEDB initialization parameter should be set to TRUE.
