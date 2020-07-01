@@ -739,20 +739,9 @@ Refreshable PDBs need to be in **read only** mode in order to refresh. You can q
     ````
     ![](./images/snapshot_du.png " ")
 
-5. Type host in sql prompt. Copy the two lines from query output and past it to OS prompt.
-    you will see that database SNAP1 takes a fraction of space compared to OE_REFRESH.
-    you can type exit to come back to sql prompt.
-    ````
-    SQL> host
-    [oracle@MTWorkshop]$ du -h /u01/app/oracle/oradata/CDB2/A7ABA07A39D36559E0530300000AE318/datafile/
-    861M    /u01/app/oracle/oradata/CDB2/A7ABA07A39D36559E0530300000AE318/datafile/
-    [oracle@MTWorkshop]$ du -h /u01/app/oracle/oradata/CDB2/A7AF576522D768ABE0530300000A47CF/datafile/
-    2.2M    /u01/app/oracle/oradata/CDB2/A7AF576522D768ABE0530300000A47CF/datafile/
+5. You can run the two lines from query output in SQL*Plus by copying and pasting them.  The host command runs these in the linux OS.  You will see that database SNAP1 takes a **TINY** fraction of space compared to OE_REFRESH.
 
-    [oracle@MTWorkshop]$ exit
-    exit
-    SQL>
-    ````
+    ![](./images/snapshot_du_run.png " ")
 
 6. Close and remove the **OE_REFRESH** and **SNAP1** pluggable databases.  
 
