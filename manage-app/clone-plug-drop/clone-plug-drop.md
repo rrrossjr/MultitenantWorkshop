@@ -605,16 +605,17 @@ The tasks you will accomplish in this lab are:
     <copy> connect soe/soe@localhost:1523/oe
     select count(*) from sale_orders; </copy>
     ````
+    ![](./images/oerowcount.png " ")
 
 8. Close and remove the **OE_DEV** pluggable database  
 
     ````
-    <copy>
-    connect sys/oracle@localhost:1524/cdb2 as sysdba
+    <copy> connect sys/oracle@localhost:1524/cdb2 as sysdba
     alter pluggable database oe_dev close;
-    drop pluggable database oe_dev including datafiles;
-    </copy>
+    drop pluggable database oe_dev including datafiles; 
+    show pdbs </copy>
     ````
+    ![](./images/oedevremoved.png " ")
 
 9. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.
 
