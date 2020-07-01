@@ -183,15 +183,17 @@ The tasks you will accomplish in this lab are:
 
     ````
     <copy>connect pdb_admin/oracle@localhost:1523/pdb2
+    @whoami
     select * from my_tab;</copy>
     ````
 
    ![](./images/pdb2mytab.png " ")
 
-6. Connect to **PDB3** and show the table **MY_TAB**.  
+6. Connect to **PDB3** and show the table **MY_TAB**.  Since **PDB3** was created from **PDB2**, the table **MY_TAB** should be the same in both pdbs.
 
     ````
     <copy>connect pdb_admin/oracle@localhost:1523/pdb3
+    @whoami
     select * from my_tab;</copy>
     ````
    ![](./images/pdb3mytab.png " ")
@@ -205,8 +207,8 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**.  
 
     ````
-    sqlplus /nolog
-    connect sys/oracle@localhost:1523/cdb1 as sysdba
+    <copy>sqlplus /nolog
+    connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
     ````
 
 2. Unplug **PDB3** from **CDB1**.  
