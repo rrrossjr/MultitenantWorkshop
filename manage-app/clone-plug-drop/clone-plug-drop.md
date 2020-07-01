@@ -703,6 +703,8 @@ The refreshable PDB OE_REFRESH is the source PDB for snapshots and is always in 
 1. Verify that the initialization parameter CLONEDB is set.
     ````
     <copy>connect sys/oracle@//localhost:1524/cdb2 as sysdba
+    show pdbs
+    @whoami
     show parameter CLONEDB</copy>
 
     show parameter CLONEDB
