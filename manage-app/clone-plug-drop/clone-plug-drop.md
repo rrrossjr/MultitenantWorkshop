@@ -712,48 +712,36 @@ The refreshable PDB OE_REFRESH is the source PDB for snapshots and is always in 
 2. Create a SNAPSHOT COPY PDB database
 
     ````
-    <copy>create pluggable database OSSNAP from oe_refresh SNAPSHOT COPY ;
-    alter pluggable database OSSNAP open;
+    <copy>create pluggable database SNAP1 from oe_refresh SNAPSHOT COPY;
     show pdbs
+    alter pluggable database SNAP1 open;
+    show pdbs</copy>
     ````
+    ![](./images/snapshot_copy.png " ")
 
-3. Connect to OSSNAP and insert rows.
+3. Connect to SNAP1 and insert rows.
 
     ````
-    <copy>connect soe/soe@localhost:1524/ossnap
+    <copy>connect soe/soe@localhost:1524/snap1
     select count(*) from sale_orders;
     insert into sale_orders values (1,sysdate,30);
     commit; </copy>
     ````
-4. Verify that the snapshot copy uses a fraction of the disk space use du command.
-   "du" stand dor disk usage. run the following sql and generate a outup which you can run on a
+    ![](./images/snapshot_count.png " ")
+
+4. Verify that the snapshot copy uses a fraction of the disk space.  We will use the linux du command.  The command "du" stands for disk usage.  Use the following sql to generate an output script to run.
     ````
     <copy>connect sys/oracle@//localhost:1524/cdb2 as sysdba
     show pdbs
-    select distinct 'du -h '||SUBSTR(NAME,1,INSTR(NAME,'datafile')+8 )  du_output from v$datafile -
-    where con_id in (select con_id from v$pdbs where name in ('OE_REFRESH','OSSNAP') );</copy>
+    set linesize 100
+    select distinct 'host du -h '||SUBSTR(NAME,1,INSTR(NAME,'datafile')+8 ) du_output 
+      from v$datafile  
+     where con_id in (select con_id from v$pdbs where name in ('OE_REFRESH','SNAP1') );</copy>
     ````
-    ````
-    SQL>  connect sys/oracle@//localhost:1524/cdb2 as sysdba
-    Connected.
-    SQL> show pdbs
+    ![](./images/snapshot_du.png " ")
 
-       CON_ID CON_NAME                       OPEN MODE  RESTRICTED
-    ---------- ------------------------------ ---------- ----------
-         2 PDB$SEED                       READ ONLY  NO
-         3 PDB2                           READ WRITE NO
-         4 OE_REFRESH                     READ ONLY  NO
-         6 OSSNAP                         READ WRITE NO
-      SQL>  select distinct 'du -h '||SUBSTR(NAME,1,INSTR(NAME,'datafile')+8 )  du_output from v$datafile -
-      > where con_id in (select con_id from v$pdbs where name in ('OE_REFRESH','OSSNAP') );
-
-      DU_OUTPUT
-      --------------------------------------------------------------------------------
-      du -h /u01/app/oracle/oradata/CDB2/A7ABA07A39D36559E0530300000AE318/datafile/
-      du -h /u01/app/oracle/oradata/CDB2/A7AF576522D768ABE0530300000A47CF/datafile/
-      ````
 5. Type host in sql prompt. Copy the two lines from query output and past it to OS prompt.
-    you will see that OSSNAP takes a fraction of space compared to OE_REFRESH.
+    you will see that database SNAP1 takes a fraction of space compared to OE_REFRESH.
     you can type exit to come back to sql prompt.
     ````
     SQL> host
@@ -767,14 +755,14 @@ The refreshable PDB OE_REFRESH is the source PDB for snapshots and is always in 
     SQL>
     ````
 
-6. Close and remove the **OE_REFRESH**  and **OSSNAP** pluggable databases.  
+6. Close and remove the **OE_REFRESH** and **SNAP1** pluggable databases.  
 
     ````
     <copy>
     conn sys/oracle@localhost:1524/cdb2 as sysdba
-    alter pluggable database sostat close;
+    alter pluggable database snap1 close;
     alter pluggable database oe_refresh close;
-    drop pluggable database osstat including datafiles;
+    drop pluggable database snap1 including datafiles;
     drop pluggable database oe_refresh including datafiles;
     </copy>
     ````
