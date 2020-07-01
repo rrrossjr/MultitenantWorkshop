@@ -291,16 +291,12 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB2**  
 
     ````
-    <copy>
-    sqlplus /nolog
-    connect sys/oracle@localhost:1524/cdb2 as sysdba
-    </copy>
+    <copy>sqlplus /nolog
+    connect sys/oracle@localhost:1524/cdb2 as sysdba </copy>
     ````
     ````
-    <copy>
-    @whoami
-    show pdbs
-    </copy>
+    <copy>@whoami
+    show pdbs </copy>
     ````
     ![](./images/whoamicdb2.png " ")
 
@@ -308,8 +304,7 @@ The tasks you will accomplish in this lab are:
 2. Check the compatibility of **PDB3** with **CDB2**  
 
     ````
-    <copy>
-    begin
+    <copy>begin
       if not
         Sys.DBMS_PDB.Check_Plug_Compatibility
         ('/u01/app/oracle/oradata/CDB1/pdb3.xml')
@@ -317,8 +312,7 @@ The tasks you will accomplish in this lab are:
         Raise_Application_Error(-20000, 'Incompatible');
       end if;
     end;
-    /   
-    </copy>
+    / </copy>
     ````
    If script executes without feedback or exception then it IS COMPATIBLE.
 
@@ -377,7 +371,8 @@ The tasks you will accomplish in this lab are:
     ````
     <copy>connect pdb_admin/oracle@localhost:1524/pdb3
 
-    select * from my_tab</copy>
+    select * from my_tab;
+    </copy>
     ````
 
     ![](./images/pdb3mytab2.png " ")
@@ -421,8 +416,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**  
 
     ````
-    <copy>
-    sqlplus /nolog
+    <copy>sqlplus /nolog
     connect sys/oracle@localhost:1523/cdb1 as sysdba
     </copy>
     ````
@@ -430,7 +424,8 @@ The tasks you will accomplish in this lab are:
 2. Change **PDB2** to read only  
 
     ````
-    <copy>alter pluggable database PDB2 open read only force;
+    <copy>show pdbs
+    alter pluggable database PDB2 open read only force;
     show pdbs</copy>
     ````
 
