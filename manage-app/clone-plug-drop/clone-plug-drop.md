@@ -654,6 +654,7 @@ The tasks you will accomplish in this lab are:
     show pdbs
     </copy>
     ````
+    ![](./images/createoe_refresh.png " ")
 
 3. Connect as **SOE** to the pluggable database **OE\_REFRESH** and count the number of records in the sale\_orders table  
 
@@ -675,6 +676,7 @@ The tasks you will accomplish in this lab are:
     alter pluggable database oe_refresh open read only;
     </copy>
     ````
+    ![](./images/refresh_oe_refresh.png " ")
 
 5. Connect as **SOE** to the pluggable databse **OE\_REFRESH** and count the number of records in the **sale\_orders** table. You should see the number of records change.  
 
@@ -683,7 +685,7 @@ The tasks you will accomplish in this lab are:
     select count(*) from sale_orders;
     </copy>
     ````
-Observe that the count of sale_orders has increased after the refresh.
+Observe that the count of sale_orders is different from the count in the other running terminal window.
 
 ## Step 9: Snapshot Copy
 
@@ -695,7 +697,7 @@ The two main requirements for snapshot copy to work are
 - CLONEDB initialization parameter should be set to TRUE.
 - The source PDB is in Read Only mode.
 
-Creating a snapshot copy of  refreshable PDB is a good use case for snapshot copy PDBs. Refreshable PDBs need to in read only mode in order to refresh. However, you can quickly create snapshots from there and use it for reporting, test and dev environments.
+Creating a snapshot copy of a refreshable PDB is a good use case for snapshot copy PDBs. Refreshable PDBs need to be in **read only** mode in order to refresh. You can quickly create a Snapshot Clone PDB from the refreshable PDB and use it in reporting, test and dev environments.
 The refreshable PDB OE_REFRESH is the source PDB for snapshots and is always in read only mode.
 
 1. Verify that the initialization parameter CLONEDB is set.
@@ -713,11 +715,10 @@ The refreshable PDB OE_REFRESH is the source PDB for snapshots and is always in 
 
     ````
 
-2. Create SNAPSHOT COPY
+2. Create a SNAPSHOT COPY PDB database
 
     ````
-    <copy>connect sys/oracle@//localhost:1524/cdb2 as sysdba
-    create pluggable database OSSNAP from oe_refresh SNAPSHOT COPY ;
+    <copy>create pluggable database OSSNAP from oe_refresh SNAPSHOT COPY ;
     alter pluggable database OSSNAP open;
     show pdbs
     ````
