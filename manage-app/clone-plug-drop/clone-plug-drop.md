@@ -429,6 +429,8 @@ The tasks you will accomplish in this lab are:
     show pdbs</copy>
     ````
 
+    ![](./images/pdb2readonly.png " ")
+
 3. Create a pluggable database **GOLDPDB** from the read only database **PDB2**  
 
     ````
