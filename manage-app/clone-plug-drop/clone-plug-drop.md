@@ -389,20 +389,21 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB2**  
 
     ````
+    <copy>
     sqlplus /nolog
     connect sys/oracle@localhost:1524/cdb2 as sysdba
+    </copy>
     ````
 
 2. Drop **PDB3** from **CDB2**  
 
     ````
-  <copy>  show pdbs
-
+    <copy>
+    show pdbs
     alter pluggable database PDB3 close immediate;
-
     drop pluggable database PDB3 including datafiles;
-
-    show pdbs</copy>
+    show pdbs
+    </copy>
     ````
 
     ![](./images/droppdb.png " ")
@@ -418,8 +419,10 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**  
 
     ````
+    <copy>
     sqlplus /nolog
     connect sys/oracle@localhost:1523/cdb1 as sysdba
+    </copy>
     ````
 
 2. Change **PDB2** to read only  
