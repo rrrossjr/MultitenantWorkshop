@@ -585,8 +585,10 @@ The tasks you will accomplish in this lab are:
 
     ````
     <copy>connect sys/oracle@localhost:1524/cdb2 as sysdba
+    @whoami
     create pluggable database oe_dev from oe@cdb1_link;
     alter pluggable database oe_dev open;
+    show pdbs
     </copy>
     ````
 
