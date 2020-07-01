@@ -534,19 +534,6 @@ The tasks you will accomplish in this lab are:
     ````
     ![](./images/allopen.png " ")
 
-12. Look at the GUID for the two cloned databases  
-
-    ````
-    <copy>
-    COLUMN "PDB Name" FORMAT A20
-    select PDB_Name "PDB Name", GUID
-    from DBA_PDBs
-    order by Creation_Scn
-    /
-    </copy>
-    ````
-    ![](./images/guid.png " ")
-
 ## Step 7: PDB Hot Clones
 This section looks at how to hot clone a pluggable database.
 
@@ -560,15 +547,14 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**  
 
     ````
-    sqlplus /nolog
-    connect sys/oracle@localhost:1523/cdb1 as sysdba
+    <copy>sqlplus /nolog
+    connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
     ````
 
 2. Create a pluggable database **OE** with an admin user of **SOE**  
 
     ````
-    <copy>
-    create pluggable database oe admin user soe identified by soe roles=(dba);
+    <copy>create pluggable database oe admin user soe identified by soe roles=(dba);
     alter pluggable database oe open;
     alter session set container = oe;
     grant create session, create table to soe;
@@ -580,31 +566,26 @@ The tasks you will accomplish in this lab are:
 
 
     ````
-    <copy>
-    connect soe/soe@localhost:1523/oe
+    <copy>connect soe/soe@localhost:1523/oe
     CREATE TABLE sale_orders
     (ORDER_ID      number,
     ORDER_DATE    date,
-    CUSTOMER_ID   number);
-    </copy>
+    CUSTOMER_ID   number); </copy>
     ````
 
- 4. Open a **new terminal window**, sudo to the oracle user and execute write-load.sh. Leave this window open and running throughout the rest of the multitenant labs.  
+ 4. Open a **new terminal window**.  As the oracle user, execute write-load.sh. Leave this window open and running throughout the rest of the multitenant labs.  
 
      ````
-    <copy>
-    sudo su - oracle
-    cd /home/oracle/labs/multitenant
+    <copy> cd /home/oracle/labs/multitenant
     ./write-load.sh
     </copy>
     ````
     Leave this window open and running for the next few labs.
 
-5. Go back to your original terminal window.  Connect to **CDB2** and create the pluggable **OE\_DEV** from the database link **oe@cdb1\_link**  
+5. Go back to your original terminal window.  Connect to **CDB2** and create the pluggable database **OE\_DEV** from the database link **oe@cdb1\_link**  
 
     ````
-    <copy>
-    connect sys/oracle@localhost:1524/cdb2 as sysdba
+    <copy>connect sys/oracle@localhost:1524/cdb2 as sysdba
     create pluggable database oe_dev from oe@cdb1_link;
     alter pluggable database oe_dev open;
     </copy>
