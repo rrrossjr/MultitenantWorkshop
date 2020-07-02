@@ -792,7 +792,7 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
     ````
     ![](./images/pdb_relocate3.png " ")
 
-   You will see OE PDB in mount state. The network service is configured to forward to target until this pluggable database exists.
+   You will see OE PDB in mount state. The network service is configured to forward to target until this pluggable database no longer exists.
 
 4. Test the connection forwarding by connecting to **OE** from **CDB1** and **CDB2.**  
 
@@ -824,10 +824,12 @@ Notice that the results of @whoami show the connection being the same same datab
 
 ## Lab Cleanup
 
-1. Reset the container databases back to their original ports. If any errors about dropping databases appear they can be ignored.
+1. Exit SQL*Plus.  Reset the container databases back to their original ports. If any errors about dropping databases appear they can be ignored.  
 
     ````
+    <copy>cd /home/oracle/labs/multitenant
     ./resetCDB.sh
+    </copy>
     ````
 
 Now you've had a chance to try out the Multitenant option. You were able to create, clone, plug and unplug a pluggable database. You were then able to accomplish some advanced tasks that you could leverage when maintaining a large multitenant environment.
@@ -836,5 +838,6 @@ Now you've had a chance to try out the Multitenant option. You were able to crea
 
 - **Author** - Vijay Balebail & Patrick Wheeler. Database Product Management.
 - **Last Updated By/Date** - Kay Malcolm, Director, DB Product Management, March 2020
+- **Last Updated By/Date** - Bob Ross, Sales Engineering Technology, June 2020
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).
