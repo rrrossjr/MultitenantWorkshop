@@ -29,8 +29,7 @@ The tasks you will accomplish in this lab are:
 
     ````
     <copy>sqlplus /nolog
-    connect sys/oracle@localhost:1523/cdb1 as sysdba
-    </copy>
+    connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
     ````
 
 2. Check to see who you are connected as. At any point in the lab you can run this script to see who or where you are connected.  
@@ -156,8 +155,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**.  
 
     ````
-    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
-    </copy>
+    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
     ````
 
 2. Change **PDB2** to read only.  
@@ -216,8 +214,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**.  
 
     ````
-    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
-    </copy>
+    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
     ````
 
 2. Unplug **PDB3** from **CDB1**.  
@@ -388,8 +385,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB2**  
 
     ````
-    <copy>connect sys/oracle@localhost:1524/cdb2 as sysdba
-    </copy>
+    <copy>connect sys/oracle@localhost:1524/cdb2 as sysdba</copy>
     ````
 
 2. Drop **PDB3** from **CDB2**  
@@ -415,8 +411,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**  
 
     ````
-    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
-    </copy>
+    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
     ````
 
 2. Change **PDB2** to read only  
