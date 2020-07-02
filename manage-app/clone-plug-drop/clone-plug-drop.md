@@ -742,7 +742,12 @@ Refreshable PDBs need to be in **read only** mode in order to refresh. You can q
     ````
     ![](./images/snapshot_drop.png " ")
 
-7. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.  You may need to restart the shell script if it completed. 
+7. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.  You may need to restart the **./write-load.sh** shell script. 
+
+    ````
+    <copy>./write-load.sh
+    </copy>
+    ````
 
 ## Step 10: PDB Relocation
 
@@ -765,9 +770,9 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
     show pdbs
     @whoami</copy>
     ````
+    ![](./images/pdb_relocate1.png " ")
 
-2. Connect to **CDB2** and relocate **OE** using the database link **oe@cdb1_link**.
-   While this relocation takes place, you should be able to see transactions continue. When you open the pdb in cdb2, you will observe a brief pause.
+2. Connect to **CDB2** and relocate **OE** using the database link **oe@cdb1_link**.  While this relocation takes place, you should be able to see transactions continue. When you open the pdb in cdb2, you will observe a brief pause.
 
     ````
     <copy>
