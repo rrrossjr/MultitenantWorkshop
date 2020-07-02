@@ -775,12 +775,14 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
 2. Connect to **CDB2** and relocate **OE** using the database link **oe@cdb1_link**.  While this relocation takes place, you should be able to see transactions continue. When you open the pdb in cdb2, you will observe a brief pause.
 
     ````
-    <copy>
-    conn sys/oracle@localhost:1524/cdb2 as sysdba;
+    <copy>conn sys/oracle@localhost:1524/cdb2 as sysdba;
+    show pdbs
     create pluggable database oe from oe@cdb1_link RELOCATE AVAILABILITY MAX;
+    show pdbs
     alter pluggable database oe open;
-    show pdbs</copy>
+    </copy>
     ````
+    ![](./images/pdb_relocate2.png " ")
 
 3. Connect to **CDB1** and see what pluggable databases exist there  
 
@@ -788,22 +790,27 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
     <copy>conn sys/oracle@localhost:1523/cdb1 as sysdba
     show pdbs</copy>
     ````
+    ![](./images/pdb_relocate3.png " ")
+
    You will see OE PDB in mount state. The network service is configured to forward to target until this pluggable database exists.
 
 4. Test the connection forwarding by connecting to **OE** from **CDB1** and **CDB2.**  
 
     ````
     <copy>connect soe/soe@localhost:1523/oe
+    @whoami
     select count(*) from sale_orders;
     connect soe/soe@localhost:1524/oe
+    @whoami
     select count(*) from sale_orders; </copy>
     ````
- You are able to access OE pdb from source and target. You might see the values different if the load is still running.
+Notice that the results of @whoami show the connection being the same same database (**OE** in **CDB2**) even when connecting to the 1523 port of the listener for CDB1.  You are able to access OE pdb from source and target. You might see the values slightly different if the load is still running.
+    ![](./images/pdb_relocate4.png " ")
 
 5. The load program isn't needed anymore and that window can be closed.
 
-6. Bonus step.
-If you want to relocate **OE** back to **CDB1**
+6. Bonus step.  If you want to relocate **OE** back to **CDB1**
+
     ````
     <copy>connect sys/oracle@//localhost:1523/cdb1 as sysdba
     show pdbs
