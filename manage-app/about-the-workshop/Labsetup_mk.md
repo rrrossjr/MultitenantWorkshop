@@ -6,7 +6,7 @@
 
     ![](images/keylab-023.png " ")
 
-2.  Under **Category** select **Connection** and then choose the **Data** field.  Enter the assigned username.  OCI instances will default to the username ```opc```.  Enter ```opc```.
+2.  Under **Category** select **Connection** and then choose the **Data** field.  Enter the assigned username.  OCI instances will default to the username ```oracle```.  Enter ```oracle```.
 
     ![](images/keylab-024.png " ")
 
@@ -38,10 +38,6 @@ ssh -i lapkey.ppk oracle@192.237.248.66
 
 ````
 ## Run the Setup Scripts as oracle
-if you connected with username  opc, then sudo to oracle user.
-````
-sudo su - oracle
-````
 
 ````
 <copy>
