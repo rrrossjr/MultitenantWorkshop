@@ -7,6 +7,7 @@ In this lab you will perform many multitenant basic tasks.  You will create a pl
 [](youtube:kzTQGs75IjA)
 
 ## Step 0: Reset the database environment
+
 Everyone MUST Run the following Setup Script.
 
 ````
