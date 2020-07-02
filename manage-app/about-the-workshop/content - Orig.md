@@ -8,10 +8,10 @@ This hands-on workshop focuses on
 * Multitenant Basics : This is a 4 hour workshop that helps DBAs to perform operations as below.
     * Create, Drop, Unplug and Plug PDBs.
     * Includes Hot clone, PDB refresh and PDB relocate.
-* Optional: Multitenant Tenant Isolation : This is a 2 hour workshop. It helps DBAs mange resource allocation, isolation of pluggable database.
+* Multitenant Tenant Isolation : This is a 2 hour workshop. It helps DBAs mange resource allocation, isolation of pluggable database.
     * Isolation features like Database Firewall and LOCKDOWN.
     * Memory, CPU and IO isolation.
-* Optional: Multitenant Application Containers : This is a 3 hour workshop. Once the Basic is mastered, DBAs can architect the application to take advantage of Multitenant specific features.
+* Multitenant Application Containers : This is a 3 hour workshop. Once the Basic is mastered, DBAs can architect the application to take advantage of Multitenant specific features.
     * Application architecture.
     * Application upgrade and patching.
     * Proxy PDBs.
@@ -30,6 +30,7 @@ This hands-on workshop focuses on
 ###  Bridging the GAP between Dev and DBAs
 
 #### BACKGROUND
+
 
 <p>
 It is common to see software and hardware platforms evolve over time to be more efficient and performant at lower cost. Deployment environments using Hardware and software frameworks like Kubernetes and Docker are taking away market share from traditional Virtual Images and standalone servers.
