@@ -815,7 +815,9 @@ Notice that the results of @whoami show the connection being the same same datab
     <copy>connect sys/oracle@//localhost:1523/cdb1 as sysdba
     show pdbs
     drop pluggable database oe including datafiles;
+    show pdbs
     create pluggable database oe from oe@cdb2_link RELOCATE AVAILABILITY MAX;
+    show pdbs
     alter pluggable database oe open;
     show pdbs </copy>
     ````
