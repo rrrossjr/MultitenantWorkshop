@@ -156,8 +156,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**.  
 
     ````
-    <copy>sqlplus /nolog
-    connect sys/oracle@localhost:1523/cdb1 as sysdba
+    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
     </copy>
     ````
 
@@ -217,8 +216,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**.  
 
     ````
-    <copy>sqlplus /nolog
-    connect sys/oracle@localhost:1523/cdb1 as sysdba
+    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
     </copy>
     ````
 
@@ -297,8 +295,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB2**  
 
     ````
-    <copy>sqlplus /nolog
-    connect sys/oracle@localhost:1524/cdb2 as sysdba </copy>
+    <copy>connect sys/oracle@localhost:1524/cdb2 as sysdba </copy>
     ````
     ````
     <copy>@whoami
@@ -391,8 +388,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB2**  
 
     ````
-    <copy>sqlplus /nolog
-    connect sys/oracle@localhost:1524/cdb2 as sysdba
+    <copy>connect sys/oracle@localhost:1524/cdb2 as sysdba
     </copy>
     ````
 
@@ -419,8 +415,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**  
 
     ````
-    <copy>sqlplus /nolog
-    connect sys/oracle@localhost:1523/cdb1 as sysdba
+    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
     </copy>
     ````
 
@@ -546,8 +541,7 @@ The tasks you will accomplish in this lab are:
 1. Connect to **CDB1**  
 
     ````
-    <copy>sqlplus /nolog
-    connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
+    <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
     ````
 
 2. Create a pluggable database **OE** with an admin user of **SOE**  
@@ -562,7 +556,6 @@ The tasks you will accomplish in this lab are:
     ![](./images/oe.png " ")
 
 3. Connect as **SOE** and create the **sale_orders** table  
-
 
     ````
     <copy>connect soe/soe@localhost:1523/oe
