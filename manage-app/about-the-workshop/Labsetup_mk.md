@@ -32,8 +32,9 @@ Now Click the **Open** button to initiate the SSH connection to your cloud insta
 1. Your instructor provided you an IP address and a secure key (MT-WS-key.ppk).  After downloading the key file, run the following command to change the file permissions to 400 to better secure the key.
 
 ````
- chmod 400 MT-WS-key.ppk
- ````
+chmod 400 MT-WS-key.ppk
+````
+
 2. Use the key and IP address to log in to the SSH client as shown in the following example.  Remember to use your own IP address.
 ````
 ssh -i MT-WS-key.ppk oracle@192.237.248.66
