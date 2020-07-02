@@ -66,8 +66,7 @@ The tasks you will accomplish in this lab are:
     <copy>show  pdbs;
     create pluggable database PDB2 admin user PDB_Admin identified by oracle;
     alter pluggable database PDB2 open;
-    show pdbs;
-    </copy>
+    show pdbs; </copy>
     ````
     ![](./images/showpdbsbefore.png " ")
 
@@ -88,8 +87,7 @@ The tasks you will accomplish in this lab are:
     <copy>grant sysdba to pdb_admin;
     create tablespace users datafile size 20M autoextend on next 1M maxsize unlimited segment space management auto;
     alter database default tablespace Users;
-    grant create table, unlimited tablespace to pdb_admin;
-    </copy>
+    grant create table, unlimited tablespace to pdb_admin; </copy>
     ````
 
    ![](./images/grantsysdba.png " ")
@@ -370,8 +368,7 @@ The tasks you will accomplish in this lab are:
     ````
     <copy>connect pdb_admin/oracle@localhost:1524/pdb3
 
-    select * from my_tab;
-    </copy>
+    select * from my_tab; </copy>
     ````
 
     ![](./images/pdb3mytab2.png " ")
@@ -394,8 +391,7 @@ The tasks you will accomplish in this lab are:
     <copy>show pdbs
     alter pluggable database PDB3 close immediate;
     drop pluggable database PDB3 including datafiles;
-    show pdbs
-    </copy>
+    show pdbs </copy>
     ````
 
     ![](./images/droppdb.png " ")
@@ -438,8 +434,7 @@ The tasks you will accomplish in this lab are:
 
     ````
     <copy>alter pluggable database PDB2 open read write force;
-    show pdbs
-    </copy>
+    show pdbs </copy>
     ````
 
     ![](./images/mountgoldpdb.png " ")
@@ -453,8 +448,7 @@ The tasks you will accomplish in this lab are:
     alter pluggable database GOLDPDB
     unplug into '/u01/app/oracle/oradata/CDB1/goldpdb.xml';
 
-    show pdbs
-    </copy>
+    show pdbs </copy>
     ````
 
     ![](./images/unpluggold.png " ")
@@ -495,8 +489,7 @@ The tasks you will accomplish in this lab are:
     using '/u01/app/oracle/oradata/CDB1/goldpdb.xml'
     storage (maxsize unlimited max_shared_temp_size unlimited)
     copy;
-    show pdbs
-    </copy>
+    show pdbs </copy>
     ````
 
     ![](./images/clonegold1.png " ")
@@ -508,8 +501,7 @@ The tasks you will accomplish in this lab are:
     using '/u01/app/oracle/oradata/CDB1/goldpdb.xml'
     storage (maxsize unlimited max_shared_temp_size unlimited)
     copy;
-    show pdbs
-    </copy>
+    show pdbs </copy>
     ````
 
     ![](./images/clonegold.png " ")
@@ -563,8 +555,7 @@ The tasks you will accomplish in this lab are:
  4. Open a **new terminal window**.  As the oracle user, execute write-load.sh.  This shell script inserts rows into the SALES\_ORDERS table.  It also queries a row count for number of rows in SALES\_ORDERS.
      ````
     <copy>cd /home/oracle/labs/multitenant
-    ./write-load.sh
-    </copy>
+    ./write-load.sh </copy>
     ````
     Leave this window open and running for the rest of the multitenant workshop. 
 
@@ -607,8 +598,7 @@ The tasks you will accomplish in this lab are:
 9. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.  You may need to restart the write-load.sh script (as it only runs for around 15 minutes) in your other terminal window.
 
     ````
-    <copy>./write-load.sh
-    </copy>
+    <copy>./write-load.sh </copy>
     ````
 
 You can see that the clone of the pluggable database worked without having to stop the load on the source database. In the next lab you will look at how to refresh a clone.
@@ -628,8 +618,7 @@ The tasks you will accomplish in this lab are:
     ````
     <copy>connect sys/oracle@localhost:1524/cdb2 as sysdba 
     @whoami
-    show pdbs
-    </copy>
+    show pdbs </copy>
     ````
     ![](./images/cdb2pdbs.png " ")
 
@@ -638,8 +627,7 @@ The tasks you will accomplish in this lab are:
     ````
     <copy>create pluggable database oe_refresh from oe@cdb1_link refresh mode manual;
     alter pluggable database oe_refresh open read only;
-    show pdbs
-    </copy>
+    show pdbs </copy>
     ````
     ![](./images/createoe_refresh.png " ")
 
@@ -647,8 +635,7 @@ The tasks you will accomplish in this lab are:
 
     ````
     <copy>conn soe/soe@localhost:1524/oe_refresh
-    select count(*) from sale_orders;
-    </copy>
+    select count(*) from sale_orders; </copy>
     ````
 
 4. Close the pluggable database **OE_REFRESH**` and refresh it from the **OE** pluggable database  
@@ -660,8 +647,7 @@ The tasks you will accomplish in this lab are:
 
     alter session set container=oe_refresh;
     alter pluggable database oe_refresh refresh;
-    alter pluggable database oe_refresh open read only;
-    </copy>
+    alter pluggable database oe_refresh open read only; </copy>
     ````
     ![](./images/refresh_oe_refresh.png " ")
 
@@ -669,8 +655,7 @@ The tasks you will accomplish in this lab are:
 
     ````
     <copy>conn soe/soe@localhost:1524/oe_refresh
-    select count(*) from sale_orders;
-    </copy>
+    select count(*) from sale_orders; </copy>
     ````
 Observe that the count of sale_orders is different from the count in the other running terminal window.
 
@@ -746,8 +731,7 @@ Refreshable PDBs need to be in **read only** mode in order to refresh. You can q
 7. Leave the **OE** pluggable database open with the load running against it for the rest of the labs.  You may need to restart the **./write-load.sh** shell script. 
 
     ````
-    <copy>./write-load.sh
-    </copy>
+    <copy>./write-load.sh </copy>
     ````
 
 ## Step 10: PDB Relocation
@@ -780,8 +764,7 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
     show pdbs
     create pluggable database oe from oe@cdb1_link RELOCATE AVAILABILITY MAX;
     show pdbs
-    alter pluggable database oe open;
-    </copy>
+    alter pluggable database oe open; </copy>
     ````
     ![](./images/pdb_relocate2.png " ")
 
@@ -829,8 +812,7 @@ Notice that the results of @whoami show the connection being the same same datab
 
     ````
     <copy>cd /home/oracle/labs/multitenant
-    ./resetCDB.sh
-    </copy>
+    ./resetCDB.sh </copy>
     ````
 
 Now you've had a chance to try out the Multitenant option. You were able to create, clone, plug and unplug a pluggable database. You were then able to accomplish some advanced tasks that you could leverage when maintaining a large multitenant environment.
