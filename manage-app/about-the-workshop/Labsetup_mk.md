@@ -1,6 +1,6 @@
 #  Multitenant Workshop setup
 
-## Windows Users can connect to the workshop instance using Putty
+## Windows Users: connect using Putty
 
 1.  Download and **[Install Putty](https://www.putty.org/)** and then open the PuTTY utility from the Windows start menu.   In the dialog box, enter the IP Address of your OCI Compute Instance.  This will be obtained from your instructor.
 
@@ -28,7 +28,7 @@ Now Click the **Open** button to initiate the SSH connection to your cloud insta
 
     You are now able to connect securely using the Putty terminal utility.   You can save the connection information for future use and configure PuTTY with your own custom settings.
 
-## Connect from Mac
+## Mac Users: Connect using ssh
 1. Your instructor provided you an IP address and a secure key (MT-WS-key.ppk).  After downloading the key file, run the following command to change the file permissions to 400 to better secure the key.
 
 ````
