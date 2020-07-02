@@ -16,26 +16,26 @@
 
 4. Click Session in the left navigation pane.  Enter a new Session Name (like **Oracle MT**) in the Saved Sessions box.  Then click **Save** to save your session details.  You can later **Load** this session if needed.
 
-Now Click the **Open** button to initiate the SSH connection to your cloud instance.  
+5. Now Click the **Open** button to initiate the SSH connection to your cloud instance.  
 
-5.  Click **Yes** to bypass the Security Alert about the uncached key.
+6.  Click **Yes** to bypass the Security Alert about the uncached key.
 
     ![](images/keylab-026.png " ")
 
-6.  Connection successful.   You are now securely connected to an OCI Cloud instance.
+7.  Connection successful.   You are now securely connected to an OCI Cloud instance.
 
     ![](images/keylab-027.png " ")
 
-    You are now able to connect securely using the Putty terminal utility.   You can save the connection information for future use and configure PuTTY with your own custom settings.
+You are now able to connect securely using the Putty terminal utility. 
 
 ## Mac Users: Connect using ssh
-1. Your instructor provided you an IP address and a secure key (MT-WS-key.ppk).  After downloading the key file, run the following command to change the file permissions to 400 to better secure the key.
+1. Your instructor will provide you with an IP address and a secure key file(MT-WS-key.ppk).  After downloading the key file, run the following command to change the file permissions to 400 to better secure the key.
 
 ````
 chmod 400 MT-WS-key.ppk
 ````
 
-2. Use the key and IP address to log in to the SSH client as shown in the following example.  Remember to use your own IP address.
+2. Use the key and IP address to log in to the SSH client as shown in the following example.  **Remember to use your own IP address.**
 ````
 ssh -i MT-WS-key.ppk oracle@192.237.248.66
 ````
