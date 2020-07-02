@@ -807,7 +807,7 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
 Notice that the results of @whoami show the connection being the same same database (**OE** in **CDB2**) even when connecting to the 1523 port of the listener for CDB1.  You are able to access OE pdb from source and target. You might see the values slightly different if the load is still running.
     ![](./images/pdb_relocate4.png " ")
 
-5. The load program isn't needed anymore and that window can be closed.
+5. The load program isn't needed anymore and that window can be closed.  Cntrl-C kills the running program.  
 
 6. Bonus step.  If you want to relocate **OE** back to **CDB1**
 
