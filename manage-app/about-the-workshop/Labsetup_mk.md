@@ -1,12 +1,12 @@
 #  Multitenant Workshop setup
 
-## Connecting to workshop instance using Putty
+## Windows Users can connect to the workshop instance using Putty
 
 1.  Download and **[Install Putty](https://www.putty.org/)** and then open the PuTTY utility from the Windows start menu.   In the dialog box, enter the IP Address of your OCI Compute Instance.  This will be obtained from your instructor.
 
     ![](images/keylab-023.png " ")
 
-2.  Under **Category** select **Connection** and then choose the **Data** field.  Enter the assigned username.  OCI instances will default to the username ```oracle```.  Enter ```oracle```.
+2.  Under **Category** select **Connection** and then choose the **Data** field.  Enter the username username ```oracle```.  
 
     ![](images/keylab-024.png " ")
 
