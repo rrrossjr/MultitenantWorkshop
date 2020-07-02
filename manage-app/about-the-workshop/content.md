@@ -5,9 +5,9 @@
 **[Oracle Multitenant](https://github.com/oracle/learning-library/issues)** is the architecture for the next-generation database cloud. It delivers isolation, agility and economies of scale. A multitenant container database can hold many pluggable databases. An existing database can simply be adopted with no application changes required. Oracle Multitenant fully complements other options, including Oracle Real Application Clusters and Oracle Active Data Guard.
 
 This hands-on workshop focuses on
-* Multitenant Basics : This is a 4 hour workshop that helps DBAs to perform operations as below.
+* Multitenant Basics : This is a 3 hour workshop that helps DBAs to perform operations as below.
     * Create, Drop, Unplug and Plug PDBs.
-    * Includes Hot clone, PDB refresh and PDB relocate.
+    * Includes Hot clone, PDB refresh, Snapshot Copy and PDB relocate.
 * Optional: Multitenant Tenant Isolation : This is a 2 hour workshop. It helps DBAs mange resource allocation, isolation of pluggable database.
     * Isolation features like Database Firewall and LOCKDOWN.
     * Memory, CPU and IO isolation.
