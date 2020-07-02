@@ -1,7 +1,6 @@
 #  Multitenant Workshop setup
 
 ## Connecting to workshop instance using Putty
-There is a separate **[workshop](https://github.com/oracle/learning-library/blob/master/common/labs/generate-ssh-key/generate-ssh-keys.md#connecting-to-an-instance-using-putty)** on Oracle Cont
 
 1.  Download and **[Install Putty](https://www.putty.org/)** and then open the PuTTY utility from the Windows start menu.   In the dialog box, enter the IP Address of your OCI Compute Instance.  This will be obtained from your instructor.
 
