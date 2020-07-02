@@ -1,6 +1,9 @@
-#  Multitenant Workshop setup
+#  Connection setup
 
-## Windows Users: connect using Putty
+## Obtain an IP address and a Secure Key File from your instructor 
+Your instructor will provide you with a Virtual Machine IP address and a SSH secure key file.
+
+## Windows Users: Connect using Putty
 
 1.  Download and **[Install Putty](https://www.putty.org/)** and then open the PuTTY utility from the Windows start menu.   In the dialog box, enter the IP Address of your OCI Compute Instance.  This will be obtained from your instructor.
 
