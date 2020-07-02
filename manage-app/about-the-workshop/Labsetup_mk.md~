@@ -1,7 +1,7 @@
 #  Multitenant Workshop setup
 
 ## Connecting to workshop instance using Putty
-1.  Download and Install Putty (https://www.putty.org/) and then open the PuTTY utility from the Windows start menu.   In the dialog box, enter the IP Address of your OCI Compute Instance.  This will be obtained from your instructor.
+1.  Download and Install Putty and then open the PuTTY utility from the Windows start menu.   In the dialog box, enter the IP Address of your OCI Compute Instance.  This can be obtained from the **OCI Console > Instance Details** screen.
 
     ![](images/keylab-023.png " ")
 
