@@ -10,11 +10,13 @@
 
     ![](images/keylab-024.png " ")
 
-3.  Under **Category**, navigate to **Connection** - **SSH** and choose the **Auth** category.   Click on the **Browse** button and locate the ```Private Key file``` you created in the earlier step.   Click the Open button to initiate the SSH connection to your cloud instance.
+3.  Under **Category**, navigate to **Connection** - **SSH** and choose the **Auth** category.   Click on the **Browse** button and locate the ```Private Key file``` you downloaded earlier.   
 
     ![](images/keylab-025.png " ")
 
-4. Click Session in the left navigation pane, then click Save in the Load, save or delete a stored session Step.
+4. Click Session in the left navigation pane.  Enter a new Session Name (like **Oracle MT**) in the Saved Sessions box.  Then click **Save** to save your session details.  You can later **Load** this session if needed.
+
+Now Click the **Open** button to initiate the SSH connection to your cloud instance.  
 
 5.  Click **Yes** to bypass the Security Alert about the uncached key.
 
