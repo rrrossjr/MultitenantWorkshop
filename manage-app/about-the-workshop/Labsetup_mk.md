@@ -29,25 +29,12 @@ Now Click the **Open** button to initiate the SSH connection to your cloud insta
     You are now able to connect securely using the Putty terminal utility.   You can save the connection information for future use and configure PuTTY with your own custom settings.
 
 ## Connect from Mac
-1. Run the following command to change the file permissions to 600 to secure the key. You can also set them to 400.
+1. Your instructor provided you an IP address and a secure key (MT-WS-key.ppk).  After downloading the key file, run the following command to change the file permissions to 400 to better secure the key.
 
 ````
- chmod 600 labkey.ppk
+ chmod 400 MT-WS-key.ppk
  ````
-2. Use the key to log in to the SSH client as shown in the following example, which loads the key in file labkey.ppk, and logs in as user to IP Address. Eg.
+2. Use the key and IP address to log in to the SSH client as shown in the following example.  Remember to use your own IP address.
 ````
-ssh -i lapkey.ppk oracle@192.237.248.66
-
-````
-## Run the Setup Scripts as oracle
-
-````
-<copy>
-cd /home/oracle
-wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/Multitenant/o/labs.zip
-chown oracle:oinstall /home/oracle/labs.zip
-unzip -o labs.zip
-chmod -R +x /home/oracle/labs
-/home/oracle/labs/multitenant/resetCDB.sh
-</copy>
+ssh -i MT-WS-key.ppk oracle@192.237.248.66
 ````

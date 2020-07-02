@@ -6,6 +6,20 @@ In this lab you will perform many multitenant basic tasks.  You will create a pl
 
 [](youtube:kzTQGs75IjA)
 
+## Step 0: Reset the database environment
+### Everyone MUST Run the following Setup Scripts 
+
+````
+<copy>
+cd /home/oracle
+wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/Multitenant/o/labs.zip
+chown oracle:oinstall /home/oracle/labs.zip
+unzip -o labs.zip
+chmod -R +x /home/oracle/labs
+/home/oracle/labs/multitenant/resetCDB.sh
+</copy>
+````
+
 ## Step 1: Create PDB
 This section looks at how to create a new PDB.
 
