@@ -24,14 +24,14 @@
         },
 
         {
-            "title": "Multitenant Tenant Isolation",
+            "title": "Optional: Multitenant Tenant Isolation",
             "description":"Multitenant Tenant isolation",
             "publisheddate": "04/07/2020",
             "filename":"./mt-isolation/manage-app1.md"
         },
 
         {
-            "title": "Multitenant Application Containers",
+            "title": "Optional: Multitenant Application Containers",
             "description":"Multitenant Application Containers",
             "publisheddate": "04/07/2020",
             "filename":"./mt-app-container/manage-app.md"
