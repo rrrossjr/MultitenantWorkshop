@@ -136,8 +136,7 @@ The tasks you will accomplish in this lab are:
       File_Name "File_Name"
     from CDB_Temp_Files inner join Containers using (Con_ID)
     order by 1, 3
-    /
-    </copy>
+    / </copy>
     ````
    ![](./images/containers.png " ")
 
