@@ -302,12 +302,15 @@ The tasks you will accomplish in this lab are:
 2. Check the compatibility of **PDB3** with **CDB2**  
 
     ````
-    <copy>begin
+    <copy>set serveroutput on
+    begin
       if not
-        Sys.DBMS_PDB.Check_Plug_Compatibility
+       Sys.DBMS_PDB.Check_Plug_Compatibility
         ('/u01/app/oracle/oradata/CDB1/pdb3.xml')
       then
-        Raise_Application_Error(-20000, 'Incompatible');
+        dbms_output.put_line('Compatible:  NOT OK');
+      else 
+        dbms_output.put_line('Compatible:  OK');
       end if;
     end;
     / </copy>
@@ -470,16 +473,18 @@ The tasks you will accomplish in this lab are:
 8. Validate **GOLDPDB** is compatibile with **CDB2**  
 
     ````
-    <copy>begin
+    <copy>set serveroutput on
+    begin
       if not
-        Sys.DBMS_PDB.Check_Plug_Compatibility
-    ('/u01/app/oracle/oradata/CDB1/goldpdb.xml')
+       Sys.DBMS_PDB.Check_Plug_Compatibility
+        ('/u01/app/oracle/oradata/CDB1/goldpdb.xml')
       then
-        Raise_Application_Error(-20000, 'Incompatible');
+        dbms_output.put_line('Compatible:  NOT OK');
+      else 
+        dbms_output.put_line('Compatible:  OK');
       end if;
     end;
-    /
-    </copy>
+    / </copy>
     ````
 
 9. Create a clone of **GOLDPDB** as **COPYPDB1**  
