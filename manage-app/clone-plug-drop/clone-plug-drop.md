@@ -8,8 +8,7 @@ In this lab you will perform many multitenant basic tasks.  You will create a pl
 
 ## Step 0: Reset the database environment
 
-To reset some database settings, please run the following Script.  You can hit the **copy** button and then paste the contents into your linux shell.  **Note that you will need to hit the return key after every paste** or the last line of the paste will **not** be executed.
-
+Please run the following lines of code which will reset some database settings.  You can hit the **copy** button and then paste the contents into your linux VM shell. You **must** hit <return> after you paste.  **Note that you will need to hit the return key after every paste** during this workshop or the last line of the paste will **not** be executed.
 ````
 <copy>cd /home/oracle
 wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/Multitenant/o/labs.zip
