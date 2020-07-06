@@ -1,7 +1,7 @@
 #  Connection setup
 
 ## Obtain an IP address and a Secure Key File from your instructor 
-Your instructor will provide you with a Virtual Machine IP address and a SSH secure key file.
+Your instructor will provide you with both a **Virtual Machine IP address** and a **SSH secure key file**.
 
 ## Windows Users: Connect using Putty
 
