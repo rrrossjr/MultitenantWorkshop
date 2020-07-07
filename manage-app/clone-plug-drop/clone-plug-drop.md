@@ -771,7 +771,8 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
     show pdbs
     create pluggable database oe from oe@cdb1_link RELOCATE AVAILABILITY MAX;
     show pdbs
-    alter pluggable database oe open; </copy>
+    alter pluggable database oe open; 
+    show pdbs</copy>
     ````
     ![](./images/pdb_relocate2.png " ")
 
@@ -783,7 +784,7 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
     ````
     ![](./images/pdb_relocate3.png " ")
 
-   You will see OE PDB in mount state. The network service is configured to forward to target until this pluggable database no longer exists.
+   In **CDB1** the **OE** PDB is in mount state. The network service is configured to forward to target (**OE** in **CDB2**) until the source PDB no longer exists.
 
 4. Test the connection forwarding by connecting to **OE** from **CDB1** and **CDB2.**  
 
@@ -795,7 +796,7 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
     @whoami
     select count(*) from sale_orders; </copy>
     ````
-Notice that the results of @whoami show the connection being the same same database (**OE** in **CDB2**) even when connecting to the 1523 port of the listener for CDB1.  You are able to access OE pdb from source and target. You might see the values slightly different if the load is still running.
+Notice that the results of @whoami show the connection being the same same database (**OE** in **CDB2**) even when connecting to the 1523 port of the listener for CDB1.  You are able to access the OE pdb from source and target. You might see the values slightly different if the load is still running.
     ![](./images/pdb_relocate4.png " ")
 
 5. The load program isn't needed anymore and that window can be closed.  Cntrl-C kills the running program.  
@@ -828,6 +829,6 @@ Now you've had a chance to try out the Multitenant option. You were able to crea
 
 - **Author** - Vijay Balebail & Patrick Wheeler. Database Product Management.
 - **Last Updated By/Date** - Kay Malcolm, Director, DB Product Management, March 2020
-- **Last Updated By/Date** - Bob Ross, Sales Engineering Technology, June 2020
+- **Last Updated By/Date** - Bob Ross, Sales Engineering Technology, July 2020
 
 See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).
