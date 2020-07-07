@@ -646,16 +646,15 @@ The tasks you will accomplish in this lab are:
     select count(*) from sale_orders; </copy>
     ````
 
-4. Close the pluggable database **OE_REFRESH**` and refresh it from the **OE** pluggable database  
+4. Close the pluggable database **OE_REFRESH** in order to refresh it.  Change your current PDB container to **OE_REFRESH**.  Then refresh and open it.  The refresh is from the active **OE** pluggable database.  
 
     ````
     <copy>conn sys/oracle@localhost:1524/oe_refresh as sysdba
-
     alter pluggable database oe_refresh close;
-
     alter session set container=oe_refresh;
     alter pluggable database oe_refresh refresh;
-    alter pluggable database oe_refresh open read only; </copy>
+    alter pluggable database oe_refresh open read only;
+    show pdbs </copy>
     ````
     ![](./images/refresh_oe_refresh.png " ")
 
