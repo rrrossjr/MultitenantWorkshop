@@ -554,7 +554,7 @@ The tasks you will accomplish in this lab are:
     CUSTOMER_ID   number); </copy>
     ````
 
- 4. Open a **new terminal window**.  As the oracle user, execute write-load.sh.  This shell script inserts rows into the SALES\_ORDERS table.  It also queries a row count for number of rows in SALES\_ORDERS.
+ 4. Open a **new Putty or ssh terminal window**.  Once connected as the oracle user, execute the linux shell script write-load.sh.  This shell script inserts rows into the SALES\_ORDERS table.  It also queries the row count in SALES\_ORDERS.
      ````
     <copy>cd /home/oracle/labs/multitenant
     ./write-load.sh </copy>
@@ -565,9 +565,15 @@ The tasks you will accomplish in this lab are:
 
     ````
     <copy>connect sys/oracle@localhost:1524/cdb2 as sysdba
-    @whoami
-    create pluggable database oe_dev from oe@cdb1_link;
-    alter pluggable database oe_dev open;
+    @whoami </copy>
+    ````
+    ````
+    <copy>create pluggable database oe_dev from oe@cdb1_link;
+    show pdbs </copy>
+    ````
+    ![](./images/oedevmount.png " ")
+    ````
+    <copy>alter pluggable database oe_dev open;
     show pdbs </copy>
     ````
     ![](./images/oedevopen.png " ")
