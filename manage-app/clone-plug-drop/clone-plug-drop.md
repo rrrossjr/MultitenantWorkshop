@@ -156,7 +156,7 @@ The tasks you will accomplish in this lab are:
     <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
     ````
 
-2. Change **PDB2** to read only.  
+2. Change **PDB2** to read only.  The FORCE keyword allows users to remain connected to the PDB while the open mode is changed.
 
     ````
     <copy>alter pluggable database PDB2 open read only force;
@@ -171,7 +171,7 @@ The tasks you will accomplish in this lab are:
 
     ````
     <copy>create pluggable database PDB3 from PDB2;
-    alter pluggable database PDB3 open force;
+    alter pluggable database PDB3 open;
     show pdbs</copy>
     ````
    ![](./images/createpdb3.png " ")
@@ -315,8 +315,7 @@ The tasks you will accomplish in this lab are:
     end;
     / </copy>
     ````
-   If script executes without feedback or exception then it IS COMPATIBLE.
-
+    ![](./images/pdb3compatible.png " ")
 
 3. Plug **PDB3** into **CDB2**  
 
@@ -341,7 +340,6 @@ The tasks you will accomplish in this lab are:
     SET LINESIZE 220
     SET PAGES 9999
 
-
     with Containers as (
       select PDB_ID Con_ID, PDB_Name Con_Name from DBA_PDBs
       union
@@ -360,8 +358,7 @@ The tasks you will accomplish in this lab are:
       File_Name "File_Name"
     from CDB_Temp_Files inner join Containers using (Con_ID)
     order by 1, 3
-    /
-    </copy>
+    / </copy>
     ````
 
     ![](./images/mtdbfcdb2.png " ")
