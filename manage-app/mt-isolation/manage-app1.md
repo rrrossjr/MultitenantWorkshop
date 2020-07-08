@@ -103,7 +103,7 @@ Database Service Firewall is a feature of Oracle Access Control List (ACL) since
    - `FIREWALL=ON` : Only connections matching an ACL are considered valid. All other connections are rejected.
    - `FIREWALL=OFF` : The firewall functionality is disabled, so all connections are considered valid.
 
-**Take a backup of current listener.**
+**Take a backup of current listener configuration file.**
 
    You could open another termimal to take a backup.
 
@@ -112,8 +112,6 @@ Database Service Firewall is a feature of Oracle Access Control List (ACL) since
    cd $ORACLE_HOME/network/admin
    cp listener.ora listener.backup
    ```
-
-
 
 **Edit Listener.ora**
 
@@ -137,14 +135,14 @@ LISTCDB1 =
 </pre>
 
 
-##### **Restart listener and verify FIREWALL= ON.**
+##### **Restart listener and verify FIREWALL=ON.**
 
-```
+````
 lsnrctl stop listcdb1
 lsnrctl start listcdb1
 lsnrctl status listcdb1
-```
-```
+````
+````
 [oracle@mtv30 admin]$ lsnrctl stop listcdb1
 
 LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 09-APR-2020 18:49:57
@@ -219,13 +217,13 @@ Service "pdb1" has 1 instance(s).
 The command completed successfully
 ````
 It can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
-Once all services are available, specifically the PDB1 services, we can continue with the lab.
+
+Once all the PDB services are available, specifically the PDB1 service, you can continue with the lab.
 
 ````
 <copy>connect / as sysdba
 alter system register;</copy>
 ````
-
 
 #### **Step 3: Add IP address to PDB whitelist.**
 
@@ -236,7 +234,7 @@ alter system register;</copy>
 
 
 ```
- sqlplus sys/oracle@//localhost:1523/pdb1 as sysdba
+sqlplus sys/oracle@//localhost:1523/pdb1 as sysdba
 
 SQL*Plus: Release 19.0.0.0.0 - Production on Thu Apr 9 19:03:48 2020
 Version 19.5.0.0.0
@@ -250,15 +248,11 @@ ORA-12506: TNS:listener rejected connection based on service ACL filtering
 You will see that the connection fails with error ORA-12506. Since even the local host IP address is not included in the whitelist, the listener does not allow connections.
 We are clearly not allowed to access this database based on the ACL filtering available. So now we are going to add our IP address to the whitelist for the (default) service PDB1.
 
-
 ````
-<copy>
-sqlplus / as sysdba
+<copy>sqlplus / as sysdba
 show pdbs
 exec  dbsfwuser.DBMS_SFW_ACL_ADMIN.ip_add_ace('pdb1','localhost');
-exec  dbsfwuser.DBMS_SFW_ACL_ADMIN.commit_acl;
-</copy>
-
+exec  dbsfwuser.DBMS_SFW_ACL_ADMIN.commit_acl; </copy>
 ````
 ````
 SQL>  exec dbsfwuser.DBMS_SFW_ACL_ADMIN.ip_add_ace('pdb1','localhost');
@@ -271,8 +265,7 @@ PL/SQL procedure successfully completed.
 Now connect using username/password from localhost to verify.
 
 ````
-<copy>
-conn sys/oracle@//localhost:1523/pdb1 as sysdba </copy>
+<copy>conn sys/oracle@//localhost:1523/pdb1 as sysdba </copy>
 
 SQL> conn sys/oracle@//localhost:1523/pdb1 as sysdba
 Connected.
@@ -303,13 +296,12 @@ PDB1                           MTV30.SUB04061927430.MTWORKSHO          3
                                P.ORACLEVCN.COM
 
 ````
-This is the end of LAB. Please clean your environment so that it is ready for the next lab
-- restore the original listener  and restart the listener.
+This is the end of LAB. Please clean your environment so that it is ready for the next lab by restoring and restarting the original listener.
 ````
-cd $ORACLE_HOME/network/admin
+<copy>cd $ORACLE_HOME/network/admin
 cp  listener.backup listener.ora
 lsnrctl stop LISTCDB1
-lsnrctl start LISTCDB1
+lsnrctl start LISTCDB1</copy>
 ````
 
 ## Multitenant Lockdown
