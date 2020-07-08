@@ -2,26 +2,21 @@
 
 ## Introduction
 
-This is a series of hands-on labs designed to familiarize you with the  Oracle Multitenant and Network isolation feature. In these labs, We will dive into the concepts of Database Firewalls , Resource managements and Lockdown features.
-
-
-
+This is a series of hands-on labs designed to familiarize you with Oracle Multitenant and the Network isolation feature. In these labs, We will dive into the concepts of Database Firewalls , Resource management and Lockdown features.
 
 #### Lab Setup
 
-At this point, it is assumbed you have already hava a Multitenat workshop environment and you have run the one time  **[setup script.](https://vijaybalebail.github.io/learning-library/data-management-library/database/multitenant/manage-app/index.html?lab=lab-setup#RuntheSetupScriptsasoracle)**
-
+At this point, it is assumed that you have a Multitenant workshop environment and you have run the **[setup script.](https://vijaybalebail.github.io/learning-library/data-management-library/database/multitenant/manage-app/index.html?lab=lab-setup#RuntheSetupScriptsasoracle)**
+   ```
+  <copy> cd /home/oracle/labs/multitenant
+   ./resetCDB.sh </copy>
+   ```
 If you have not reset after the previous lab, you can run resetCDB.sh to start with a clean environment. If any errors about dropping databases appear they can be ignored.
 
 All the scripts for this lab are located in the /home/oracle/labs/multitenant/scripts folder.
 
 - To access the scripts, secure shell into the OCI compute instance.
 - Change to the ssh directory and ssh into your instance. The public IP address can be found by going to Compute -> Instance.
-
-   ```
-  <copy> cd /home/oracle/labs/multitenant
-   ./resetCDB.sh </copy>
-   ```
 
    
 ##  Database Service Firewall
@@ -32,36 +27,25 @@ Database Service Firewall is a feature of Oracle Access Control List (ACL) since
 
 ![](./images/MT3_DB_service_firewall.png)
 
-
-
 ### SETUP STEPS
 
    The steps include
-
-
 
    - Install the ACL package
    - Configure the listener
    - Add the IPADDRESS to the whitelist for each PDB.
    - Verify/test.
 
-
-
 ####    **Step 1.  Install ACL package**
 
    You need a package DBMS\_SFW\_ACL\_ADMIN package. This is installed by running as sysdba. This package is owned by the DBSFWUSER schema. The procedures in this package can be run only by the DBSFWUSER user.
 
-   ```
+   ````
    <copy>sudo su - oracle
+   sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql </copy>
+   ````
 
-   sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba  @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql </copy>
-
-
-   ```
-
-
-
-   ```
+   ````
    [opc@mtv30 ~]$ sudo su - oracle
    Last login: Mon Apr  6 21:20:38 GMT 2020 on pts/0
    [oracle@mtv30 ~]$ . oraenv
@@ -108,13 +92,11 @@ Database Service Firewall is a feature of Oracle Access Control List (ACL) since
 
    The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file. The default listener name is LISTENER and listeners on default port 1521. However In our example the CDB1 DB is listening on listener LISTCDB1. Example setting below.
 
-   ```
-   # LOCAL_REGISTRATION_ADDRESS_lsnr_alias = ON
+   ````
+   #LOCAL_REGISTRATION_ADDRESS_lsnr_alias = ON
    #LOCAL_REGISTRATION_ADDRESS_LISTENER = ON
    LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON
-   ```
-
-
+   ````
 
    The `FIREWALL` attribute can be added to the listener endpoint to control the action of the database firewall.
 
