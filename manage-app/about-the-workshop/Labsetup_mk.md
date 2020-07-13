@@ -3,6 +3,14 @@
 ## Obtain an IP address and a Secure Key File from your instructor 
 Your instructor will provide you with both a **Virtual Machine IP address** and a **SSH secure key file**.
 
+## Obtain a VM IP address and secure key file
+
+1.  Visit the website **[Hands On Lab Admin](http://holadmin.oraclepts.nl/)** and then enter your email and the code provided by your instructor.  Hit "Submit".
+
+    ![](images/HOLadmin.png " ")
+
+You will be provide an **IP address** and a download link to an **SSH secure key file** 
+
 ## Windows Users: Connect using Putty
 
 1.  Download and **[Install Putty](https://www.putty.org/)** and then open the PuTTY utility from the Windows start menu.   In the **Host Name dialog box**, enter the IP Address of your OCI Compute Instance.  This will be provided from your instructor.
