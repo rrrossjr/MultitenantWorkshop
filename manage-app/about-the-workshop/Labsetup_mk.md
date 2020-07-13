@@ -1,15 +1,15 @@
 #  Connection setup
 
-## Obtain an IP address and a Secure Key File from your instructor 
+## Obtain an IP address and a Secure Key File 
 Your instructor will provide you with both a **Virtual Machine IP address** and a **SSH secure key file**.
 
-## Obtain a VM IP address and secure key file
+## Obtain a Virtual Machine IP address and secure key file
 
-1.  Visit the website **[Hands On Lab Admin](http://holadmin.oraclepts.nl/)** and then enter your email and the code provided by your instructor.  Hit "Submit".
+1.  Visit the website **[Hands On Lab Administration](http://holadmin.oraclepts.nl/)** and then enter your email and the secret code provided by your instructor.  Then hit "Submit".
 
     ![](images/HOLadmin.png " ")
 
-You will be provide an **IP address** and a download link to an **SSH secure key file** 
+Each lab participant will be provide a unique **IP address** and a download link to a **SSH secure key file** 
 
 ## Windows Users: Connect using Putty
 
