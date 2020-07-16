@@ -55,6 +55,4 @@ Mac users typically use their favorite terminal (Terminal.app, iTerm, etc) to ru
 ssh -i MT-WS-key.priv oracle@152.69.98.229
 ````
 
-test
-
-    ![](images/mac_setup.png " ")
+    ![](images/mac-setup.png " ")
