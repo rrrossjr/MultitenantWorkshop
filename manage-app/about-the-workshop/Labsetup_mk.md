@@ -53,7 +53,7 @@ Mac users typically use their favorite terminal (Terminal.app, iTerm, etc) to ru
 ````
 ssh -i MT-WS-key.priv oracle@152.69.98.229
 ````
-test 3:18pm
+<p>
 ![](./images/MACsetup.png " ")
 
 You are now connected securely using your Mac terminal utility.
