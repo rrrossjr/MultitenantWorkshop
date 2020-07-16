@@ -56,4 +56,6 @@ ssh -i MT-WS-key.priv oracle@152.69.98.229
 
     ![](images/MACsetup.png " ")
 
+    ![](images/keylab-027.png " ")
+
 You are now connected securely using your Mac terminal utility.
