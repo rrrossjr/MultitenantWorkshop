@@ -55,6 +55,8 @@ ssh -i MT-WS-key.priv oracle@152.69.98.229
 ````
 
 test Nenad  3:00pm
+![](images/MACsetup.png " ")
+    ![](images/MACsetup.png " ")
     ![](./images/MACsetup.png " ")
     ![](./images/MACsetup.jpg " ")
 
