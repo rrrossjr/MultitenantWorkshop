@@ -54,6 +54,8 @@ Mac users typically use their favorite terminal (Terminal.app, iTerm, etc) to ru
 ssh -i MT-WS-key.priv oracle@152.69.98.229
 ````
 
-    ![](./images/HOLadmin.png " ")
+test Nenad  3:00pm
+    ![](./images/MACsetup.png " ")
+    ![](./images/MACsetup.jpg " ")
 
 You are now connected securely using your Mac terminal utility.
