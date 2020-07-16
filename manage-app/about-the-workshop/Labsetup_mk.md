@@ -7,7 +7,7 @@ Your instructor will provide you with both a **Virtual Machine IP address** and 
 
 1.  Visit the website **[Hands On Lab Administration](http://holadmin.oraclepts.nl/)** and then enter your email and the secret code provided by your instructor.  Then hit "Submit".
 
-    ![](images/HOLadmin.png " ")
+    ![](./images/HOLadmin.png " ")
 
 Each lab participant will be provide a unique **IP address** and a download link to a **SSH secure key file** 
 
@@ -15,15 +15,15 @@ Each lab participant will be provide a unique **IP address** and a download link
 
 1.  Download and **[Install Putty](https://www.putty.org/)** and then open the PuTTY utility from the Windows start menu.   In the **Host Name dialog box**, enter the IP Address of your OCI Compute Instance.  This will be provided from your instructor.
 
-    ![](images/keylab-023.png " ")
+    ![](./images/keylab-023.png " ")
 
 2.  Under **Category** select **Connection** and then choose the **Data** field.  Enter the username ```oracle```.  
 
-    ![](images/keylab-024.png " ")
+    ![](./images/keylab-024.png " ")
 
 3.  Under **Category**, navigate to **Connection** - **SSH** and choose the **Auth** category.   Click on the **Browse** button and locate the ```Private Key file``` you downloaded earlier.   
 
-    ![](images/keylab-025.png " ")
+    ![](./images/keylab-025.png " ")
 
 4. Click Session in the left navigation pane.  Enter a new Session Name (like **Oracle MT**) in the Saved Sessions box.  Then click **Save** to save your session details.  You can later **Load** this session if needed.
 
@@ -31,11 +31,11 @@ Each lab participant will be provide a unique **IP address** and a download link
 
 6.  Click **Yes** to bypass the Security Alert about the uncached key.
 
-    ![](images/keylab-026.png " ")
+    ![](./images/keylab-026.png " ")
 
 7.  Connection successful.   You are now securely connected to an OCI Cloud instance.
 
-    ![](images/keylab-027.png " ")
+    ![](./images/keylab-027.png " ")
 
 You are now able to connect securely using the Putty terminal utility. 
 
@@ -54,8 +54,6 @@ Mac users typically use their favorite terminal (Terminal.app, iTerm, etc) to ru
 ssh -i MT-WS-key.priv oracle@152.69.98.229
 ````
 
-    ![](images/MACsetup.png " ")
-
-    ![](images/keylab-027.png " ")
+    ![](./images/MACsetup.png " ")
 
 You are now connected securely using your Mac terminal utility.
