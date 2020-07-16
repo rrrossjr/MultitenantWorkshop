@@ -40,13 +40,18 @@ Each lab participant will be provide a unique **IP address** and a download link
 You are now able to connect securely using the Putty terminal utility. 
 
 ## Mac Users: Connect using ssh
-1. Your instructor will provide you with an IP address and a secure key file(MT-WS-key.ppk).  After downloading the key file, run the following command to change the file permissions to 400 to better secure the key.
+
+Mac users typically use their favorite terminal (Terminal.app, iTerm, etc) to run the workshop.
+
+1. Your instructor will provide you with an IP address and a secure key file (MT-WS-key.priv).  After downloading the key file, run the following command to change the file permissions to 400 to better secure the key.
 
 ````
-chmod 400 MT-WS-key.ppk
+<copy>chmod 400 MT-WS-key.priv</copy>
 ````
 
 2. Use the key and IP address to log in to the SSH client as shown in the following example.  **Remember to use your own IP address.**
 ````
-ssh -i MT-WS-key.ppk oracle@192.237.248.66
+ssh -i MT-WS-key.priv oracle@192.237.248.66
 ````
+
+    ![](images/mac_setup.png " ")
