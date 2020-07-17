@@ -322,9 +322,9 @@ A lockdown profile can prevent PDB users from:
 7. Using JAVA partially or as a whole
 8. Using certain database options such as Advanced Queueing and Partitioning
 
-We can fulfill these requirements by creating a lockdown profile in our CDB Root and adding these restrictions to it. Before we move onto the \"How\"ùpart of this discussion, it\'s worth mentioning a couple of important details about lockdown profiles.
+We can fulfill these requirements by creating a lockdown profile in our CDB Root and adding these restrictions to it. Before we move onto the \"How?\"ùpart of this discussion, it\'s worth mentioning a couple of important details about lockdown profiles.
 
-- In order to be able to create a lockdown profile, you have to be a common user with CREATE LOCKDOWN PROFILE privilege and in order to enable a lockdown profile (either at the CDB or PDB level), you have to be a common user with common ALTER SYSTEM or common SYSDBA privilege.
+- In order to be able to create a lockdown profile, you have to be a common user with the CREATE LOCKDOWN PROFILE privilege and in order to enable a lockdown profile (either at the CDB or PDB level), you have to be a common user with common ALTER SYSTEM or common SYSDBA privilege.
 
 - A single lockdown profile can have several rules defined in it. In other words, you don\'t have to create a lockdown profile for every restriction you want to implement.
 
