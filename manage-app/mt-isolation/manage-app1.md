@@ -324,13 +324,15 @@ A lockdown profile can prevent PDB users from:
 
 We can fulfill these requirements by creating a lockdown profile in our CDB Root and adding these restrictions to it. Before we move onto the "How?" part of this discussion, it's worth mentioning a couple of important details about lockdown profiles.
 
-- In order to be able to create a lockdown profile, you have to be a common user with the CREATE LOCKDOWN PROFILE privilege and in order to enable a lockdown profile (either at the CDB or PDB level), you have to be a common user with common ALTER SYSTEM or common SYSDBA privilege.
+- You have to be a common user with the CREATE LOCKDOWN PROFILE privilege in order to create a lockdown profile. 
+
+- You have to be a common user with common ALTER SYSTEM or common SYSDBA privilege in order to enable a lockdown profile (either at the CDB or PDB level).
 
 - A single lockdown profile can have several rules defined in it. In other words, you don't have to create a lockdown profile for every restriction you want to implement.
 
 - A PDB can have only one lockdown profile active at a time.
 
-- The restrictions enforced by a lockdown profile are PDB-wide, they affect every single user including the SYS and SYSTEM.
+- The restrictions enforced by a lockdown profile are PDB-wide, they affect every single user including SYS and SYSTEM.
 
 - If you enable a lockdown profile in CDB Root, it affects all PDBs in the CDB. If you enable it in an Application Root (App Root), it affects all Application PDBs (App PDBs) under that App Root. If you enable it within a PDB, it only affects that PDB.
 
