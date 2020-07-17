@@ -24,7 +24,7 @@ If you have not reset after the previous lab, you can run resetCDB.sh to start w
 ./resetCDB.sh </copy>
 ```
 
-##  Database Service Firewall
+##  Step 1: Database Service Firewall
 
 Database Service Firewall is a feature of Oracle Access Control List (ACL) since database version 12.2.
 
@@ -39,7 +39,7 @@ Service-Level ACLs allow you to control access to specific services, including t
    - Add the IP ADDRESS to the whitelist for each PDB.
    - Verify/test.
 
-###    **Step 1:  Install ACL package**
+###    **1:  Install ACL package**
 
 You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is installed by running a script as sysdba. This package is owned by the DBSFWUSER schema. 
 
@@ -84,7 +84,7 @@ Session altered.
 SQL> exit;
 ````
 
-###    **Step 2:  Configure the listener.**
+###    **2:  Configure the listener.**
 
 **First take a backup of current listener configuration file.**
 
@@ -226,7 +226,7 @@ alter system register;
 exit;
 ````
 
-###    **Step 3: Add IP address to PDB whitelist.**
+###    **3: Add IP address to PDB whitelist.**
 
 Create a policy whitelist in access control list (ACL) that contains a list of hosts that are allowed access to a specific database service. Local listeners and server processes validate all inbound client connections against the ACL.
 
@@ -304,7 +304,7 @@ lsnrctl stop LISTCDB1
 lsnrctl start LISTCDB1</copy>
 ````
 
-## Multitenant Lockdown
+## Step 2: Multitenant Lockdown
 
 Tenant isolation is a key requirement for security in a multitenant environment. A PDB lockdown profile allows you to restrict the operations and functionality available from within a PDB. This can be very useful from a security perspective, giving the PDBs a greater degree of separation and allowing different people to manage each PDB, without compromising the security of other PDBs with the same instance.
 
@@ -484,7 +484,7 @@ DROP LOCKDOWN PROFILE TENANT_LOCK;
 ````
 This is the end of the lackdown lab.
 
-## Resource Management
+## Step 3: Resource Management
 In a CDB, workloads within multiple PDBs can compete for system and CDB resources. Resource plans solve this problem.
 
 In a multitenant environment, Resource Manager operates on two levels:
