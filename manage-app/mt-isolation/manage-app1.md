@@ -47,43 +47,41 @@ You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is ins
 <copy>sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql </copy>
 ````
 
-   ````
-   The Oracle base remains unchanged with value /u01/app/oracle
-   [oracle@mtv30 ~]$ sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba 
+````
+[oracle@mtv30 ~]$ sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba 
 
-   SQL*Plus: Release 19.0.0.0.0 - Production on Tue Apr 7 22:35:20 2020
-   Version 19.5.0.0.0
+SQL*Plus: Release 19.0.0.0.0 - Production on Tue Apr 7 22:35:20 2020
+Version 19.5.0.0.0
 
-   Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
 
-   Connected.
-   SQL> @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql
+Connected.
+SQL> @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql
 
-   Session altered.
+Session altered.
 
-   Grant succeeded.
+Grant succeeded.
 
-   Grant succeeded.
+Grant succeeded.
 
-   Grant succeeded.
+Grant succeeded.
 
-   Grant succeeded.
+Grant succeeded.
 
-   Grant succeeded.
+Grant succeeded.
 
-   Grant succeeded.
+Grant succeeded.
 
-   Grant succeeded.
+Grant succeeded.
 
-   Grant succeeded.
+Grant succeeded.
 
-   Package created.
+Package created.
 
-   Session altered.
+Session altered.
 
-   SQL>
-   ````
-
+SQL>
+````
 
 ###    **Step 2.  Configure the listener.**
 
