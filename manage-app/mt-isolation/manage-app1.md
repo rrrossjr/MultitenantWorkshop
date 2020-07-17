@@ -4,7 +4,7 @@
 
 This is a series of hands-on exercises designed to familiarize you with Oracle Multitenant and the Network isolation feature. In these exercises, you will dive into the concepts of Database Firewalls, Resource management and Lockdown features.
 
-#### Lab Setup
+#### Lab Environment Setup
 
 At this point, it is assumed that you have a Multitenant workshop environment and you have already run the "Multitenant Basics" section.  If you are starting this section before the "Multitenant Basics" section, then run the following setup script.
 
@@ -232,11 +232,13 @@ Create a policy whitelist in access control list (ACL) that contains a list of h
 
 Once the firewall is set and the listener is restarted, you will need to add the IP address of every connection that can be accepted per PDB. We are creating a whitelist of all IP addresses that can connect to a service. In our multitenant environment, CDB1 and PDB1 are both services. We can add additional user defined service and add whitelist to them as well.
 
-Try to login to PDB1 in your localhost without any ipaddress in the whitelist.
+Try to login to **PDB1** in your localhost before putting an IP address in the whitelist.
 ```
-sqlplus sys/oracle@//localhost:1523/pdb1 as sysdba
+<copy>sqlplus sys/oracle@//localhost:1523/pdb1 as sysdba</copy>
 
-SQL*Plus: Release 19.0.0.0.0 - Production on Thu Apr 9 19:03:48 2020
+$ sqlplus sys/oracle@//localhost:1523/pdb1 as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Fri Jul 17 19:19:00 2020
 Version 19.5.0.0.0
 
 Copyright (c) 1982, 2019, Oracle.  All rights reserved.
@@ -246,8 +248,7 @@ ORA-12506: TNS:listener rejected connection based on service ACL filtering
 ```
 
 You will see that the connection fails with error ORA-12506. Since even the local host IP address is not included in the whitelist, the listener does not allow connections.
-We are clearly not allowed to access this database based on the ACL filtering available. So now we are going to add our IP address to the whitelist for the (default) service PDB1.
-
+We are clearly not allowed to access this database based on the ACL filtering available. So now we are going to add our IP address to the whitelist for the (default) service PDB1.  **Notice that you can connect locally using OS authentication.**
 ````
 <copy>sqlplus / as sysdba
 show pdbs
