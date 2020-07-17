@@ -39,7 +39,7 @@ Service-Level ACLs allow you to control access to specific services, including t
    - Add the IP ADDRESS to the whitelist for each PDB.
    - Verify/test.
 
-###    **1:  Install ACL package**
+#####    **1:  Install ACL package**
 
 You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is installed by running a script as sysdba. This package is owned by the DBSFWUSER schema. 
 
@@ -84,7 +84,7 @@ Session altered.
 SQL> exit;
 ````
 
-###    **2:  Configure the listener.**
+#####    **2:  Configure the listener.**
 
 **First take a backup of current listener configuration file.**
 
@@ -226,7 +226,7 @@ alter system register;
 exit;
 ````
 
-###    **3: Add IP address to PDB whitelist.**
+#####    **3: Add IP address to PDB whitelist.**
 
 Create a policy whitelist in access control list (ACL) that contains a list of hosts that are allowed access to a specific database service. Local listeners and server processes validate all inbound client connections against the ACL.
 
