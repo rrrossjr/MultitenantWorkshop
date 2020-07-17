@@ -453,7 +453,7 @@ pdb_lockdown                         string      TENANT_LOCK
 ````
 Now, try to change the value of  CURSOR_SHARING back to EXACT
 ````
-SQL> <copy>alter system set cursor_sharing=EXACT;<copy>
+SQL> <copy>alter system set cursor_sharing=EXACT;</copy>
 alter system set cursor_sharing=EXACT
 *
 ERROR at line 1:
