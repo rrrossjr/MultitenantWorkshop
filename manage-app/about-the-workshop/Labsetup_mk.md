@@ -9,7 +9,7 @@ Your instructor will provide you with both a **Virtual Machine IP address** and 
 
     ![](./images/HOLadmin.png " ")
 
-Each lab participant will be provide a unique **IP address** and a download link to a **SSH secure key file** 
+Each lab participant will be provided a unique **IP address** and a download link to a **SSH secure key file** 
 
 ## Windows Users: Connect using Putty
 

@@ -335,18 +335,18 @@ We can fulfill these requirements by creating a lockdown profile in our CDB Root
 - If you enable a lockdown profile in CDB Root, it affects all PDBs in the CDB. If you enable it in an Application Root (App Root), it affects all Application PDBs (App PDBs) under that App Root. If you enable it within a PDB, it only affects that PDB.
 
 The steps are
--  Create lockdown profile
--  add statements to the lockdown profile which are disabled.
-- set PDB_LOCKDOWN parameter
+- Create lockdown profile
+- Add statements to the lockdown profile which are disabled.
+- Set PDB_LOCKDOWN parameter
 
-### create a lockdown profile.
+### Create a lockdown profile.
 
 ````
-conn / as sysdba
+<copy>conn / as sysdba
 show con_name
 show pdbs
 
-create lockdown profile TENANT_LOCK;
+create lockdown profile TENANT_LOCK; </copy>
 ````
 
 #### Add restrictions to profile
@@ -367,14 +367,12 @@ eg.  alter lockdown profile sec_profile disable statement=('alter system') claus
           MAXVALUE = '6';
 </pre>
 
-As a example, we will prevent a PDB to change the settings for the parameter CURSOR_SHARING. Changing this parameter could cause changes in performance and behavior and affect other tenants in the CDB. Adding a rule to the newly created TENANT\_LOCK lockdown profile is done with an ALTER LOCKDOWN PROFILE command. We will also lockdown the use of partitioning option into the lockdown profile.
+As an example, we will prevent a PDB to change the settings for the parameter CURSOR_SHARING. Changing this parameter could cause changes in performance and behavior and affect other tenants in the CDB. Adding a rule to the newly created TENANT\_LOCK lockdown profile is done with an ALTER LOCKDOWN PROFILE command. We will also lockdown the use of partitioning option into the lockdown profile.
 
 ````
-<copy>
-ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE STATEMENT=('alter system') CLAUSE=('set') OPTION=('cursor_sharing');
+<copy>ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE STATEMENT=('alter system') CLAUSE=('set') OPTION=('cursor_sharing');
 
-ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE OPTION=('Partitioning');
-</copy>
+ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE OPTION=('Partitioning'); </copy>
 ````
 ````
 SQL> ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE STATEMENT=('alter system') CLAUSE=('set') OPTION=('cursor_sharing');
@@ -386,8 +384,7 @@ Lockdown Profile altered.
 ````
 Information about PDB lockdown profiles can be displayed using the DBA\_LOCKDOWN\_PROFILES view.
 ````
-<copy>
-SET LINESIZE 200
+<copy>SET LINESIZE 200
 COLUMN profile_name format a20
 COLUMN rule_type FORMAT A20
 COLUMN rule_type FORMAT A10
@@ -395,8 +392,7 @@ COLUMN rule format a13
 COLUMN clause FORMAT A5
 COLUMN clause_option FORMAT A15
 
-select profile_name, rule_type, rule, clause, clause_option, status, users from DBA_LOCKDOWN_PROFILES;
-</copy>
+select profile_name, rule_type, rule, clause, clause_option, status, users from DBA_LOCKDOWN_PROFILES; </copy>
 ````
 ````
 SQL> select profile_name, rule_type, rule, clause, clause_option, status, users from DBA_LOCKDOWN_PROFILES;
@@ -440,10 +436,9 @@ SQL><copy> create table MyTable01 (id number) partition by hash (id) partitions 
 
 Table created.
 ````
-lockdown profile has not been set for this PDB, We saw that the DBA can create partitioned tables and alter initialization Parameters
+A lockdown profile has not been set for this PDB.  We saw that the DBA can create partitioned tables and alter initialization parameters.
 
-Set the LOCKDOWN profile TENANT_LOCK
-
+Set the LOCKDOWN profile to TENANT_LOCK
 ````
 SQL> <copy>alter system set PDB_LOCKDOWN=TENANT_LOCK;</copy>
 System altered.
@@ -455,7 +450,6 @@ pdb_lockdown                         string      TENANT_LOCK
 
 ````
 Now, try to change the value of  CURSOR_SHARING back to EXACT
-
 ````
 SQL> <copy>alter system set cursor_sharing=EXACT;<copy>
 alter system set cursor_sharing=EXACT
@@ -472,8 +466,7 @@ ERROR at line 1:
 ORA-00439: feature not enabled: Partitioning
 
 ````
-As you can see , We are not able to create a partitioned table or alter initialization parameters from PDB1 even with SYS privileges.
-Now we will drop the lockdown profile and unset the parameter.
+As you can see, you are not able to create a partitioned table or alter initialization parameters from PDB1 even with SYS privileges.  Now we will drop the lockdown profile and unset the parameter.
 
 #### Drop LOCKDOWN profile
 
@@ -481,10 +474,9 @@ execute the drop command to drop the LOCKDOWN profile
 ````
 <copy>Alter system set pdb_lockdown='';
 conn / as SYSDBA
-DROP LOCKDOWN PROFILE TENANT_LOCK;
- </copy>
+DROP LOCKDOWN PROFILE TENANT_LOCK; </copy>
 ````
-This is the end of the lackdown lab.
+This is the end of the Multitenant Lockdown exercise.
 
 ## Step 3: Resource Management
 In a CDB, workloads within multiple PDBs can compete for system and CDB resources. Resource plans solve this problem.
