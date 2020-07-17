@@ -15,10 +15,6 @@ If you have not reset after the previous lab, you can run resetCDB.sh to start w
 
 All the scripts for this lab are located in the /home/oracle/labs/multitenant/scripts folder.
 
-- To access the scripts, secure shell into the OCI compute instance.
-- Change to the ssh directory and ssh into your instance. The public IP address can be found by going to Compute -> Instance.
-
-   
 ##  Database Service Firewall
 
 Database Service Firewall is a feature of Oracle Access Control List (ACL) since 12.2.
