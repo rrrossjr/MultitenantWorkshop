@@ -221,7 +221,7 @@ It can take up to 5 minutes before all services have been registered again. If y
 Once all the PDB services are available, specifically the PDB1 service, you can continue with the lab.
 
 ````
-<copy>sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba 
+<copy>sqlplus / as sysdba 
 alter system register;
 exit;</copy>
 ````
