@@ -4,6 +4,7 @@
 ## Introduction
 In this lab you will perform many multitenant basic tasks.  You will create a pluggable database (PDB), make a copy of this pluggable database, or clone it, explore the concepts of "plugging" and unplugging a PDB and finally drop it.  You will then explore the concepts of cloning unplugged databases and databases that are hot or active. Finally you will work on refresh, snapshots and relocate PDBs.
 
+The following video is from Oracle Product Manager Patrick Wheeler. He gives a ~7 minute explanation of PDB cloning including cold, hot and refreshable clones. The video also explains an online relocate of a database.
 [](youtube:kzTQGs75IjA)
 
 ## Step 0: Reset the database environment
@@ -658,7 +659,7 @@ The tasks you will accomplish in this lab are:
     ````
     ![](./images/refresh_oe_refresh.png " ")
 
-5. Connect as **SOE** to the pluggable databse **OE\_REFRESH** and count the number of records in the **sale\_orders** table. You should see the number of records change.  
+5. Connect as **SOE** to the pluggable database **OE\_REFRESH** and count the number of records in the **sale\_orders** table. You should see the number of records change.  
 
     ````
     <copy>conn soe/soe@localhost:1524/oe_refresh
@@ -799,7 +800,7 @@ For more information, check out the **[documentation.](https://docs.oracle.com/e
 Notice that the results of @whoami show the connection being the same same database (**OE** in **CDB2**) even when connecting to the 1523 port of the listener for CDB1.  You are able to access the OE pdb from source and target. You might see the values slightly different if the load is still running.
     ![](./images/pdb_relocate4.png " ")
 
-5. The load program isn't needed anymore and that window can be closed.  Cntrl-C kills the running program.  
+5. The load program isn't needed anymore and that window can be closed.  Ctrl-C kills the running program.  
 
 6. Bonus step.  If you want to relocate **OE** back to **CDB1**
 
