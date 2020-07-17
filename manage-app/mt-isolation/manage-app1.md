@@ -43,24 +43,19 @@ Service-Level ACLs allow you to control access to specific services, including t
 
 You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is installed by running a script as sysdba. This package is owned by the DBSFWUSER schema. 
 
-   ````
-   <copy>sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql </copy>
-   ````
+````
+<copy>sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql </copy>
+````
 
    ````
-   [opc@mtv30 ~]$ sudo su - oracle
-   Last login: Mon Apr  6 21:20:38 GMT 2020 on pts/0
-   [oracle@mtv30 ~]$ . oraenv
-   ORACLE_SID = [CDB1] ?
    The Oracle base remains unchanged with value /u01/app/oracle
-   [oracle@mtv30 ~]$ sqlplus /nolog
+   [oracle@mtv30 ~]$ sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba 
 
    SQL*Plus: Release 19.0.0.0.0 - Production on Tue Apr 7 22:35:20 2020
    Version 19.5.0.0.0
 
    Copyright (c) 1982, 2019, Oracle.  All rights reserved.
 
-   SQL> conn sys/oracle@//localhost:1523/cdb1 as sysdba
    Connected.
    SQL> @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql
 
