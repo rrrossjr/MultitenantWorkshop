@@ -618,8 +618,8 @@ This section looks at how to hot clone a pluggable database, open it for read on
 
 The tasks you will accomplish in this lab are:
 - Leverage the **OE** pluggable database from the previous lab with the load still running against it.
-- Create a hot clone **OE_REFRESH**` in the container database **CDB2** from the pluggable database **OE**
-- Refresh the **OE_REFRESH**` pluggable database.
+- Create a hot clone **OE\_REFRESH** in the container database **CDB2** from the pluggable database **OE**
+- Refresh the **OE\_REFRESH** pluggable database.
 
 1. Connect to **CDB2**  
 
@@ -646,7 +646,7 @@ The tasks you will accomplish in this lab are:
     select count(*) from sale_orders; </copy>
     ````
 
-4. Close the pluggable database **OE_REFRESH** in order to refresh it.  Change your current PDB container to **OE_REFRESH**.  Then refresh and open it.  The refresh is from the active **OE** pluggable database.  
+4. Close the pluggable database **OE\_REFRESH** in order to refresh it.  Change your current PDB container to **OE\_REFRESH**.  Then refresh and open it.  The refresh is from the active **OE** pluggable database.  
 
     ````
     <copy>conn sys/oracle@localhost:1524/oe_refresh as sysdba
@@ -676,7 +676,7 @@ The two main requirements for snapshot copy to work are
 - CLONEDB initialization parameter should be set to TRUE.
 - The source PDB is in Read Only mode.
 
-Refreshable PDBs need to be in **read only** mode in order to refresh. You can quickly create a Snapshot Clone PDB from the refreshable PDB and use it in reporting, test and dev environments.  In our exercise, we will create a **Snapshot Clone PDB** from the read only PDB OE_REFRESH.
+Refreshable PDBs need to be in **read only** mode in order to refresh. You can quickly create a Snapshot Clone PDB from the refreshable PDB and use it in reporting, test and dev environments.  In our exercise, we will create a **Snapshot Clone PDB** from the read only PDB OE\_REFRESH.
 
 1. Verify that the initialization parameter CLONEDB is set.
     ````
@@ -718,11 +718,11 @@ Refreshable PDBs need to be in **read only** mode in order to refresh. You can q
     ````
     ![](./images/snapshot_du.png " ")
 
-5. You can run the two lines from query output in SQL*Plus by copying and pasting them.  The host command runs these in the linux OS.  You will see that database SNAP1 takes a **TINY** fraction of space compared to OE_REFRESH.
+5. You can run the two lines from query output in SQL*Plus by copying and pasting them.  The host command runs these in the linux OS.  You will see that database SNAP1 takes a **TINY** fraction of space compared to OE\_REFRESH.
 
     ![](./images/snapshot_du_run.png " ")
 
-6. Close and remove the **OE_REFRESH** and **SNAP1** pluggable databases.  
+6. Close and remove the **OE\_REFRESH** and **SNAP1** pluggable databases.  
 
     ````
     <copy>conn sys/oracle@localhost:1524/cdb2 as sysdba
