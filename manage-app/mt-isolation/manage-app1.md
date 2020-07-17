@@ -19,20 +19,18 @@ All the scripts for this lab are located in the /home/oracle/labs/multitenant/sc
 
 Database Service Firewall is a feature of Oracle Access Control List (ACL) since 12.2.
 
- Service-Level ACLs allow you to control access to specific services, including those associated with individual pluggable databases (PDBs). This functionality is part of the Database Service Firewall, which isn't specifically a multitenant feature, but it is useful for controlling access to PDBs.
+ Service-Level ACLs allow you to control access to specific services, including those associated with individual pluggable databases (PDBs). This functionality is part of the Database Service Firewall, which isn't specifically a multitenant feature, but is useful for controlling access to PDBs.
 
 ![](./images/MT3_DB_service_firewall.png)
 
-### SETUP STEPS
-
-   The steps include
+#### SETUP STEPS
 
    - Install the ACL package
    - Configure the listener
-   - Add the IPADDRESS to the whitelist for each PDB.
+   - Add the IP ADDRESS to the whitelist for each PDB.
    - Verify/test.
 
-####    **Step 1.  Install ACL package**
+###    **Step 1.  Install ACL package**
 
    You need a package DBMS\_SFW\_ACL\_ADMIN package. This is installed by running as sysdba. This package is owned by the DBSFWUSER schema. The procedures in this package can be run only by the DBSFWUSER user.
 
@@ -84,7 +82,7 @@ Database Service Firewall is a feature of Oracle Access Control List (ACL) since
    ````
 
 
-####    **Step 2.  Configure the listener.**
+###    **Step 2.  Configure the listener.**
 
    The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file. The default listener name is LISTENER and listeners on default port 1521. However In our example the CDB1 DB is listening on listener LISTCDB1. Example setting below.
 
@@ -130,8 +128,7 @@ LISTCDB1 =
 
 </pre>
 
-
-##### **Restart listener and verify FIREWALL=ON.**
+#### **Restart listener and verify FIREWALL=ON.**
 
 ````
 lsnrctl stop listcdb1
@@ -221,7 +218,7 @@ Once all the PDB services are available, specifically the PDB1 service, you can 
 alter system register;</copy>
 ````
 
-#### **Step 3: Add IP address to PDB whitelist.**
+### **Step 3: Add IP address to PDB whitelist.**
 
   Create a policy whitelist in access control list (ACL) containing hosts that are allowed access to a specific database service. Local listeners and server processes validate all inbound client connections against the ACL.
 
@@ -337,7 +334,7 @@ The steps are
 - set PDB_LOCKDOWN parameter
 
 
-#### create a lockdown profile.
+### create a lockdown profile.
 
 ````
 conn / as sysdba
@@ -347,7 +344,7 @@ show pdbs
 create lockdown profile TENANT_LOCK;
 ````
 
-##### Add restrictions to profile
+#### Add restrictions to profile
 
 You can lockdown Oracle options such as partitions option or lockdown statements like alter system.
 Eg alter lockdown profile sec_profile disable option=('Partitioning');
