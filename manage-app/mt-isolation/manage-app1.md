@@ -44,7 +44,8 @@ Service-Level ACLs allow you to control access to specific services, including t
 You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is installed by running a script as sysdba. This package is owned by the DBSFWUSER schema. 
 
 ````
-<copy>sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql </copy>
+<copy>sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql 
+exit;</copy>
 ````
 
 ````
@@ -80,7 +81,7 @@ Package created.
 
 Session altered.
 
-SQL>
+SQL> exit;
 ````
 
 ###    **Step 2.  Configure the listener.**
@@ -101,8 +102,7 @@ The `FIREWALL` attribute can be added to the listener endpoint to control the ac
 You could open another termimal to take a backup.
 
 ```
-<copy>$ cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup
-</copy>
+<copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup </copy>
 ```
 
 **Second, Edit Listener.ora**
