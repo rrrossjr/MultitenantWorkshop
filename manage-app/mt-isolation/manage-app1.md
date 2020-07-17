@@ -85,7 +85,7 @@ SQL>
 
 ###    **Step 2.  Configure the listener.**
 
-The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file. The default listener name is LISTENER and listens on default port 1521. However In our example the CDB1 DB is listening on listener LISTCDB1. Example setting below.
+The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file.  In our example the CDB1 DB is listening on listener **LISTCDB1**.  You will need to add the following line to the "listener.ora" file.
 
 ````
 LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON
@@ -96,16 +96,16 @@ The `FIREWALL` attribute can be added to the listener endpoint to control the ac
    - `FIREWALL=ON` : Only connections matching an ACL are considered valid. All other connections are rejected.
    - `FIREWALL=OFF` : The firewall functionality is disabled, so all connections are considered valid.
 
-**Take a backup of current listener configuration file.**
+**First take a backup of current listener configuration file.**
 
 You could open another termimal to take a backup.
 
 ```
-<copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup
+<copy>$ cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup
 </copy>
 ```
 
-**Edit Listener.ora**
+**Second, Edit Listener.ora**
 
   <pre>
   LISTCDB2 =
@@ -129,9 +129,10 @@ LISTCDB1 =
 #### **Restart listener and verify FIREWALL=ON.**
 
 ````
-lsnrctl stop listcdb1
+<copy>lsnrctl stop listcdb1
 lsnrctl start listcdb1
 lsnrctl status listcdb1
+</copy>
 ````
 ````
 [oracle@mtv30 admin]$ lsnrctl stop listcdb1
