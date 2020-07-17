@@ -136,7 +136,7 @@ LISTCDB2 =
 
 </pre>
 
-#### **Restart listener and verify FIREWALL=ON.**
+###### **Restart listener and verify FIREWALL=ON.**
 
 ````
 <copy>lsnrctl stop listcdb1
