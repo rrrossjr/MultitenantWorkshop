@@ -218,7 +218,7 @@ The command completed successfully
 ````
 It can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
 
-Once all the PDB services are available, specifically the PDB1 service, you can continue with the lab.
+Once all the PDB services are available, specifically the PDB1 service, you can continue with the exercise.
 
 ````
 sqlplus / as sysdba 
@@ -297,7 +297,7 @@ PDB1                           MTV30.SUB04061927430.MTWORKSHO          3
                                P.ORACLEVCN.COM
 
 ````
-This is the end of LAB. Please clean your environment so that it is ready for the next lab by restoring and restarting the original listener.
+This is the end of exercise. Please clean your environment so that it is ready for the next exercise by restoring and restarting the original listener.
 ````
 <copy>cd $ORACLE_HOME/network/admin
 cp  listener.backup listener.ora
@@ -307,21 +307,22 @@ lsnrctl start LISTCDB1</copy>
 
 ## Step 2: Multitenant Lockdown
 
-Tenant isolation is a key requirement for security in a multitenant environment. A PDB lockdown profile allows you to restrict the operations and functionality available from within a PDB. This can be very useful from a security perspective, giving the PDBs a greater degree of separation and allowing different people to manage each PDB, without compromising the security of other PDBs with the same instance.
+Tenant isolation is a key requirement for security in a multitenant environment. A PDB lockdown profile allows you to restrict the operations and functionality available from within a PDB. This can be very useful from a security perspective, giving the PDBs a greater degree of separation and allowing different people to manage each PDB, without compromising the security of other PDBs within the same container database.
 
-A lockdown profile is a mechanism to restrict certain operations or functionalities in a PDB. This new Multitenant feature is managed by a CDB administrator and can be used to restrict user access in a particular PDB. A lockdown profile can prevent PDB users from:
+A lockdown profile is a mechanism to restrict certain operations or functionalities in a PDB. This new Multitenant feature is managed by a CDB administrator and can be used to restrict user access in a particular PDB. 
 
-Executing certain SQL statements, such as ALTER SYSTEM and ALTER SESSION,
+A lockdown profile can prevent PDB users from:
 
-Running procedures that access the network (e.g. UTL\_SMTP, UTL\_HTTP),
-Accessing a common user’s objects,
-Interacting with the OS (In addition to the capabilities covered by PDB\_OS\_CREDENTIAL),
-Making unrestricted cross-PDB connections in a CDB,
-Taking AWR snapshots,
-Using JAVA partially or as a whole,
-Using certain database options such as Advanced Queueing and Partitioning.
+1. Executing certain SQL statements, such as ALTER SYSTEM and ALTER SESSION
+2. Running procedures that access the network (e.g. UTL\_SMTP, UTL\_HTTP)
+3. Accessing a common user\'s objects
+4. Interacting with the OS (In addition to the capabilities covered by PDB\_OS\_CREDENTIAL)
+5. Making unrestricted cross-PDB connections in a CDB
+6. Taking AWR snapshots
+7. Using JAVA partially or as a whole
+8. Using certain database options such as Advanced Queueing and Partitioning
 
-We can fulfill these requirements by creating a lockdown profile in our CDB Root and adding these restrictions to it. Before we move onto the “How?” part of this discussion, it’s worth mentioning a couple of important details about lockdown profiles.
+We can fulfill these requirements by creating a lockdown profile in our CDB Root and adding these restrictions to it. Before we move onto the \"How\"�part of this discussion, it\'s worth mentioning a couple of important details about lockdown profiles.
 
 - In order to be able to create a lockdown profile, you have to be a common user with CREATE LOCKDOWN PROFILE privilege and in order to enable a lockdown profile (either at the CDB or PDB level), you have to be common user with common ALTER SYSTEM or common SYSDBA privilege.
 
