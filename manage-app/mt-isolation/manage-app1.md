@@ -39,7 +39,7 @@ Service-Level ACLs allow you to control access to specific services, including t
    - Add the IP ADDRESS to the whitelist for each PDB.
    - Verify/test.
 
-###    **Step 1.  Install ACL package**
+###    **Step 1:  Install ACL package**
 
 You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is installed by running a script as sysdba. This package is owned by the DBSFWUSER schema. 
 
@@ -84,7 +84,7 @@ Session altered.
 SQL> exit;
 ````
 
-###    **Step 2.  Configure the listener.**
+###    **Step 2:  Configure the listener.**
 
 **First take a backup of current listener configuration file.**
 
@@ -226,7 +226,7 @@ alter system register;
 exit;</copy>
 ````
 
-### **Step 3: Add IP address to PDB whitelist.**
+###    **Step 3: Add IP address to PDB whitelist.**
 
   Create a policy whitelist in access control list (ACL) containing hosts that are allowed access to a specific database service. Local listeners and server processes validate all inbound client connections against the ACL.
 
@@ -333,14 +333,10 @@ We can fulfill these requirements by creating a lockdown profile in our CDB Root
 
 - If you enable a lockdown profile in CDB Root, it affects all PDBs in the CDB. If you enable it in an Application Root (App Root), it affects all Application PDBs (App PDBs) under that App Root. If you enable it within a PDB, it only affects that PDB.
 
-
-
-
 The steps are
 -  Create lockdown profile
 -  add statements to the lockdown profile which are disabled.
 - set PDB_LOCKDOWN parameter
-
 
 ### create a lockdown profile.
 
