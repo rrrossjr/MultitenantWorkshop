@@ -6,7 +6,7 @@ This is a series of hands-on labs designed to familiarize you with Oracle Multit
 
 #### Lab Setup
 
-At this point, it is assumed that you have a Multitenant workshop environment and you have run the **[setup script.](https://vijaybalebail.github.io/learning-library/data-management-library/database/multitenant/manage-app/index.html?lab=lab-setup#RuntheSetupScriptsasoracle)**
+At this point, it is assumed that you have a Multitenant workshop environment and you have run the **[setup script.](https://rrrossjr.github.io/MultitenantWorkshop/manage-app/index.html?lab=lab-setup#RuntheSetupScriptsasoracle)**
    ```
   <copy> cd /home/oracle/labs/multitenant
    ./resetCDB.sh </copy>
@@ -19,7 +19,7 @@ All the scripts for this lab are located in the /home/oracle/labs/multitenant/sc
 
 Database Service Firewall is a feature of Oracle Access Control List (ACL) since 12.2.
 
- Service-Level ACLs allow you to control access to specific services, including those associated with individual pluggable databases (PDBs). This functionality is part of the Database Service Firewall, which isn't specifically a multitenant feature, but is useful for controlling access to PDBs.
+Service-Level ACLs allow you to control access to specific services, including those associated with individual pluggable databases (PDBs). This functionality is part of the Database Service Firewall, which isn't specifically a multitenant feature, but is useful for controlling access to PDBs.
 
 ![](./images/MT3_DB_service_firewall.png)
 
