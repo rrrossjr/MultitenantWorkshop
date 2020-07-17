@@ -26,7 +26,7 @@ If you have not reset after the previous lab, you can run resetCDB.sh to start w
 
 ##  Database Service Firewall
 
-Database Service Firewall is a feature of Oracle Access Control List (ACL) since 12.2.
+Database Service Firewall is a feature of Oracle Access Control List (ACL) since database version 12.2.
 
 Service-Level ACLs allow you to control access to specific services, including those associated with individual pluggable databases (PDBs). This functionality is part of the Database Service Firewall, which isn't specifically a multitenant feature, but is useful for controlling access to PDBs.
 
@@ -44,8 +44,7 @@ Service-Level ACLs allow you to control access to specific services, including t
    You need a package DBMS\_SFW\_ACL\_ADMIN package. This is installed by running as sysdba. This package is owned by the DBSFWUSER schema. The procedures in this package can be run only by the DBSFWUSER user.
 
    ````
-   <copy>sudo su - oracle
-   sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql </copy>
+   <copy>sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql </copy>
    ````
 
    ````
