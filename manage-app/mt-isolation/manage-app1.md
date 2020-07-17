@@ -86,6 +86,16 @@ SQL> exit;
 
 ###    **Step 2.  Configure the listener.**
 
+**First take a backup of current listener configuration file.**
+
+You could open another termimal to take a backup.
+
+```
+<copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup </copy>
+```
+
+**Second, Edit Listener.ora**
+
 The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file.  In our example the CDB1 DB is listening on listener **LISTCDB1**.  You will need to add the following line to the "listener.ora" file.
 
 ````
@@ -97,15 +107,6 @@ The `FIREWALL` attribute can be added to the listener endpoint to control the ac
    - `FIREWALL=ON` : Only connections matching an ACL are considered valid. All other connections are rejected.
    - `FIREWALL=OFF` : The firewall functionality is disabled, so all connections are considered valid.
 
-**First take a backup of current listener configuration file.**
-
-You could open another termimal to take a backup.
-
-```
-<copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup </copy>
-```
-
-**Second, Edit Listener.ora**
 
   <pre>
   LISTCDB2 =
