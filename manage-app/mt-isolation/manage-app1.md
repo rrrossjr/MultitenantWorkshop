@@ -116,7 +116,7 @@ LISTCDB1 =
          (PROTOCOL = TCP)
          (HOST = adb548-oracle-jul16-09 )
          (PORT = 1523 )
-         <b><font color="red">(FIREWALL=ON)</font></b>
+         <b><font color="red">(FIREWALL = ON)</font></b>
       )
     )
   )
@@ -132,7 +132,6 @@ LISTCDB2 =
     )
   )
 
-LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON
 <b><font color="red">LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON</font></b>
 
 </pre>
@@ -145,68 +144,67 @@ lsnrctl start listcdb1
 lsnrctl status listcdb1 </copy>
 ````
 ````
-[oracle@mtv30 admin]$ lsnrctl stop listcdb1
+[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl stop listcdb1
 
-LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 09-APR-2020 18:49:57
+LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:17:30
 
 Copyright (c) 1991, 2019, Oracle.  All rights reserved.
 
-Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=mtv30.sub04061927430.mtw                                                                                                             orkshop.oraclevcn.com)(PORT=1523)(FIREWALL=ON)))
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=adb548-oracle-jul16-09)(PORT=1523)(FIREWALL=ON)))
 The command completed successfully
-[oracle@mtv30 admin]$ lsnrctl start listcdb1
+````
+````
+[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl start listcdb1
 
-LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 09-APR-2020 18:50:06
+LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:19:24
 
 Copyright (c) 1991, 2019, Oracle.  All rights reserved.
 
 Starting /u01/app/oracle/product/19c/dbhome_1/bin/tnslsnr: please wait...
 
 TNSLSNR for Linux: Version 19.0.0.0.0 - Production
-System parameter file is /u01/app/oracle/product/19c/dbhome_1/network/admin/list                                                                                                             ener.ora
-Log messages written to /u01/app/oracle/diag/tnslsnr/mtv30/listcdb1/alert/log.xm                                                                                                             l
-Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=mtv30)(PORT=1523)(FIREWA                                                                                                             LL=ON)))
-Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1523)))
+System parameter file is /u01/app/oracle/product/19c/dbhome_1/network/admin/listener.ora
+Log messages written to /u01/app/oracle/diag/tnslsnr/adb548-oracle-jul16-09/listcdb1/alert/log.xml
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=adb548-oracle-jul16-09)(PORT=1523)(FIREWALL=ON)))
 
-Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=mtv30.sub04061927430.mtw                                                                                                             orkshop.oraclevcn.com)(PORT=1523)(FIREWALL=ON)))
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=adb548-oracle-jul16-09)(PORT=1523)(FIREWALL=ON)))
 STATUS of the LISTENER
 ------------------------
 Alias                     listcdb1
 Version                   TNSLSNR for Linux: Version 19.0.0.0.0 - Production
-Start Date                09-APR-2020 18:50:06
+Start Date                17-JUL-2020 17:19:24
 Uptime                    0 days 0 hr. 0 min. 0 sec
 Trace Level               off
 Security                  ON: Local OS Authentication
 SNMP                      OFF
-Listener Parameter File   /u01/app/oracle/product/19c/dbhome_1/network/admin/lis                                                                                                             tener.ora
-Listener Log File         /u01/app/oracle/diag/tnslsnr/mtv30/listcdb1/alert/log.                                                                                                             xml
+Listener Parameter File   /u01/app/oracle/product/19c/dbhome_1/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/adb548-oracle-jul16-09/listcdb1/alert/log.xml
 Listening Endpoints Summary...
-  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=mtv30)(PORT=1523)(FIREWALL=ON)))
-  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1523)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=adb548-oracle-jul16-09)(PORT=1523)(FIREWALL=ON)))
 The listener supports no services
 The command completed successfully
+````
+````
+[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl status listcdb1
 
-
-[oracle@mtv30 admin]$ lsnrctl stat listcdb1
-
-LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 09-APR-2020 18:57:12
+LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:21:00
 
 Copyright (c) 1991, 2019, Oracle.  All rights reserved.
 
-Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=mtv30.sub04061927430.mtworkshop.oraclevcn.com)(PORT=1523)(FIREWALL=ON)))
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=adb548-oracle-jul16-09)(PORT=1523)(FIREWALL=ON)))
 STATUS of the LISTENER
 ------------------------
 Alias                     listcdb1
 Version                   TNSLSNR for Linux: Version 19.0.0.0.0 - Production
-Start Date                09-APR-2020 18:50:06
-Uptime                    0 days 0 hr. 7 min. 6 sec
+Start Date                17-JUL-2020 17:19:24
+Uptime                    0 days 0 hr. 1 min. 36 sec
 Trace Level               off
 Security                  ON: Local OS Authentication
 SNMP                      OFF
 Listener Parameter File   /u01/app/oracle/product/19c/dbhome_1/network/admin/listener.ora
-Listener Log File         /u01/app/oracle/diag/tnslsnr/mtv30/listcdb1/alert/log.xml
+Listener Log File         /u01/app/oracle/diag/tnslsnr/adb548-oracle-jul16-09/listcdb1/alert/log.xml
 Listening Endpoints Summary...
-  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=mtv30)(PORT=1523)(FIREWALL=ON)))
-  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(KEY=EXTPROC1523)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=adb548-oracle-jul16-09)(PORT=1523)(FIREWALL=ON)))
 Services Summary...
 Service "CDB1" has 1 instance(s).
   Instance "CDB1", status READY, has 1 handler(s) for this service...
