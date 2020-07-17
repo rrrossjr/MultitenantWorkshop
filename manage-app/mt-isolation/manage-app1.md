@@ -911,10 +911,10 @@ Elapsed: 00:01:14.17
 
 ````
 Now the same workload takes much longer to run. You can rerun any number of times.
-Open a new terminal, and query v$session_event to see IO resource wait event.
+Open a new terminal and query v$session_event to see IO resource wait event.
 ````
-sqlplus / as SYSDBA
-select se.con_id,event,time_waited from v$session_event se,v$pdbs pdb where event like 'resmgr: %' and pdb.name='OE' and pdb.con_id=se.con_id ;
+<copy>sqlplus / as SYSDBA
+select se.con_id,event,time_waited from v$session_event se,v$pdbs pdb where event like 'resmgr: %' and pdb.name='OE' and pdb.con_id=se.con_id ; </copy>
 
    CON_ID EVENT                          TIME_WAITED
 ---------- ------------------------------ -----------
