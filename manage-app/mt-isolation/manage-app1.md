@@ -6,12 +6,23 @@ This is a series of hands-on labs designed to familiarize you with Oracle Multit
 
 #### Lab Setup
 
-At this point, it is assumed that you have a Multitenant workshop environment and you have run the **[setup script.](https://vijaybalebail.github.io/learning-library/data-management-library/database/multitenant/manage-app/index.html?lab=lab-setup#RuntheSetupScriptsasoracle)**
-   ```
-  <copy> cd /home/oracle/labs/multitenant
-   ./resetCDB.sh </copy>
-   ```
+At this point, it is assumed that you have a Multitenant workshop environment and you have already run the "Multitenant Basics" section.  If you are starting this section before the "Multitenant Basics" section, then run the following setup script.
+
+````
+<copy>cd /home/oracle
+wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/Multitenant/o/labs.zip
+chown oracle:oinstall /home/oracle/labs.zip
+unzip -o labs.zip
+chmod -R +x /home/oracle/labs
+/home/oracle/labs/multitenant/resetCDB.sh</copy>
+````
+
 If you have not reset after the previous lab, you can run resetCDB.sh to start with a clean environment. If any errors about dropping databases appear they can be ignored.
+
+```
+<copy> cd /home/oracle/labs/multitenant
+./resetCDB.sh </copy>
+```
 
 All the scripts for this lab are located in the /home/oracle/labs/multitenant/scripts folder.
 
