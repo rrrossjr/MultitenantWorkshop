@@ -6,7 +6,7 @@ This is a series of hands-on labs designed to familiarize you with Oracle Multit
 
 #### Lab Setup
 
-At this point, it is assumed that you have a Multitenant workshop environment and you have run the **[setup script.](https://rrrossjr.github.io/MultitenantWorkshop/manage-app/index.html?lab=lab-setup#RuntheSetupScriptsasoracle)**
+At this point, it is assumed that you have a Multitenant workshop environment and you have run the **[setup script.](https://vijaybalebail.github.io/learning-library/data-management-library/database/multitenant/manage-app/index.html?lab=lab-setup#RuntheSetupScriptsasoracle)**
    ```
   <copy> cd /home/oracle/labs/multitenant
    ./resetCDB.sh </copy>
