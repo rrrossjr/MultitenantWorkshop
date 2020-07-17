@@ -109,20 +109,30 @@ The `FIREWALL` attribute can be added to the listener endpoint to control the ac
 
 
   <pre>
-  LISTCDB2 =
-    (DESCRIPTION_LIST =
-      (DESCRIPTION =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = mtv28imp.vjvcn.oraclevcn.com)(PORT = 1524))
-    )
-  )
 LISTCDB1 =
   (DESCRIPTION_LIST =
     (DESCRIPTION =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = mtv28imp.vjvcn.oraclevcn.com)(PORT = 1523) <b><font color="red">(FIREWALL=ON)</font>) </b>
-      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1523))
+      (ADDRESS =
+         (PROTOCOL = TCP)
+         (HOST = adb548-oracle-jul16-09 )
+         (PORT = 1523 )
+         <b><font color="red">(FIREWALL=ON)</font></b>
+      )
     )
   )
 
+LISTCDB2 =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS =
+         (PROTOCOL = TCP)
+         (HOST = adb548-oracle-jul16-09 )
+         (PORT = 1524 )
+      )
+    )
+  )
+
+LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON
 <b><font color="red">LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON</font></b>
 
 </pre>
@@ -132,8 +142,7 @@ LISTCDB1 =
 ````
 <copy>lsnrctl stop listcdb1
 lsnrctl start listcdb1
-lsnrctl status listcdb1
-</copy>
+lsnrctl status listcdb1 </copy>
 ````
 ````
 [oracle@mtv30 admin]$ lsnrctl stop listcdb1
