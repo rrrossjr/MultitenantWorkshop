@@ -506,9 +506,9 @@ In a CDB with multiple PDBs, The Resource Manager enables you to prioritize and 
 
 ### Memory Resource Management
 
-  The advantage of having multitenant is that, all the memory in a server can be provided to a single CDB and memory can be optimally utilized. However, in case one of the tenants use overly
+The advantage of having multitenant is that all the memory in a server can be provided to a single CDB and memory can be optimally utilized. However, the following parameters can be set at the PDB level to better manager resources and ensure that the CDB and the other PDBs have sufficient memory for their operations. 
 
-PDB Memory Parameters
+#### PDB Memory Parameters**
 The following parameters can be set at the PDB level.
 
 - DB\_CACHE\_SIZE : The minimum buffer cache size for the PDB.
@@ -516,16 +516,15 @@ The following parameters can be set at the PDB level.
 - PGA\_AGGREGATE\_LIMIT : The maximum PGA size for the PDB.
 - PGA\_AGGREGATE\_TARGET : The target PGA size for the PDB.
 - SGA\_MIN\_SIZE : The minimum SGA size for the PDB.
-- SGA_TARGET : The maximum SGA size for the PDB.
+- SGA\_TARGET : The maximum SGA size for the PDB.
 
-ensure that the CDB and the other PDBs have sufficient memory for their operations. The initialization parameters control the memory usage of PDBs only if the following conditions are met:
+The initialization parameters control the memory usage of PDBs only if the following conditions are met:
 
 The NONCDB_COMPATIBLE initialization parameter is set to false in the CDB root.
 
 The MEMORY_TARGET initialization parameter is not set or is set to 0 (zero) in the CDB root.
 
 Let us set SGA_TARGET for PDB1 to 1G. First verify the default settings to enable Memory management.
-
 ````
 <copy>conn / as SYSDBA
 show parameter  NONCDB_COMPATIBLE
