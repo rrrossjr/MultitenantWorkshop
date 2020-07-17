@@ -221,19 +221,18 @@ It can take up to 5 minutes before all services have been registered again. If y
 Once all the PDB services are available, specifically the PDB1 service, you can continue with the lab.
 
 ````
-<copy>sqlplus / as sysdba 
-alter system register;
-exit;</copy>
+sqlplus / as sysdba 
+alter system register; 
+exit;
 ````
 
 ###    **Step 3: Add IP address to PDB whitelist.**
 
-  Create a policy whitelist in access control list (ACL) containing hosts that are allowed access to a specific database service. Local listeners and server processes validate all inbound client connections against the ACL.
+Create a policy whitelist in access control list (ACL) that contains a list of hosts that are allowed access to a specific database service. Local listeners and server processes validate all inbound client connections against the ACL.
 
-   Once the firewall is set and listener is restarted, We will need to add the IP address of every connection that can be accepted per PDB. We are creating a whitelist of all IP address that can connect to a service. In our multitenant environment, CDB1 and PDB1 are both services. We can add additional user defined service and add whitelist to them as well.
-   Try to login to PDB1 in your localhost without any ipaddress in the whitelist.
+Once the firewall is set and the listener is restarted, you will need to add the IP address of every connection that can be accepted per PDB. We are creating a whitelist of all IP addresses that can connect to a service. In our multitenant environment, CDB1 and PDB1 are both services. We can add additional user defined service and add whitelist to them as well.
 
-
+Try to login to PDB1 in your localhost without any ipaddress in the whitelist.
 ```
 sqlplus sys/oracle@//localhost:1523/pdb1 as sysdba
 
