@@ -612,9 +612,9 @@ System altered.
 ````
 set CPU count in pdb1
 ````
-alter session set container=pdb1;
+<copy>alter session set container=pdb1;
 alter system set cpu_count=1;
-show parameter CPU_COUNT
+show parameter CPU_COUNT</copy>
 ````
 ````
 SQL> alter session set container=pdb1;
@@ -628,8 +628,7 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 cpu_count                            integer     1
 ````
-That is it. By setting the default resouce plan in CDB and CPU count in PDB , we have setup instance caging.
-To test this, you can run the sample workload.
+That is it. By setting the resouce_manager_plan parameter in CDB and the CPU\_COUNT parameter in PDB, you have setup instance caging.  To test this, you can run the sample workload.
 
 ````
  SQL> <copy> @/home/oracle/labs/multitenant/cpu_test.sql</copy>
