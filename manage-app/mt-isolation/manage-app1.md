@@ -50,7 +50,7 @@ You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is ins
 ````
 [oracle@mtv30 ~]$ sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba 
 
-SQL*Plus: Release 19.0.0.0.0 - Production on Tue Apr 7 22:35:20 2020
+SQL*Plus: Release 19.0.0.0.0 - Production on Fri Jul 17 16:14:01 2020
 Version 19.5.0.0.0
 
 Copyright (c) 1982, 2019, Oracle.  All rights reserved.
@@ -85,28 +85,25 @@ SQL>
 
 ###    **Step 2.  Configure the listener.**
 
-   The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file. The default listener name is LISTENER and listeners on default port 1521. However In our example the CDB1 DB is listening on listener LISTCDB1. Example setting below.
+The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file. The default listener name is LISTENER and listens on default port 1521. However In our example the CDB1 DB is listening on listener LISTCDB1. Example setting below.
 
-   ````
-   #LOCAL_REGISTRATION_ADDRESS_lsnr_alias = ON
-   #LOCAL_REGISTRATION_ADDRESS_LISTENER = ON
-   LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON
-   ````
+````
+LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON
+````
 
-   The `FIREWALL` attribute can be added to the listener endpoint to control the action of the database firewall.
+The `FIREWALL` attribute can be added to the listener endpoint to control the action of the database firewall.
 
    - `FIREWALL=ON` : Only connections matching an ACL are considered valid. All other connections are rejected.
    - `FIREWALL=OFF` : The firewall functionality is disabled, so all connections are considered valid.
 
 **Take a backup of current listener configuration file.**
 
-   You could open another termimal to take a backup.
+You could open another termimal to take a backup.
 
-   ```
-   sudo su - oracle
-   cd $ORACLE_HOME/network/admin
-   cp listener.ora listener.backup
-   ```
+```
+<copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup
+</copy>
+```
 
 **Edit Listener.ora**
 
