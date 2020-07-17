@@ -628,7 +628,7 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 cpu_count                            integer     1
 ````
-That is it. By setting the resouce_manager_plan parameter in CDB and the CPU\_COUNT parameter in PDB, you have setup instance caging.  To test this, you can run the sample workload.
+That is it. By setting the parameter resource\_manager\_plan in the CDB and setting the CPU\_COUNT parameter in the PDB, you have setup instance caging.  To test this, you can run the sample workload.
 
 ````
  SQL> <copy> @/home/oracle/labs/multitenant/cpu_test.sql</copy>
@@ -766,7 +766,7 @@ If you open another session and monitor CPU utilization , it should be 100%. How
 In a new session , run the following script to see the CPU utilization per PDB.
 
 ````
-sqlplus / as SYSDBA
+<copy>sqlplus / as SYSDBA
 COLUMN PDB_NAME FORMAT A10
 COLUMN CPU_UTILIZATION_LIMIT 9999
 SELECT r.CON_ID,
@@ -784,7 +784,7 @@ r.CON_ID,
 p.PDB_NAME,
 r.CPU_UTILIZATION_LIMIT,
 r.AVG_CPU_UTILIZATION
-order by r.con_id asc;
+order by r.con_id asc; </copy>
 ````
 ````
 SQL>
@@ -801,12 +801,10 @@ Note: The Average CPU Utilization will take about 60 seconds to update the value
 Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 4 in my case. So, when we run load on both PDBs, the CPU utilization should be equal to 80% for PDB1 and 20% for PDB_2.
 
 ````
-<copy>
-alter session set container=pdb_2;
+<copy>alter session set container=pdb_2;
 @/home/oracle/labs/multitenant/cpu_test.sql
 alter session set container=pdb1;
-@/home/oracle/labs/multitenant/cpu_test.sql
-</copy>
+@/home/oracle/labs/multitenant/cpu_test.sql </copy>
 ````
 Rerun the monitoring script in the other session_event and check the output.
 
@@ -844,8 +842,6 @@ Critical I/O operations, such as ones for the control file and password file, ar
 You can use the DBA\_HIST\_RSRC\_PDB\_METRIC view to calculate a reasonable I/O limit for a PDB. Consider the values in the following columns when calculating a limit: IOPS, IOMBPS, IOPS\_THROTTLE\_EXEMPT.
  The ***rsmgr:io rate limit*** wait event indicates that a limit was reached.
 
-
-
 The tasks you will accomplish in this lab are:
 
 - Create a pluggable database OE in the container database CDB1
@@ -854,13 +850,11 @@ The tasks you will accomplish in this lab are:
 
 Connect to CDB1
 ````
-<copy>sqlplus /nolog
-connect sys/oracle@localhost:1523/cdb1 as sysdba </copy>
+<copy>connect sys/oracle@localhost:1523/cdb1 as sysdba </copy>
 ````
 Create a pluggable database OE with an admin user of SOE
 ````
-<copy>
-create pluggable database oe admin user soe identified by soe roles=(dba);
+<copy>create pluggable database oe admin user soe identified by soe roles=(dba);
 alter pluggable database oe open;
 alter session set container = oe;
 grant create session, create table to soe;
@@ -870,16 +864,14 @@ alter user soe quota unlimited on system;
 
 Unset  resource\_manager\_plan in CDB  and  connect to OE and run workload.
 ````
-<copy>
-connect sys/oracle@localhost:1523/cdb1 as sysdba
+<copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
 alter system set resource_manager_plan='';
 alter session set container=OE;</copy>
 ````
 run a workload with MAX_IOPS=0.
 
 ````
-<copy>
-set timing on
+<copy>set timing on
 -- unset any IOPS RM
 alter system set  MAX_IOPS=0;
 
@@ -899,7 +891,7 @@ Elapsed: 00:00:18.48
 ````
 The workload runs without any resource manager in under 20 seconds.
 
-Now set MAX_IOPS=10 and rerun the load.
+Now set MAX\_IOPS=10 and rerun the load.
 
 ````
 <copy>alter system set  MAX_IOPS=10;
@@ -919,9 +911,8 @@ Elapsed: 00:01:14.17
 
 ````
 Now the same workload takes much longer to run. You can rerun any number of times.
-Open a new terminal , sudo to the oracle user and query v$session_event to see IO resource wait event.
+Open a new terminal, and query v$session_event to see IO resource wait event.
 ````
-sudo su - oracle
 sqlplus / as SYSDBA
 select se.con_id,event,time_waited from v$session_event se,v$pdbs pdb where event like 'resmgr: %' and pdb.name='OE' and pdb.con_id=se.con_id ;
 
