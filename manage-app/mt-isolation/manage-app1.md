@@ -353,13 +353,13 @@ create lockdown profile TENANT_LOCK; </copy>
 
 #### Add restrictions to profile
 
-You can lockdown Oracle options such as partitions option or lockdown statements like alter system.
-Eg alter lockdown profile sec_profile disable option=('Partitioning');
+You can lockdown Oracle options such as the partitioning option or you can lockdown indivicual SQL statements like **alter system**.
+````
+alter lockdown profile sec_profile disable option=('Partitioning');
+alter lockdown profile sec_profile disable statement=('alter system') clause=('set') option all;.
+````
 
-You can restrict individual SQL statements or can restrict all statements by using the "ALL" clause.
-eg.  alter lockdown profile sec_profile disable statement=('alter system') clause=('set') option all;.
-
- The scope of the restriction can be reduced using the  CLAUSE, OPTION, MINVALUE, MAXVALUE options and values.
+The scope of the restriction can be reduced using the CLAUSE, OPTION, MINVALUE, MAXVALUE options and values.
  <pre>
  eg. ALTER LOCKDOWN PROFILE hr_prof
      DISABLE STATEMENT = ('ALTER SYSTEM')
@@ -369,7 +369,7 @@ eg.  alter lockdown profile sec_profile disable statement=('alter system') claus
           MAXVALUE = '6';
 </pre>
 
-As an example, we will prevent a PDB to change the settings for the parameter CURSOR_SHARING. Changing this parameter could cause changes in performance and behavior and affect other tenants in the CDB. Adding a rule to the newly created TENANT\_LOCK lockdown profile is done with an ALTER LOCKDOWN PROFILE command. We will also lockdown the use of partitioning option into the lockdown profile.
+In the following example, you will prohibit the ability to change the parameter CURSOR_SHARING in a PDB. Changing this parameter could cause changes in performance and behavior and affect other tenants in the CDB. Adding a rule to the newly created TENANT\_LOCK lockdown profile is done with an ALTER LOCKDOWN PROFILE command. We will also lockdown the use of the partitioning option in the lockdown profile.
 
 ````
 <copy>ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE STATEMENT=('alter system') CLAUSE=('set') OPTION=('cursor_sharing');
