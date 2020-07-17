@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a series of hands-on labs designed to familiarize you with Oracle Multitenant and the Network isolation feature. In these labs, We will dive into the concepts of Database Firewalls , Resource management and Lockdown features.
+This is a series of hands-on exercises designed to familiarize you with Oracle Multitenant and the Network isolation feature. In these exercises, you will dive into the concepts of Database Firewalls, Resource management and Lockdown features.
 
 #### Lab Setup
 
@@ -23,8 +23,6 @@ If you have not reset after the previous lab, you can run resetCDB.sh to start w
 <copy> cd /home/oracle/labs/multitenant
 ./resetCDB.sh </copy>
 ```
-
-All the scripts for this lab are located in the /home/oracle/labs/multitenant/scripts folder.
 
 ##  Database Service Firewall
 
