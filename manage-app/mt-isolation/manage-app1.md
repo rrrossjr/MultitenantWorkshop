@@ -86,7 +86,7 @@ SQL> exit;
 
 #####    **2:  Configure the listener.**
 
-**First take a backup of current listener configuration file.**
+**Take a backup of current listener configuration file.**
 
 You could open another termimal to take a backup.
 
@@ -94,7 +94,7 @@ You could open another termimal to take a backup.
 <copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup </copy>
 ```
 
-**Second, Edit Listener.ora**
+**Edit Listener.ora**
 
 The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file.  In our example the CDB1 DB is listening on listener **LISTCDB1**.  You will need to add the following line to the "listener.ora" file.
 
@@ -271,7 +271,7 @@ Now connect using username/password from localhost to verify.
 SQL> conn sys/oracle@//localhost:1523/pdb1 as sysdba
 Connected.
 ````
-You can now connect to PDB1 successfully from localhost since we added localhost to the whitelist. If you need to test IP address or external hosts in this environment, we will have to open port 1523 in Oracle Virtual Network Connection (VNC) and add port 1523 in the linux firewall.  
+You can now connect to PDB1 successfully from localhost since we added localhost to the whitelist. If you need to test IP address or external hosts in this environment, we will have to open port 1523 in Oracle Virtual Cloud Network (VCN) and add port 1523 in the linux firewall.  
 
 The V$IP_ACL view lists the active ACLs.
 
@@ -591,15 +591,14 @@ Oracle now provides views to monitor the resource (CPU, I/O, parallel execution,
 ### CPU Resources Management
 
 Two ways to limit CPU resources
-- Instance Caging with CPU_COUNT
+- Instance Caging with CPU\_COUNT
 - Resource Manager with CPU\_MIN\_COUNT ( new in 19c)
 
-
-Instance caging is a technique that uses an initialization parameter to limit the number of CPUs that an instance can use simultaneously. You can set CPU\_COUNT at the PDB level. If Resource Manager is enabled, then the PDB is “caged” (restricted) to the number of CPUs specified by CPU\_COUNT. This count can be altered dynamically altered. In Oracle database hosting environment, This is useful to scale cpus up and down PDBs.  Another advantage is oracle can monitor resource usage. The resource limits can trigger to dynamically change the  CPU_COUNT. The CPUs will be available in all the session in the PDB immediately. This way, we can dynamically scale the CPUs for PDB tenant.
+Instance caging is a technique that uses an initialization parameter to limit the number of CPUs that an instance can use simultaneously. You can set CPU\_COUNT at the PDB level. If Resource Manager is enabled, then the PDB is **caged** (restricted) to the number of CPUs specified by CPU\_COUNT. This count can be dynamically altered. In an Oracle database hosting environment, the ability to alter CPU\_COUNT is useful to scale cpus up and down in PDBs.  Another advantage is oracle can monitor resource usage. The resource limits can dynamically trigger a change of the CPU\_COUNT. The CPUs will be available in all the sessions in the PDB immediately. This way, we can dynamically scale the CPUs for PDB tenants.
 
 Resource Manager allows one Oracle process per CPU to run at a given time. All other processes wait on an internal Resource Manager run queue, under the wait event "resmgr:cpu quantum". Resource Manager allows an Oracle process to run for a small quantum of time (100 milliseconds). At the end of this quantum or when the Oracle process starts a wait (e.g. for a lock or I/O), Resource Manager selects a new Oracle process to run. Resource Manager uses a round-robin algorithm , and has priority Queues to choose between all runnable processes.
 
-As mentioned above, to setup Instance Caging, we need to enable Resource Manager and set CPU_COUNT at PDB level.
+As mentioned above, to setup Instance Caging, we need to enable Resource Manager and set CPU\_COUNT at the PDB level.
 ````
 <copy>conn / as SYSDBA
 show parameter CPU_COUNT
@@ -639,7 +638,7 @@ To test this, you can run the sample workload.
 You can open a separate terminal and run "top -c " and look at "%Cpu(s):" in your environment.
 It will be limited to the percentage equal to one cpu. In our case, Total cpus were 2, so 1 cpu would be 50% cpu utilization.
 
-In a production system with many CPUs and PDB consolidation, it is possible to over provision. i.e. The total of CPU_COUNT at PDB level is more than allocated at CDB level. This is a recommended configuration if we want better CPU utilization of the system.
+In a production system with many CPUs and PDB consolidation, it is possible to over provision. i.e. The total of CPU\_COUNT at PDB level is more than allocated at CDB level. This is a recommended configuration if we want better CPU utilization of the system.
 
 Now unset the CPU caging and rerun the workload. In our test, the cpu utilization peaks to 100% consuming the 2 CPUs available.
 
@@ -745,7 +744,7 @@ cpu_min_count                        string      1
 resource_manager_cpu_allocation      integer     4
 ````
 
-That's it. With 2 simple steps, the minimum resource is set. If you need to set instance Caging, you can set CPU_COUNT in PDB level as well.
+That's it. With 2 simple steps, the minimum resource is set. If you need to set instance Caging, you can set CPU\_COUNT in PDB level as well.
 
 By default, CPU\_MIN\_COUNT = CPU\_COUNT, If sum(CPU\_MIN\_COUNT) <= CDB’s CPU\_COUNT , then each PDB is guaranteed CPU\_MIN\_COUNT CPUs
 
@@ -765,7 +764,7 @@ Session altered.
 SQL>
 PL/SQL procedure successfully completed.
 ````
-If you open another session and monitor CPU utilization , it should 100%. However, to find out which PDB is consuming CPUs, we need to look at  V$RSRCPDBMETRIC.
+If you open another session and monitor CPU utilization , it should be 100%. However, to find out which PDB is consuming CPUs, we need to look at  V$RSRCPDBMETRIC.
 In a new session , run the following script to see the CPU utilization per PDB.
 
 ````
