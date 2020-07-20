@@ -107,6 +107,11 @@ The `FIREWALL` attribute can be added to the listener endpoint to control the ac
    - `FIREWALL=ON` : Only connections matching an ACL are considered valid. All other connections are rejected.
    - `FIREWALL=OFF` : The firewall functionality is disabled, so all connections are considered valid.
 
+````
+<b>Use your favorite editor (like "vi") to edit listener.ora to make the edits in red shown below.</b>
+
+$ <copy>vi $ORACLE_HOME/network/admin/listener.ora </copy>
+````
 
   <pre>
 LISTCDB1 =
