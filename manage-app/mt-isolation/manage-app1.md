@@ -232,6 +232,50 @@ exit;
 
 lsnrctl status listcdb1
 ````
+````
+SQL> alter system register;
+exit;
+System altered.
+
+SQL>
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.5.0.0.0
+[oracle@adb513-virtual-jul21-20 ~]$ lsnrctl status listcdb1
+
+LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 22-JUL-2020 23:42:23
+
+Copyright (c) 1991, 2019, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=adb513-virtual-jul21-20)(PORT=1523)(FIREWALL=ON)))
+STATUS of the LISTENER
+------------------------
+Alias                     listcdb1
+Version                   TNSLSNR for Linux: Version 19.0.0.0.0 - Production
+Start Date                22-JUL-2020 23:37:56
+Uptime                    0 days 0 hr. 4 min. 26 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/app/oracle/product/19c/dbhome_1/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/adb513-virtual-jul21-20/listcdb1/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=adb513-virtual-jul21-20)(PORT=1523)(FIREWALL=ON)))
+Services Summary...
+Service "CDB1" has 1 instance(s).
+  Instance "CDB1", status READY, has 1 handler(s) for this service...
+Service "CDB1XDB" has 1 instance(s).
+  Instance "CDB1", status READY, has 1 handler(s) for this service...
+Service "a206980f93d62602e0530200000ab752" has 1 instance(s).
+  Instance "CDB1", status READY, has 1 handler(s) for this service...
+Service "ab1048c516387598e053e801000a09dc" has 1 instance(s).
+  Instance "CDB1", status READY, has 1 handler(s) for this service...
+Service "pdb1" has 1 instance(s).
+  Instance "CDB1", status READY, has 1 handler(s) for this service...
+Service "pdb2" has 1 instance(s).
+  Instance "CDB1", status READY, has 1 handler(s) for this service...
+The command completed successfully
+````
+
 
 #####    **3: Add IP address to PDB whitelist.**
 
