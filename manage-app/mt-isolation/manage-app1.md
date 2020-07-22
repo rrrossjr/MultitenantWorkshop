@@ -276,7 +276,6 @@ Service "pdb2" has 1 instance(s).
 The command completed successfully
 ````
 
-
 #####    **3: Add IP address to PDB whitelist.**
 
 Create a policy whitelist in access control list (ACL) that contains a list of hosts that are allowed access to a specific database service. Local listeners and server processes validate all inbound client connections against the ACL.
