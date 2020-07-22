@@ -226,9 +226,9 @@ It can take up to 5 minutes before all services have been registered again. If y
 Once all the PDB services are available, specifically the PDB1 service, you can continue with the exercise.
 
 ````
-sqlplus / as sysdba 
+<copy> sqlplus / as sysdba 
 alter system register; 
-exit;
+exit; </copy>
 ````
 
 #####    **3: Add IP address to PDB whitelist.**
