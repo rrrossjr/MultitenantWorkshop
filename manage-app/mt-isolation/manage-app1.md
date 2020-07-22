@@ -229,6 +229,8 @@ Once all the PDB services are available, specifically the PDB1 service, you can 
 sqlplus / as sysdba 
 alter system register; 
 exit;
+
+lsnrctl status listcdb1
 ````
 
 #####    **3: Add IP address to PDB whitelist.**
