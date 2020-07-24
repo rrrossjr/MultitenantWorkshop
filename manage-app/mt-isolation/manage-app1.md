@@ -541,6 +541,20 @@ show parameter pdb_lockdown
 alter system set pdb_lockdown='';
 drop lockdown profile TENANT_LOCK; 
 show parameter pdb_lockdown </copy>
+
+DB Name: CDB1 / in CDB: CDB1 / Auth-ID: oracle / User: SYS / Container: CDB$ROOT
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+pdb_lockdown                         string      TENANT_LOCK
+
+System altered.
+
+Lockdown Profile dropped.
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+pdb_lockdown                         string
 ````
 This is the end of the Multitenant Lockdown exercise.
 
