@@ -535,7 +535,9 @@ As you can see, you are not able to create a partitioned table or alter initiali
 8. Drop the Lockdown Profile and unset the parameter.
 
 ````
-<copy>show parameter pdb_lockdown
+<copy>connect / as sysdba
+@whoami
+show parameter pdb_lockdown
 alter system set pdb_lockdown='';
 drop lockdown profile TENANT_LOCK; 
 show parameter pdb_lockdown </copy>
