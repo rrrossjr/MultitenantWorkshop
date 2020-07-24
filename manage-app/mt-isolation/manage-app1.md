@@ -563,16 +563,18 @@ In a CDB, workloads within multiple PDBs can compete for system and CDB resource
 
 In a multitenant environment, Resource Manager operates on two levels:
 - CDB level :
-Resource Manager can manage the workloads for multiple PDBs that are contending for system and CDB resources. You can specify how resources are allocated to PDBs, and you can limit the resource utilization of specific PDBs. The principal tool is a CDB resource plan. For Tenant isolation we need to implement at CDB level.
+Resource Manager can manage the workloads for multiple PDBs that are contending for system and CDB resources. You can specify how resources are allocated to PDBs, and you can limit the resource utilization of specific PDBs. The principal tool is a CDB resource plan. For Tenant isolation we need to implement at the CDB level.
 
 - PDB level :
 Resource Manager can manage the workloads within each PDB. The principal tool is a PDB resource plan.
 
-In a CDB with multiple PDBs, The Resource Manager enables you to prioritize and limit the resource usage of specific PDBs. With the Resource Manager, you can:
+In a CDB with multiple PDBs, The Resource Manager enables you to prioritize and limit the resource usage of specific PDBs. 
+
+With the Resource Manager, you can:
 
 - Limit the CPU usage of a particular PDB
 
-- Limit the number of parallel execution servers that a particular PDB can use
+- Limit the number of parallel execution threads that a particular PDB can use
 
 - Limit the memory usage of a particular PDB
 
