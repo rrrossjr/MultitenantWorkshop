@@ -40,13 +40,11 @@ You will be setting up Service-Level ACLs by performing the following steps
 
 1. Install **ACL package**
 
-You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is installed by running a script as sysdba. This package is owned by the DBSFWUSER schema. 
-
+You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is installed by running a script as sysdba. This package is owned by the DBSFWUSER schema.  Here is the [link](https://docs.oracle.com/en/database/oracle/oracle-database/19/arpls/DBMS_SFW_ACL_ADMIN.html) to Oracle 19C documentation.
 ````
 <copy>sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba @$ORACLE_HOME/rdbms/admin/dbmsaclsrv.sql 
 exit;</copy>
 ````
-
 ````
 [oracle@mtv30 ~]$ sqlplus sys/oracle@//localhost:1523/cdb1 as sysdba 
 
@@ -301,7 +299,7 @@ You will see that the connection fails with error ORA-12506 since the local host
 
 So now we are going to add our IP address or hostname to the whitelist for the (default) service PDB1.  
 
-Connect to PDB1 locally using OS authentication.  **You will notice that you can connect locally using OS authentication.**
+Connect to PDB1 locally using OS authentication.  **You should notice that you can connect locally using OS authentication.**
 ````
 <copy>sqlplus / as sysdba</copy>
 ````

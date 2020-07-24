@@ -832,4 +832,3 @@ Now you've had a chance to try out the Multitenant option. You were able to crea
 - **Last Updated By/Date** - Kay Malcolm, Director, DB Product Management, March 2020
 - **Last Updated By/Date** - Bob Ross, Sales Engineering Technology, July 2020
 
-See an issue?  Please open up a request [here](https://github.com/oracle/learning-library/issues).
