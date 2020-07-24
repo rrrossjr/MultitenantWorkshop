@@ -184,35 +184,27 @@ The listener supports no services
 The command completed successfully
 ````
 ````
-[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl status listcdb1
+[oracle@adb511-virtual-jul23-01 multitenant]$ lsnrctl status listcdb1
 
-LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:21:00
+LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 24-JUL-2020 13:29:30
 
 Copyright (c) 1991, 2019, Oracle.  All rights reserved.
 
-Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=adb548-oracle-jul16-09)(PORT=1523)(FIREWALL=ON)))
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=adb511-virtual-jul23-01)(PORT=1523)(FIREWALL=ON)))
 STATUS of the LISTENER
 ------------------------
 Alias                     listcdb1
 Version                   TNSLSNR for Linux: Version 19.0.0.0.0 - Production
-Start Date                17-JUL-2020 17:19:24
-Uptime                    0 days 0 hr. 1 min. 36 sec
+Start Date                24-JUL-2020 13:29:28
+Uptime                    0 days 0 hr. 0 min. 1 sec
 Trace Level               off
 Security                  ON: Local OS Authentication
 SNMP                      OFF
 Listener Parameter File   /u01/app/oracle/product/19c/dbhome_1/network/admin/listener.ora
-Listener Log File         /u01/app/oracle/diag/tnslsnr/adb548-oracle-jul16-09/listcdb1/alert/log.xml
+Listener Log File         /u01/app/oracle/diag/tnslsnr/adb511-virtual-jul23-01/listcdb1/alert/log.xml
 Listening Endpoints Summary...
-  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=adb548-oracle-jul16-09)(PORT=1523)(FIREWALL=ON)))
-Services Summary...
-Service "CDB1" has 1 instance(s).
-  Instance "CDB1", status READY, has 1 handler(s) for this service...
-Service "CDB1XDB" has 1 instance(s).
-  Instance "CDB1", status READY, has 1 handler(s) for this service...
-Service "a206980f93d62602e0530200000ab752" has 1 instance(s).
-  Instance "CDB1", status READY, has 1 handler(s) for this service...
-Service "pdb1" has 1 instance(s).
-  Instance "CDB1", status READY, has 1 handler(s) for this service...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=adb511-virtual-jul23-01)(PORT=1523)(FIREWALL=ON)))
+The listener supports no services
 The command completed successfully
 ````
 Check to see if your services were restarted.  It can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
@@ -222,7 +214,7 @@ Once all the listener services are available, specifically the 'pdb1' service, y
 4. Connect to **CDB1**  
 
 ````
-<copy>sqlplus sys/oracle@localhost:1523/cdb1 as sysdba</copy>
+<copy>sqlplus / as sysdba</copy>
 ````
 
 5. Register the Services
