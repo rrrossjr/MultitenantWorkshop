@@ -22,9 +22,9 @@ If you have not reset after the previous lab, you can run resetCDB.sh to start w
 ./resetCDB.sh </copy>
 ````
 
-## Step 1: Service-Level ACLs for TCP Protocol
+## Step 1: Database Service Firewall
 
-With the "database service firewall" feature, every database service can have its own access control list (ACL) and the ACL is based on IPs. An access control list in Oracle is a list of access control entries to restrict the hosts that are allowed to connect to the Oracle database.
+The "Database Service Firewall" feature is also called Service-Level ACLs for TCP Protocol.  Every database service can have its own access control list (ACL) and the ACL is based on IPs. An access control list in Oracle is a list of access control entries to restrict the hosts that are allowed to connect to the Oracle database.
 
 Because each pluggable database is a different service, this feature enables different pluggable databases to have different ACLs. These ACLs are enforced by the listener. Access to a pluggable database service is enabled only for IPs that are permitted through an ACL.
 
@@ -99,10 +99,6 @@ Use your favorite editor (like "vi") to edit listener.ora to make the edits in r
 
 ````
 $ <copy>vi $ORACLE_HOME/network/admin/listener.ora </copy>
-````
-You will need to add the following line to the end of the "listener.ora" file.
-````
-<copy>LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON</copy>
 ````
 
   <pre>
@@ -535,14 +531,14 @@ As you can see, you are not able to create a partitioned table or alter initiali
 8. Drop the Lockdown Profile and unset the parameter.
 
 ````
-<copy>connect / as sysdba
-@whoami
+<copy>@whoami
 show parameter pdb_lockdown
 alter system set pdb_lockdown='';
-drop lockdown profile TENANT_LOCK; 
-show parameter pdb_lockdown </copy>
+show parameter pdb_lockdown 
+connect / as sysdba
+drop lockdown profile TENANT_LOCK; </copy>
 
-DB Name: CDB1 / in CDB: CDB1 / Auth-ID: oracle / User: SYS / Container: CDB$ROOT
+DB Name: PDB1 / in CDB: CDB1 / Auth-ID: oracle / User: SYS / Container: PDB1
 
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
@@ -550,11 +546,9 @@ pdb_lockdown                         string      TENANT_LOCK
 
 System altered.
 
-Lockdown Profile dropped.
+DB Name: CDB1 / in CDB: CDB1 / Auth-ID: oracle / User: SYS / Container: CDB$ROOT
 
-NAME                                 TYPE        VALUE
------------------------------------- ----------- ------------------------------
-pdb_lockdown                         string
+Lockdown Profile dropped.
 ````
 This is the end of the Multitenant Lockdown exercise.
 
@@ -839,7 +833,7 @@ SQL> @/home/oracle/labs/multitenant/cpu_test.sql
 
 PL/SQL procedure successfully completed.
 ````
-If you open another session and monitor CPU utilization , it should be 100%. However, to find out which PDB is consuming CPUs, we need to look at  V$RSRCPDBMETRIC.
+If you open another session and monitor CPU utilization , it should be 100%. However, to find out which PDB is consuming CPUs, we need to look at V$RSRCPDBMETRIC.
 
 In a new ssh window, run the following script to see the CPU utilization per PDB.
 ````
@@ -920,9 +914,12 @@ The tasks you will accomplish in this lab are:
 - Create a load against the pluggable database OE
 - Compare  wait events and timing of workloads .
 
-Connect to CDB1
+Connect to CDB1 and unset the resource plan manager at the CDB level
 ````
-<copy>connect sys/oracle@localhost:1523/cdb1 as sysdba </copy>
+<copy>connect / as sysdba 
+show parameter resource_manager_plan
+alter system set resource_manager_plan='';
+</copy>
 ````
 Create a pluggable database OE with an admin user of SOE
 ````
@@ -932,13 +929,7 @@ alter session set container = oe;
 grant create session, create table to soe;
 alter user soe quota unlimited on system; </copy>
 ````
-Unset the parameter resource\_manager\_plan in the CDB. Connect to the OE database and run workload.
-````
-<copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
-alter system set resource_manager_plan='';
-alter session set container=OE;</copy>
-````
-run a workload with MAX_IOPS=0.
+Stay connected to the OE database and run a workload with MAX_IOPS=0.
 ````
 <copy>set timing on
 -- unset any IOPS RM
