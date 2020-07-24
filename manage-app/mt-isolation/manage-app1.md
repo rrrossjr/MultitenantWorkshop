@@ -22,15 +22,15 @@ If you have not reset after the previous lab, you can run resetCDB.sh to start w
 ./resetCDB.sh </copy>
 ````
 
-## Step 1: Database Service Firewall
+## Step 1: Service-Level ACLs for TCP Protocol
 
-Database Service Firewall is a feature of Oracle Access Control List (ACL) since database version 12.2.
+With this feature, every database service can have its own access control list (ACL) and the ACL is based on IPs. Because each pluggable database is a different service, this feature enables different pluggable databases to have different ACLs. These ACLs are enforced by the listener. Access to a pluggable database service is enabled only for IPs that are permitted through an ACL.
 
-Service-Level ACLs allow you to control access to specific services, including those associated with individual pluggable databases (PDBs). This functionality is part of the Database Service Firewall, which isn't specifically a multitenant feature, but is useful for controlling access to PDBs.
+This functionality is part of Oracle Multitenant since database version 12.2.  
 
 ![](./images/MT3_DB_service_firewall.png)
 
-You will be setting up Database Service Firewall performing the following steps
+You will be setting up Service-Level ACLs by performing the following steps
    - Install the ACL package
    - Configure the listener
    - Add the IP ADDRESS to the whitelist for each PDB.
@@ -82,10 +82,11 @@ SQL> exit;
 ````
 2.  Configure the **listener** by editing **Listener.ora**
 
-**First, take a backup of current listener configuration file.**
+**First, make a backup copy of the current listener configuration file.**
 
 ````
-<copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup </copy>
+<copy>cp -i $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup 
+chmod 400 $ORACLE_HOME/network/admin/listener.backup</copy>
 ````
 
 The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file.  In our example the CDB1 container DB is listening on listener **LISTCDB1**.  
