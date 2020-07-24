@@ -400,10 +400,17 @@ DB Name: CDB1 / in CDB: CDB1 / Auth-ID: oracle / User: SYS / Container: CDB$ROOT
 
 2. Create a Lockdown Profile.
 ````
-<copy>show con_name
-show pdbs
-
+SQL> <copy>show pdbs
 create lockdown profile TENANT_LOCK; </copy>
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 PDB1                           READ WRITE NO
+         4 PDB2                           READ WRITE NO
+SQL>
+
+Lockdown Profile created.
 ````
 
 3. Add restrictions to the Lockdown Profile
