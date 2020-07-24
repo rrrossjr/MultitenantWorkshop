@@ -691,19 +691,18 @@ resource_manage_goldengate           boolean     FALSE
 resource_manager_cpu_allocation      integer     8
 resource_manager_plan                string
 ````
-set default resource manager plan
+Set the parameter resource\_manager\_plan
 ````
-SQL> <copy>alter system set resource_manager_plan='DEFAULT_CDB_PLAN' ; </copy>
+<copy>alter system set resource_manager_plan='DEFAULT_CDB_PLAN';</copy>
 
 System altered.
 ````
-Set the parameter cpu_count count in pdb1
+Set the parameter cpu\_count count in pdb1
 ````
 <copy>alter session set container=pdb1;
 alter system set cpu_count=1;
 show parameter CPU_COUNT</copy>
-````
-````
+
 SQL> alter session set container=pdb1;
 Session altered.
 
@@ -718,7 +717,7 @@ cpu_count                            integer     1
 That is it. By setting the parameter resource\_manager\_plan in the CDB and setting the CPU\_COUNT parameter in the PDB, you have setup instance caging.  To test this, you can run the sample workload.
 
 ````
- SQL> <copy> @/home/oracle/labs/multitenant/cpu_test.sql</copy>
+SQL> <copy>@/home/oracle/labs/multitenant/cpu_test.sql</copy>
 ````
 You can open a separate terminal and run "top -c " and look at "%Cpu(s):" in your environment.
 It will be limited to the percentage equal to one cpu. In our case, Total cpus were 8, so 1 cpu would be 12.5% cpu utilization.
