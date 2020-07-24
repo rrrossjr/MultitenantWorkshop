@@ -358,7 +358,8 @@ lsnrctl start LISTCDB1</copy>
 
 Tenant isolation is a key requirement for security in a multitenant environment. A PDB lockdown profile allows you to restrict the operations and functionality available from within a PDB. This can be very useful from a security perspective, giving the PDBs a greater degree of separation and allowing different people to manage each PDB, without compromising the security of other PDBs within the same container database.
 
-A lockdown profile is a mechanism to restrict certain operations or functionalities in a PDB. This new Multitenant feature is managed by a CDB administrator and can be used to restrict user access in a particular PDB. 
+The following video is from Oracle Product Manager Patrick Wheeler. He gives a short explanation of PDB Lockdown Profiles.
+[](youtube:kop6fruRC-I)
 
 A lockdown profile can prevent PDB users from:
 
@@ -371,11 +372,7 @@ A lockdown profile can prevent PDB users from:
 7. Using JAVA partially or as a whole
 8. Using certain database options such as Advanced Queueing and Partitioning
 
-We can fulfill these requirements by creating a lockdown profile in our CDB Root and adding these restrictions to it. Before we move onto the "How?" part of this discussion, it's worth mentioning a couple of important details about lockdown profiles.
-
-- You have to be a common user with the CREATE LOCKDOWN PROFILE privilege in order to create a lockdown profile. 
-
-- You have to be a common user with common ALTER SYSTEM or common SYSDBA privilege in order to enable a lockdown profile (either at the CDB or PDB level).
+See the [Oracle Database Security Guide](https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/configuring-privilege-and-role-authorization.html) for more information on PDB lockdown profiles.
 
 - A single lockdown profile can have several rules defined in it. In other words, you don't have to create a lockdown profile for every restriction you want to implement.
 
@@ -392,8 +389,7 @@ The steps are
 
 1. Connect to **CDB1**  
 ````
-<copy>sqlplus /nolog
-connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
+<copy>sqlplus sys/oracle@localhost:1523/cdb1 as sysdba</copy>
 ````
 
 2. Create a lockdown profile.
@@ -406,7 +402,7 @@ create lockdown profile TENANT_LOCK; </copy>
 
 3. Add restrictions to the lockdown profile
 
-In our test, you will lockdown the Oracle partitioning option and the indivicual SQL statements **alter system**.
+In our test, you will lockdown the Oracle partitioning option and the indivicual SQL statement **alter system**.
 ````
 <copy>alter lockdown profile sec_profile disable option=('Partitioning');
 alter lockdown profile sec_profile disable statement=('alter system') clause=('set') option all;</copy>
@@ -426,7 +422,6 @@ In the following example, you will prohibit the ability to change the parameter 
 
 ````
 <copy>ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE STATEMENT=('alter system') CLAUSE=('set') OPTION=('cursor_sharing');
-
 ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE OPTION=('Partitioning'); </copy>
 ````
 ````
@@ -436,6 +431,7 @@ Lockdown Profile altered.
 SQL> ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE OPTION=('Partitioning');
 Lockdown Profile altered.
 
+4. View the Lockdown Profile restrictions
 ````
 Information about PDB lockdown profiles can be displayed using the DBA\_LOCKDOWN\_PROFILES view.
 ````
@@ -460,8 +456,9 @@ SAAS                                                                EMPTY
 TENANT_LOCK          OPTION     PARTITIONING                        DISABLE ALL
 TENANT_LOCK          STATEMENT  ALTER SYSTEM  SET   CURSOR_SHARING  DISABLE ALL
 ````
+5. Test permissions before assigning a Lockdown Profile 
+Verify you can change the CURSOR\_SHARING parameter.
 
-Once the restrictions are added to the lockdown profile, we need to set it. Let us verify you can change CURSOR\_SHARING and create a partitioned table before the lockdown profile TENANT\_LOCK is set.
 Connect to container PDB1 and display the value of CURSOR_SHARING
 ````
 <copy>alter session set container=PDB1;
@@ -475,36 +472,36 @@ SQL> show parameter cursor_sharing
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 cursor_sharing                       string      EXACT
-SQL>
 ````
 Change the value oF CURSOR_SHARING to FORCE
 ````
-SQL> <copy> alter system set cursor_sharing = FORCE; </copy>
+SQL> <copy>alter system set cursor_sharing = FORCE; </copy>
 
 System altered.
-
 ````
-We have set the TENANT\_LOCK lockdown profile to prevent creation tables with partitions.
-create a partitioned table before the profile is enabled.
+Verify you can create a partitioned table.
 ````
-SQL><copy> create table MyTable01 (id number) partition by hash (id) partitions 2;</copy>
+SQL><copy> create table MyPartitionedTable1 (id number) partition by hash (id) partitions 2;</copy>
 
 Table created.
 ````
-A lockdown profile has not been set for this PDB.  We saw that the DBA can create partitioned tables and alter initialization parameters.
 
-Set the LOCKDOWN profile to TENANT_LOCK
+6. Set the Lockdown Profile to TENANT\_LOCK
+We saw that the DBA could create partitioned tables and alter initialization parameters. Now lets assign the Lockdown Profile TENANT\_LOCK to this PDB.  
 ````
-SQL> <copy>alter system set PDB_LOCKDOWN=TENANT_LOCK;</copy>
+<copy>show parameter pdb_lockdown
+alter system set PDB_LOCKDOWN=TENANT_LOCK;
+show parameter pdb_lockdown</copy>
+````
+````
 System altered.
 SQL> show parameter pdb_lockdown
 
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 pdb_lockdown                         string      TENANT_LOCK
-
 ````
-Now, try to change the value of  CURSOR_SHARING back to EXACT
+7. Test permissions after assigning a Lockdown Profile 
 ````
 SQL> <copy>alter system set cursor_sharing=EXACT;</copy>
 alter system set cursor_sharing=EXACT
@@ -514,22 +511,21 @@ ORA-01031: insufficient privileges
 ````
 Test to see if you can create a partitioned table when the profile is enabled.
 ````
-SQL> <copy>create table MyTable02 (id number) partition by hash (id) partitions 2;</copy>
-create table MyTable02 (id number) partition by hash (id) partitions 2
+SQL> <copy>create table MyPartitionedTable2 (id number) partition by hash (id) partitions 2;</copy>
+create table MyPartitionedTable2(id number) partition by hash (id) partitions 2
 *
 ERROR at line 1:
 ORA-00439: feature not enabled: Partitioning
+````
+As you can see, you are not able to create a partitioned table or alter initialization parameters from PDB1 even with SYS privileges.  
+
+8. Drop the lockdown profile and unset the parameter.
 
 ````
-As you can see, you are not able to create a partitioned table or alter initialization parameters from PDB1 even with SYS privileges.  Now we will drop the lockdown profile and unset the parameter.
-
-#### Drop LOCKDOWN profile
-
-execute the drop command to drop the LOCKDOWN profile
-````
-<copy>Alter system set pdb_lockdown='';
-conn / as SYSDBA
-DROP LOCKDOWN PROFILE TENANT_LOCK; </copy>
+<copy>show parameter pdb_lockdown
+alter system set pdb_lockdown='';
+drop lockdown profile TENANT_LOCK; 
+show parameter pdb_lockdown </copy>
 ````
 This is the end of the Multitenant Lockdown exercise.
 
