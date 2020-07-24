@@ -22,7 +22,7 @@ If you have not reset after the previous lab, you can run resetCDB.sh to start w
 ./resetCDB.sh </copy>
 ````
 
-## Step 1: Service-Level ACLs for TCP Protocol
+## Step 1: Firewall Service-Level ACLs for TCP Protocol
 
 With this feature, every database service can have its own access control list (ACL) and the ACL is based on IPs. An access control list in Oracle is a list of access control entries to restrict the hosts that are allowed to connect to the Oracle database.
 
@@ -88,15 +88,9 @@ SQL> exit;
 
 ````
 <copy>cp -i $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup 
-chmod 400 $ORACLE_HOME/network/admin/listener.backup</copy>
 ````
 
 The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file.  In our example the CDB1 container DB is listening on listener **LISTCDB1**.  
-
-You will need to add the following line to the end of the "listener.ora" file.
-````
-<copy>LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON</copy>
-````
 
 The `FIREWALL` attribute must be added to the listener endpoint to control the action of the database firewall.  There are two settings for FIREWALL.
 
@@ -107,6 +101,10 @@ Use your favorite editor (like "vi") to edit listener.ora to make the edits in r
 
 ````
 $ <copy>vi $ORACLE_HOME/network/admin/listener.ora </copy>
+````
+You will need to add the following line to the end of the "listener.ora" file.
+````
+<copy>LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON</copy>
 ````
 
   <pre>
