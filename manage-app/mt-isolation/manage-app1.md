@@ -737,7 +737,7 @@ The workload without resource management runs faster as it makes use of all the 
 
 #### Resource Manager with CPU\_MIN\_COUNT (new in 19c)
 
-Another way of managing CPU resources is through Resource Manager. We allocate a certain number of shares to each PDB. The amount of CPUs allocated to the PDB is equal to the percentage of shares of that PDB compared to the total number of shares across all the PDBS.
+Another way of managing CPU resources is through Resource Manager. We allocate a certain number of shares to each PDB. The number of CPUs allocated to the PDB is equal to the percentage of shares of that PDB compared to the total number of shares across all the PDBS.
 
 To allocate resources among PDBs, assign a share value to each PDB. Until 19c database, the shares were allocated to each pdb through the PL/SQL package DBMS\_RESOURCE\_MANAGER. Since 19c, a new parameter has been introduced called CPU\_MIN\_COUNT. This allows us to set the minimum CPUs available per PDB.
 
@@ -747,12 +747,12 @@ CPU\_MIN\_COUNT allows the PDB tenant to utilize 100% of the CPUs allocated to t
 
 The steps to set this are
 - At the CDB level
-     Set the parameter RESOURCE\_MANAGER\_PLAN = DEFAULT\_CDB\_PLAN
+     - Set the parameter RESOURCE\_MANAGER\_PLAN = DEFAULT\_CDB\_PLAN
 - For each PDB
-     Set the parameter CPU\_MIN\_COUNT to specify its shares
-     Set the parameter CPU_COUNT to specify its limit
+     - Set the parameter CPU\_MIN\_COUNT to specify its shares
+     - Set the parameter CPU_COUNT to specify its limit
 
- ![](./images/CPU_RESOURCEMANAGER.png)
+![](./images/CPU_RESOURCEMANAGER.png)
 
 Connect to CDB1 and set the resource plan.
 ````
@@ -763,19 +763,19 @@ alter system set resource_manager_plan='DEFAULT_CDB_PLAN';
 show parameter resource_manager_plan </copy>
 
 NAME                                 TYPE        VALUE
------------------------------------- ----------- ------------------------------
-cpu_count                            integer     4
-cpu_min_count                        string      4
-resource_manager_cpu_allocation      integer     4
+------------------------------------ ----------- -----------------
+cpu_count                            integer     8
+cpu_min_count                        string      8
+resource_manager_cpu_allocation      integer     8
 
 NAME                                 TYPE        VALUE
------------------------------------- ----------- ------------------------------
+------------------------------------ ----------- -----------------
 resource_manager_plan                string
 
 System altered.
 
 NAME                                 TYPE        VALUE
------------------------------------- ----------- ------------------------------
+------------------------------------ ----------- -----------------
 resource_manager_plan                string      DEFAULT_CDB_PLAN
 ````
 Create a new PDB and set the CPU\_MIN\_COUNT.
@@ -786,8 +786,7 @@ alter session set container=PDB5;
 show parameter cpu_
 alter system set cpu_min_count=1;
 </copy>
-````
-````
+
 SQL> create pluggable database PDB5 admin user admin identified by oracle ;
 
 Pluggable database created.
@@ -804,9 +803,10 @@ SQL> show parameter cpu_
 
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
-cpu_count                            integer     4
-cpu_min_count                        string      4
-resource_manager_cpu_allocation      integer     4
+cpu_count                            integer     8
+cpu_min_count                        string      8
+resource_manager_cpu_allocation      integer     8
+
 SQL> alter system set cpu_min_count=1;
 
 System altered.
@@ -815,9 +815,9 @@ SQL> show parameter cpu_
 
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
-cpu_count                            integer     4
+cpu_count                            integer     8
 cpu_min_count                        string      1
-resource_manager_cpu_allocation      integer     4
+resource_manager_cpu_allocation      integer     8
 ````
 
 That's it. With 2 simple steps, the minimum resource is set. If you need to set instance Caging, you can set CPU\_COUNT in PDB level as well.
