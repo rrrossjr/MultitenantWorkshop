@@ -403,14 +403,10 @@ create lockdown profile TENANT_LOCK; </copy>
 
 3. Add restrictions to the Lockdown Profile
 
-In our test, you will lockdown the Oracle partitioning option and the individual SQL statement **alter system**.
-````
-<copy>alter lockdown profile TENANT_LOCK disable option=('Partitioning');
-alter lockdown profile TENANT_LOCK disable statement=('alter system') clause=('set') option all;</copy>
-````
+In the following example, you will prohibit the ability to change the parameter CURSOR_SHARING in a PDB. Changing this parameter could cause changes in performance and behavior and affect other tenants in the CDB. Adding a rule to the newly created TENANT\_LOCK Lockdown Profile is done with an ALTER LOCKDOWN PROFILE command. We will also lockdown the use of the partitioning option in the Lockdown Profile.
 
-The scope of the restriction can be reduced using the CLAUSE, OPTION, MINVALUE, MAXVALUE options and values.
- <pre>
+The scope of the restriction can be further reduced using the CLAUSE, OPTION, MINVALUE, MAXVALUE options and values.
+<pre>
  eg. ALTER LOCKDOWN PROFILE hr_prof
      DISABLE STATEMENT = ('ALTER SYSTEM')
           CLAUSE = ('SET')
@@ -419,21 +415,18 @@ The scope of the restriction can be reduced using the CLAUSE, OPTION, MINVALUE, 
           MAXVALUE = '6';
 </pre>
 
-In the following example, you will prohibit the ability to change the parameter CURSOR_SHARING in a PDB. Changing this parameter could cause changes in performance and behavior and affect other tenants in the CDB. Adding a rule to the newly created TENANT\_LOCK Lockdown Profile is done with an ALTER LOCKDOWN PROFILE command. We will also lockdown the use of the partitioning option in the Lockdown Profile.
-
 ````
-<copy>ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE STATEMENT=('alter system') CLAUSE=('set') OPTION=('cursor_sharing');
-ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE OPTION=('Partitioning'); </copy>
+<copy>alter lockdown profile TENANT_LOCK disable statement=('alter system') clause=('set') option=('cursor_sharing');
+alter lockdown profile TENANT_LOCK disable option=('Partitioning'); </copy>
 ````
 ````
-SQL> ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE STATEMENT=('alter system') CLAUSE=('set') OPTION=('cursor_sharing');
+SQL> alter lockdown profile TENANT_LOCK disable statement=('alter system') clause=('set') option=('cursor_sharing');
 Lockdown Profile altered.
 
-SQL> ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE OPTION=('Partitioning');
+SQL> alter lockdown profile TENANT_LOCK disable option=('Partitioning');
 Lockdown Profile altered.
-
+````
 4. View the Lockdown Profile restrictions
-````
 Information about PDB Lockdown Profiles can be displayed using the DBA\_LOCKDOWN\_PROFILES view.
 ````
 <copy>SET LINESIZE 200
