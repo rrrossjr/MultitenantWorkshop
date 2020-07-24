@@ -890,7 +890,6 @@ SQL> /
          4 PDB5                         100                  12          8
 ````
 
-
 ### I/O Resource Management
 
 I/O Resource Management for Non-Exadata Platforms (PDB only)
@@ -908,7 +907,7 @@ If you set both preceding initialization parameters for a single PDB, then Oracl
 
 If these initialization parameters are set with the CDB root as the current container, then the values become the default values for all containers in the CDB. If they are set with an application root as the current container, then the values become the default values for all application PDBs in the application container. When they are set with a PDB or application PDB as the current container, then the settings take precedence over the default settings in the CDB root or the application root. These parameters cannot be set in a non-CDB.
 
-The default for both initialization parameters is 0 (zero). If these initialization parameters are set to 0 (zero) in a PDB, and the CDB root is set to 0, then there is no I/O limit for the PDB. If these initialization parameters are set to 0 (zero) in an application PDB, and its application root is set to 0, then there is no I/O limit for the application PDB.
+The default for both initialization parameters is 0 (zero). If these initialization parameters are set to 0 (zero) in a PDB, and the CDB root is set to 0, then there is no I/O limit for the PDB. 
 
 Critical I/O operations, such as ones for the control file and password file, are exempted from the limit and continue to run even if the limit is reached. However, all I/O operations, including critical I/O operations, are counted when the number of I/O operations and the megabytes for I/O operations are calculated.
 
@@ -931,18 +930,15 @@ Create a pluggable database OE with an admin user of SOE
 alter pluggable database oe open;
 alter session set container = oe;
 grant create session, create table to soe;
-alter user soe quota unlimited on system;
-</copy>
+alter user soe quota unlimited on system; </copy>
 ````
-
-Unset  resource\_manager\_plan in CDB  and  connect to OE and run workload.
+Unset the parameter resource\_manager\_plan in the CDB. Connect to the OE database and run workload.
 ````
 <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
 alter system set resource_manager_plan='';
 alter session set container=OE;</copy>
 ````
 run a workload with MAX_IOPS=0.
-
 ````
 <copy>set timing on
 -- unset any IOPS RM
@@ -962,7 +958,7 @@ PL/SQL procedure successfully completed.
 Elapsed: 00:00:18.48
 
 ````
-The workload runs without any resource manager in under 20 seconds.
+The workload runs without any resource manager in around 20 seconds.
 
 Now set MAX\_IOPS=10 and rerun the load.
 
@@ -981,18 +977,19 @@ END;
 PL/SQL procedure successfully completed.
 
 Elapsed: 00:01:14.17
-
 ````
 Now the same workload takes much longer to run. You can rerun any number of times.
-Open a new terminal and query v$session_event to see IO resource wait event.
+Open a new terminal and query v$session\_event to see IO resource wait event.
 ````
 <copy>sqlplus / as SYSDBA
 select se.con_id,event,time_waited from v$session_event se,v$pdbs pdb where event like 'resmgr: %' and pdb.name='OE' and pdb.con_id=se.con_id ; </copy>
 
-   CON_ID EVENT                          TIME_WAITED
----------- ------------------------------ -----------
-        4 resmgr: I/O rate limit              185428
-        4 resmgr: I/O rate limit                9016
+
+    CON_ID EVENT                     TIME_WAITED
+---------- ------------------------- -----------
+         6 resmgr: I/O rate limit          15977
 ````
 
- You should be seeing time_waited for event "resmgr: I/O rate limit" increasing while the load runs.
+You should be seeing time_waited for event "resmgr: I/O rate limit" increasing while the load runs.
+
+You have completed the Multitenant Tenant Isolation section of this workshop!
