@@ -664,7 +664,7 @@ Oracle now provides views to monitor the resource (CPU, I/O, parallel execution,
 
 ### CPU Resources Management
 
-Two ways to limit CPU resources
+There are two ways to limit CPU resources
 - Instance Caging with CPU\_COUNT
 - Resource Manager with CPU\_MIN\_COUNT ( new in 19c)
 
@@ -739,70 +739,64 @@ The workload without resource management runs faster as it makes use of all the 
 
 Another way of managing CPU resources is through Resource Manager. We allocate a certain number of shares to each PDB. The amount of CPUs allocated to the PDB is equal to the percentage of shares of that PDB compared to the total number of shares across all the PDBS.
 
-To allocate resources among PDBs, assign a share value to each PDB. Until 19c database, the shares were allocated to each pdb through dbms\_resource\_manager PL/SQL package. Since 19c, a new parameter has been introduced called CPU\_MIN\_COUNT. This allows us to set the minimum CPUs available per PDB.
+To allocate resources among PDBs, assign a share value to each PDB. Until 19c database, the shares were allocated to each pdb through the PL/SQL package DBMS\_RESOURCE\_MANAGER. Since 19c, a new parameter has been introduced called CPU\_MIN\_COUNT. This allows us to set the minimum CPUs available per PDB.
 
 CPU\_MIN\_COUNT is the minimum number of CPUs the Pluggable Database Instance will receive.  The total of CPU\_MIN\_COUNT for all Pluggable Database instances should not exceed the CPU\_COUNT of the Container Database instance. When Database Resource Manager (DBRM) is enabled, and when CPU\_MIN\_COUNT has been set, the CPU\_COUNT parameter defines the maximum number of CPUs that can be used by a Pluggable Database Instance.
 
 CPU\_MIN\_COUNT allows the PDB tenant to utilize 100% of the CPUs allocated to the CDB if there is no load on the system. Only when the workload on the system is more than 100% of the CPUs allocated to the CDB and workload is from more than one PDB, will the resource manager kick in and prioritize CPU resource based on the percentage of shares or CPU\_MIN\_COUNT.
 
-The steps to set this is
+The steps to set this are
 - At the CDB level
-    -- Set resource\_manager\_plan = default\_cdb\_plan
+     Set the parameter RESOURCE\_MANAGER\_PLAN = DEFAULT\_CDB\_PLAN
 - For each PDB
-    -- Set cpu\_min\_count to specify its shares
-    -- Set cpu_count to specify its limit
+     Set the parameter CPU\_MIN\_COUNT to specify its shares
+     Set the parameter CPU_COUNT to specify its limit
 
  ![](./images/CPU_RESOURCEMANAGER.png)
 
- Connect to CDB1 and set the resource plan.
+Connect to CDB1 and set the resource plan.
 ````
- <copy>
- connect / as SYSDBA
- show parameter cpu_
- show parameter resource_manager_plan
- alter system set resource_manager_plan='DEFAULT_CDB_PLAN';
- show parameter resource_manager_plan </copy>
-````
+<copy>connect / as SYSDBA
+show parameter cpu_
+show parameter resource_manager_plan
+alter system set resource_manager_plan='DEFAULT_CDB_PLAN';
+show parameter resource_manager_plan </copy>
 
-````
-SQL>
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 cpu_count                            integer     4
 cpu_min_count                        string      4
 resource_manager_cpu_allocation      integer     4
-SQL>
+
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 resource_manager_plan                string
-SQL>
+
 System altered.
 
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 resource_manager_plan                string      DEFAULT_CDB_PLAN
-
 ````
-
-Create PDB and set the CPU\_MIN\_COUNT.
+Create a new PDB and set the CPU\_MIN\_COUNT.
 ````
-<copy>create pluggable database pdb_2 admin user admin identified by oracle ;
-alter pluggable database pdb_2 open;
-alter session set container=pdb_2;
+<copy>create pluggable database PDB5 admin user admin identified by oracle ;
+alter pluggable database PDB5 open;
+alter session set container=PDB5;
 show parameter cpu_
 alter system set cpu_min_count=1;
 </copy>
 ````
 ````
-SQL> create pluggable database pdb_2 admin user admin identified by oracle ;
+SQL> create pluggable database PDB5 admin user admin identified by oracle ;
 
 Pluggable database created.
 
-SQL> alter pluggable database pdb_2 open;
+SQL> alter pluggable database PDB5 open;
 
 Pluggable database altered.
 
-SQL> alter session set container=pdb_2;
+SQL> alter session set container=PDB5;
 
 Session altered.
 
@@ -836,11 +830,11 @@ Note that the workload script is single threaded and has a default of 4 threads.
 
 ````
 <copy>
-alter session set container=pdb_2;
+alter session set container=PDB5;
 @/home/oracle/labs/multitenant/cpu_test.sql </copy>
 ````
 ````
-SQL> alter session set container=pdb_2;
+SQL> alter session set container=PDB5;
 @/home/oracle/labs/multitenant/cpu_test.sql
 Session altered.
 SQL>
@@ -877,15 +871,15 @@ SQL> /
     CON_ID PDB_NAME   CPU_UTILIZATION_LIMIT AVG_CPU_UTILIZATION   JOB_SESS
 ---------- ---------- --------------------- ------------------- ----------
          3 PDB1                         100                   0          0
-         4 PDB_2                        100                  99          4
+         4 PDB5                         100                  99          4
 ````
-Observer that when there is no load on PDB1, the PDB_2 is able to use all of the CPUs allocated to the CDB.
+Observer that when there is no load on PDB1, the PDB5 is able to use all of the CPUs allocated to the CDB.
 Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql typing the "/" .
 
-Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 4 in my case. So, when we run load on both PDBs, the CPU utilization should be equal to 80% for PDB1 and 20% for PDB_2.
+Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 4 in my case. So, when we run load on both PDBs, the CPU utilization should be equal to 80% for PDB1 and 20% for PDB5.
 
 ````
-<copy>alter session set container=pdb_2;
+<copy>alter session set container=PDB5;
 @/home/oracle/labs/multitenant/cpu_test.sql
 alter session set container=pdb1;
 @/home/oracle/labs/multitenant/cpu_test.sql </copy>
@@ -898,7 +892,7 @@ SQL> /
     CON_ID PDB_NAME   CPU_UTILIZATION_LIMIT AVG_CPU_UTILIZATION   JOB_SESS
 ---------- ---------- --------------------- ------------------- ----------
          3 PDB1                         100                  77          4
-         4 PDB_2                        100                  20          4
+         4 PDB5                         100                  20          4
 ````
 
 
