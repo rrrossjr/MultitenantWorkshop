@@ -4,7 +4,7 @@
 
 This is a series of hands-on exercises designed to familiarize you with Oracle Multitenant and the Network isolation feature. In these exercises, you will dive into the concepts of Database Firewalls, Resource management and Lockdown features.
 
-#### Lab Environment Setup
+## Step 0: Lab Environment Setup
 
 At this point, it is assumed that you have a Multitenant workshop environment and you have already run the "Multitenant Basics" section.  If you are starting this section before the "Multitenant Basics" section, then run the following setup script.
 
@@ -16,15 +16,13 @@ unzip -o labs.zip
 chmod -R +x /home/oracle/labs
 /home/oracle/labs/multitenant/resetCDB.sh</copy>
 ````
-
 If you have not reset after the previous lab, you can run resetCDB.sh to start with a clean environment. If any errors about dropping databases appear they can be ignored.
-
-```
-<copy> cd /home/oracle/labs/multitenant
+````
+<copy>cd /home/oracle/labs/multitenant
 ./resetCDB.sh </copy>
-```
+````
 
-##  Step 1: Database Service Firewall
+## Step 1: Database Service Firewall
 
 Database Service Firewall is a feature of Oracle Access Control List (ACL) since database version 12.2.
 
@@ -32,14 +30,13 @@ Service-Level ACLs allow you to control access to specific services, including t
 
 ![](./images/MT3_DB_service_firewall.png)
 
-#### SETUP STEPS
-
+You will be setting up Database Service Firewall performing the following steps
    - Install the ACL package
    - Configure the listener
    - Add the IP ADDRESS to the whitelist for each PDB.
    - Verify/test.
 
-#####    **1:  Install ACL package**
+1. Install **ACL package**
 
 You need to install a database package called DBMS\_SFW\_ACL\_ADMIN. This is installed by running a script as sysdba. This package is owned by the DBSFWUSER schema. 
 
@@ -83,33 +80,29 @@ Session altered.
 
 SQL> exit;
 ````
+2.  Configure the **listener** by editing **Listener.ora**
 
-#####    **2:  Configure the listener.**
+**First, take a backup of current listener configuration file.**
 
-**Take a backup of current listener configuration file.**
-
-You could open another termimal to take a backup.
-
-```
+````
 <copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup </copy>
-```
-
-**Edit Listener.ora**
-
-The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file.  In our example the CDB1 DB is listening on listener **LISTCDB1**.  You will need to add the following line to the "listener.ora" file.
-
-````
-LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON
 ````
 
-The `FIREWALL` attribute can be added to the listener endpoint to control the action of the database firewall.
+The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file.  In our example the CDB1 container DB is listening on listener **LISTCDB1**.  
+
+You will need to add the following line to the end of the "listener.ora" file.
+````
+<copy>LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON</copy>
+````
+
+The `FIREWALL` attribute must be added to the listener endpoint to control the action of the database firewall.  There are two settings for FIREWALL.
 
    - `FIREWALL=ON` : Only connections matching an ACL are considered valid. All other connections are rejected.
    - `FIREWALL=OFF` : The firewall functionality is disabled, so all connections are considered valid.
 
-````
 Use your favorite editor (like "vi") to edit listener.ora to make the edits in red shown below.<b> Just add the text in red, your VM has a different hostname so do not copy the entire box below.</b>
 
+````
 $ <copy>vi $ORACLE_HOME/network/admin/listener.ora </copy>
 ````
 
@@ -141,7 +134,7 @@ LISTCDB2 =
 
 </pre>
 
-###### **Restart listener and verify FIREWALL=ON.**
+3. **Restart listener and verify FIREWALL=ON.**
 
 ````
 <copy>lsnrctl stop listcdb1
@@ -149,7 +142,7 @@ lsnrctl start listcdb1
 lsnrctl status listcdb1 </copy>
 ````
 ````
-[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl stop listcdb1
+[oracle@adb548-oracle-jul16-09 ~]$ <b>lsnrctl stop listcdb1</b>
 
 LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:17:30
 
@@ -159,7 +152,7 @@ Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=adb548-oracle-jul16-09)(
 The command completed successfully
 ````
 ````
-[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl start listcdb1
+[oracle@adb548-oracle-jul16-09 ~]$ <b>lsnrctl start listcdb1</b>
 
 LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:19:24
 
@@ -190,7 +183,7 @@ The listener supports no services
 The command completed successfully
 ````
 ````
-[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl status listcdb1
+[oracle@adb548-oracle-jul16-09 ~]$ <b>lsnrctl status listcdb1</b>
 
 LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:21:00
 
@@ -221,25 +214,37 @@ Service "pdb1" has 1 instance(s).
   Instance "CDB1", status READY, has 1 handler(s) for this service...
 The command completed successfully
 ````
-It can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
+You may not see that the Services were restarted and it can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
 
 Once all the PDB services are available, specifically the PDB1 service, you can continue with the exercise.
 
-````
-sqlplus / as sysdba 
-alter system register; 
-exit;
+4. Connect to **CDB1**  
 
-lsnrctl status listcdb1
+````
+<copy>sqlplus /nolog
+connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
+````
+
+5. Register the Services
+
+````
+<copy>alter system register; 
+exit;</copy>
+````
+
+6. Check that the Services are started
+
+````
+$ <copy>lsnrctl status listcdb1</copy>
 ````
 ````
 SQL> alter system register;
-exit;
 System altered.
 
-SQL>
+SQL> exit;
 Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
 Version 19.5.0.0.0
+
 [oracle@adb513-virtual-jul21-20 ~]$ lsnrctl status listcdb1
 
 LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 22-JUL-2020 23:42:23
@@ -275,17 +280,18 @@ Service "pdb2" has 1 instance(s).
   Instance "CDB1", status READY, has 1 handler(s) for this service...
 The command completed successfully
 ````
-
-#####    **3: Add IP address to PDB whitelist.**
+7. Test connection to the PDB1 pluggable database
 
 Create a policy whitelist in access control list (ACL) that contains a list of hosts that are allowed access to a specific database service. Local listeners and server processes validate all inbound client connections against the ACL.
 
-Once the firewall is set and the listener is restarted, you will need to add the IP address of every connection that can be accepted per PDB. We are creating a whitelist of all IP addresses that can connect to a service. In our multitenant environment, CDB1 and PDB1 are both services. We can add additional user defined service and add whitelist to them as well.
+Once the firewall is set and the listener is restarted, you will need to add the IP address of every server connection that can be accepted per PDB. We are creating a whitelist of all IP addresses that can connect to a service. In our multitenant environment, CDB1 and PDB1 are both services. We can add additional user defined services and add whitelist to them as well.
 
 Try to login to **PDB1** in your localhost before putting an IP address in the whitelist.
-```
+````
 <copy>sqlplus sys/oracle@//localhost:1523/pdb1 as sysdba</copy>
+````
 
+````
 $ sqlplus sys/oracle@//localhost:1523/pdb1 as sysdba
 
 SQL*Plus: Release 19.0.0.0.0 - Production on Fri Jul 17 19:19:00 2020
@@ -293,15 +299,22 @@ Version 19.5.0.0.0
 
 Copyright (c) 1982, 2019, Oracle.  All rights reserved.
 
-ERROR:
-ORA-12506: TNS:listener rejected connection based on service ACL filtering
-```
-
-You will see that the connection fails with error ORA-12506. Since even the local host IP address is not included in the whitelist, the listener does not allow connections.
-We are clearly not allowed to access this database based on the ACL filtering available. So now we are going to add our IP address to the whitelist for the (default) service PDB1.  **Notice that you can connect locally using OS authentication.**
+<b>ERROR:
+ORA-12506: TNS:listener rejected connection based on service ACL filtering</b>
 ````
-<copy>sqlplus / as sysdba
-show pdbs
+
+You will see that the connection fails with error ORA-12506 since the local host IP address is not yet included in the listener whitelist.  
+
+8. Add IP address to PDB whitelist.**
+
+So now we are going to add our IP address or alias to the whitelist for the (default) service PDB1.  
+
+Connect to PDB1 locally using OS authentication.  **You will notice that you can connect locally using OS authentication.**
+````
+<copy>sqlplus / as sysdba</copy>
+````
+````
+<copy>show pdbs
 exec  dbsfwuser.DBMS_SFW_ACL_ADMIN.ip_add_ace('pdb1','localhost');
 exec  dbsfwuser.DBMS_SFW_ACL_ADMIN.commit_acl; </copy>
 ````
@@ -313,17 +326,16 @@ SQL> exec  dbsfwuser.DBMS_SFW_ACL_ADMIN.commit_acl;
 
 PL/SQL procedure successfully completed.
 ````
-Now connect using username/password from localhost to verify.
-
+8. Again Test connection to the PDB1 pluggable database after adding localhost to the whitelist ACL list.
 ````
-<copy>conn sys/oracle@//localhost:1523/pdb1 as sysdba </copy>
+<copy>connect sys/oracle@//localhost:1523/pdb1 as sysdba </copy>
 
-SQL> conn sys/oracle@//localhost:1523/pdb1 as sysdba
+SQL> connect sys/oracle@//localhost:1523/pdb1 as sysdba
 Connected.
 ````
-You can now connect to PDB1 successfully from localhost since we added localhost to the whitelist. If you need to test IP address or external hosts in this environment, we will have to open port 1523 in Oracle Virtual Cloud Network (VCN) and add port 1523 in the linux firewall.  
+You can now connect to PDB1 successfully from localhost since we added localhost to the whitelist. If you wanted to test with an IP address or external host in this environment, we would first have to open port 1523 in Oracle Cloud's Virtual Cloud Network (VCN) and add port 1523 in the linux firewall.  
 
-The V$IP_ACL view lists the active ACLs.
+9. Look at the view V$IP_ACL to see the active ACLs.
 
 ````
 - Display the saved ACLs.
@@ -347,15 +359,17 @@ PDB1                           MTV30.SUB04061927430.MTWORKSHO          3
                                P.ORACLEVCN.COM
 
 ````
-This is the end of exercise. Please clean your environment so that it is ready for the next exercise by restoring and restarting the original listener.
+10. Reset the Listener.ora
+
+This is the end of exercise. Please reset your environment so that it is ready for the next exercise by restoring and restarting the original listener. Exit SQL*Plus with the exit command.  Then run the following linux commands.
 ````
-<copy>cd $ORACLE_HOME/network/admin
+$ <copy>cd $ORACLE_HOME/network/admin
 cp  listener.backup listener.ora
 lsnrctl stop LISTCDB1
 lsnrctl start LISTCDB1</copy>
 ````
 
-## Step 2: Multitenant Lockdown
+## Step 2: Multitenant PDB Lockdown Profile
 
 Tenant isolation is a key requirement for security in a multitenant environment. A PDB lockdown profile allows you to restrict the operations and functionality available from within a PDB. This can be very useful from a security perspective, giving the PDBs a greater degree of separation and allowing different people to manage each PDB, without compromising the security of other PDBs within the same container database.
 
@@ -391,22 +405,26 @@ The steps are
 - Add statements to the lockdown profile which are disabled.
 - Set PDB_LOCKDOWN parameter
 
-### Create a lockdown profile.
-
+1. Connect to **CDB1**  
 ````
-<copy>conn / as sysdba
-show con_name
+<copy>sqlplus /nolog
+connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
+````
+
+2. Create a lockdown profile.
+````
+<copy>show con_name
 show pdbs
 
 create lockdown profile TENANT_LOCK; </copy>
 ````
 
-#### Add restrictions to profile
+3. Add restrictions to the lockdown profile
 
-You can lockdown Oracle options such as the partitioning option or you can lockdown indivicual SQL statements like **alter system**.
+In our test, you will lockdown the Oracle partitioning option and the indivicual SQL statements **alter system**.
 ````
-alter lockdown profile sec_profile disable option=('Partitioning');
-alter lockdown profile sec_profile disable statement=('alter system') clause=('set') option all;.
+<copy>alter lockdown profile sec_profile disable option=('Partitioning');
+alter lockdown profile sec_profile disable statement=('alter system') clause=('set') option all;</copy>
 ````
 
 The scope of the restriction can be reduced using the CLAUSE, OPTION, MINVALUE, MAXVALUE options and values.
