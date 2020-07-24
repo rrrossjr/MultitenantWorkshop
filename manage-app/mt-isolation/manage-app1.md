@@ -405,8 +405,8 @@ create lockdown profile TENANT_LOCK; </copy>
 
 In our test, you will lockdown the Oracle partitioning option and the individual SQL statement **alter system**.
 ````
-<copy>alter lockdown profile sec_profile disable option=('Partitioning');
-alter lockdown profile sec_profile disable statement=('alter system') clause=('set') option all;</copy>
+<copy>alter lockdown profile TENANT_LOCK disable option=('Partitioning');
+alter lockdown profile TENANT_LOCK disable statement=('alter system') clause=('set') option all;</copy>
 ````
 
 The scope of the restriction can be reduced using the CLAUSE, OPTION, MINVALUE, MAXVALUE options and values.
