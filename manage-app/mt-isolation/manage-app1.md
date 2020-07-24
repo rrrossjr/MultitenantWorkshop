@@ -374,6 +374,7 @@ A Lockdown Profile can prevent PDB users from:
 
 See the [Oracle Database Security Guide](https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/configuring-privilege-and-role-authorization.html) for more information on PDB Lockdown Profiles.
 
+Some Key Considerations
 - A single Lockdown Profile can have several rules defined in it. In other words, you don't have to create a Lockdown Profile for every restriction you want to implement.
 
 - A PDB can have only one Lockdown Profile active at a time.
