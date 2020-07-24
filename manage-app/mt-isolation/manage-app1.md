@@ -22,9 +22,9 @@ If you have not reset after the previous lab, you can run resetCDB.sh to start w
 ./resetCDB.sh </copy>
 ````
 
-## Step 1: Firewall Service-Level ACLs for TCP Protocol
+## Step 1: Service-Level ACLs for TCP Protocol
 
-With this feature, every database service can have its own access control list (ACL) and the ACL is based on IPs. An access control list in Oracle is a list of access control entries to restrict the hosts that are allowed to connect to the Oracle database.
+With the "database service firewall" feature, every database service can have its own access control list (ACL) and the ACL is based on IPs. An access control list in Oracle is a list of access control entries to restrict the hosts that are allowed to connect to the Oracle database.
 
 Because each pluggable database is a different service, this feature enables different pluggable databases to have different ACLs. These ACLs are enforced by the listener. Access to a pluggable database service is enabled only for IPs that are permitted through an ACL.
 
