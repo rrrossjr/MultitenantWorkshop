@@ -82,12 +82,12 @@ Session altered.
 
 SQL> exit;
 ````
-2.  Configure the **listener** by editing **Listener.ora**
+2.  Configure the **listener** by editing **listener.ora**
 
 **First, make a backup copy of the current listener configuration file.**
 
 ````
-<copy>cp -i $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup 
+<copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup 
 ````
 
 The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file.  In our example the CDB1 container DB is listening on listener **LISTCDB1**.  
