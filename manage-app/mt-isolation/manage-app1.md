@@ -356,12 +356,12 @@ lsnrctl start LISTCDB1</copy>
 
 ## Step 2: Multitenant PDB Lockdown Profile
 
-Tenant isolation is a key requirement for security in a multitenant environment. A PDB lockdown profile allows you to restrict the operations and functionality available from within a PDB. This can be very useful from a security perspective, giving the PDBs a greater degree of separation and allowing different people to manage each PDB, without compromising the security of other PDBs within the same container database.
+Tenant isolation is a key requirement for security in a multitenant environment. A PDB Lockdown Profile allows you to restrict the operations and functionality available from within a PDB. This can be very useful from a security perspective, giving the PDBs a greater degree of separation and allowing different people to manage each PDB, without compromising the security of other PDBs within the same container database.
 
 The following video is from Oracle Product Manager Patrick Wheeler. He gives a short explanation of PDB Lockdown Profiles.
 [](youtube:kop6fruRC-I)
 
-A lockdown profile can prevent PDB users from:
+A Lockdown Profile can prevent PDB users from:
 
 1. Executing certain SQL statements, such as ALTER SYSTEM and ALTER SESSION
 2. Running procedures that access the network (e.g. UTL\_SMTP, UTL\_HTTP)
@@ -372,19 +372,19 @@ A lockdown profile can prevent PDB users from:
 7. Using JAVA partially or as a whole
 8. Using certain database options such as Advanced Queueing and Partitioning
 
-See the [Oracle Database Security Guide](https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/configuring-privilege-and-role-authorization.html) for more information on PDB lockdown profiles.
+See the [Oracle Database Security Guide](https://docs.oracle.com/en/database/oracle/oracle-database/19/dbseg/configuring-privilege-and-role-authorization.html) for more information on PDB Lockdown Profiles.
 
-- A single lockdown profile can have several rules defined in it. In other words, you don't have to create a lockdown profile for every restriction you want to implement.
+- A single Lockdown Profile can have several rules defined in it. In other words, you don't have to create a Lockdown Profile for every restriction you want to implement.
 
-- A PDB can have only one lockdown profile active at a time.
+- A PDB can have only one Lockdown Profile active at a time.
 
-- The restrictions enforced by a lockdown profile are PDB-wide, they affect every single user including SYS and SYSTEM.
+- The restrictions enforced by a Lockdown Profile are PDB-wide, they affect every single user including SYS and SYSTEM.
 
-- If you enable a lockdown profile in CDB Root, it affects all PDBs in the CDB. If you enable it in an Application Root (App Root), it affects all Application PDBs (App PDBs) under that App Root. If you enable it within a PDB, it only affects that PDB.
+- If you enable a Lockdown Profile in CDB Root, it affects all PDBs in the CDB. If you enable it in an Application Root (App Root), it affects all Application PDBs (App PDBs) under that App Root. If you enable it within a PDB, it only affects that PDB.
 
 The steps are
-- Create lockdown profile
-- Add statements to the lockdown profile which are disabled.
+- Create Lockdown Profile
+- Add statements to the Lockdown Profile 
 - Set PDB_LOCKDOWN parameter
 
 1. Connect to **CDB1**  
@@ -392,7 +392,7 @@ The steps are
 <copy>sqlplus sys/oracle@localhost:1523/cdb1 as sysdba</copy>
 ````
 
-2. Create a lockdown profile.
+2. Create a Lockdown Profile.
 ````
 <copy>show con_name
 show pdbs
@@ -400,7 +400,7 @@ show pdbs
 create lockdown profile TENANT_LOCK; </copy>
 ````
 
-3. Add restrictions to the lockdown profile
+3. Add restrictions to the Lockdown Profile
 
 In our test, you will lockdown the Oracle partitioning option and the indivicual SQL statement **alter system**.
 ````
@@ -418,7 +418,7 @@ The scope of the restriction can be reduced using the CLAUSE, OPTION, MINVALUE, 
           MAXVALUE = '6';
 </pre>
 
-In the following example, you will prohibit the ability to change the parameter CURSOR_SHARING in a PDB. Changing this parameter could cause changes in performance and behavior and affect other tenants in the CDB. Adding a rule to the newly created TENANT\_LOCK lockdown profile is done with an ALTER LOCKDOWN PROFILE command. We will also lockdown the use of the partitioning option in the lockdown profile.
+In the following example, you will prohibit the ability to change the parameter CURSOR_SHARING in a PDB. Changing this parameter could cause changes in performance and behavior and affect other tenants in the CDB. Adding a rule to the newly created TENANT\_LOCK Lockdown Profile is done with an ALTER LOCKDOWN PROFILE command. We will also lockdown the use of the partitioning option in the Lockdown Profile.
 
 ````
 <copy>ALTER LOCKDOWN PROFILE TENANT_LOCK DISABLE STATEMENT=('alter system') CLAUSE=('set') OPTION=('cursor_sharing');
@@ -433,7 +433,7 @@ Lockdown Profile altered.
 
 4. View the Lockdown Profile restrictions
 ````
-Information about PDB lockdown profiles can be displayed using the DBA\_LOCKDOWN\_PROFILES view.
+Information about PDB Lockdown Profiles can be displayed using the DBA\_LOCKDOWN\_PROFILES view.
 ````
 <copy>SET LINESIZE 200
 COLUMN profile_name format a20
@@ -519,7 +519,7 @@ ORA-00439: feature not enabled: Partitioning
 ````
 As you can see, you are not able to create a partitioned table or alter initialization parameters from PDB1 even with SYS privileges.  
 
-8. Drop the lockdown profile and unset the parameter.
+8. Drop the Lockdown Profile and unset the parameter.
 
 ````
 <copy>show parameter pdb_lockdown
