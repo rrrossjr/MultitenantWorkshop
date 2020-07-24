@@ -498,6 +498,7 @@ Table created.
 ````
 
 6. Set the Lockdown Profile to TENANT\_LOCK
+
 We saw that the DBA could create partitioned tables and alter initialization parameters. Now lets assign the Lockdown Profile TENANT\_LOCK to this PDB.  
 ````
 <copy>show parameter pdb_lockdown
@@ -513,6 +514,8 @@ NAME                                 TYPE        VALUE
 pdb_lockdown                         string      TENANT_LOCK
 ````
 7. Test permissions after assigning a Lockdown Profile 
+
+You should not be able to set cursor_sharing or create a partitioned table.
 ````
 SQL> <copy>alter system set cursor_sharing=EXACT;</copy>
 alter system set cursor_sharing=EXACT
@@ -520,7 +523,6 @@ alter system set cursor_sharing=EXACT
 ERROR at line 1:
 ORA-01031: insufficient privileges
 ````
-Test to see if you can create a partitioned table when the profile is enabled.
 ````
 SQL> <copy>create table MyPartitionedTable2 (id number) partition by hash (id) partitions 2;</copy>
 create table MyPartitionedTable2(id number) partition by hash (id) partitions 2
