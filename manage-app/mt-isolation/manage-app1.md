@@ -392,6 +392,10 @@ The implementation steps are
 ````
 <copy>sqlplus / as sysdba
 @whoami</copy>
+
+Who am I?
+--------------------------------------------------------------------------------
+DB Name: CDB1 / in CDB: CDB1 / Auth-ID: oracle / User: SYS / Container: CDB$ROOT
 ````
 
 2. Create a Lockdown Profile.
