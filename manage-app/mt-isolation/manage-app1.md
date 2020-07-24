@@ -390,7 +390,8 @@ The implementation steps are
 
 1. Connect to **CDB1**  
 ````
-<copy>sqlplus sys/oracle@localhost:1523/cdb1 as sysdba</copy>
+<copy>sqlplus / as sysdba
+@whoami</copy>
 ````
 
 2. Create a Lockdown Profile.
