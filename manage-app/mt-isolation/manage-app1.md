@@ -341,9 +341,7 @@ SELECT service_name,
        con_id
 FROM   v$ip_acl
 ORDER BY 1, 2;
-exit;
-</copy>
-
+exit; </copy>
 
 SERVICE_NAME                   HOST                               CON_ID
 ------------------------------ ------------------------------ ----------
@@ -353,7 +351,7 @@ PDB1                           LOCALHOST                               3
 
 This is the end of the exercise. Reset your environment so that it is ready for the next exercise by restoring and restarting the original listener. 
 ````
-$ <copy>cp $ORACLE_HOME/network/admin/listener.backup $ORACLE_HOME/network/adminlistener.ora
+$ <copy>cp $ORACLE_HOME/network/admin/listener.backup $ORACLE_HOME/network/admin/listener.ora
 lsnrctl stop LISTCDB1
 lsnrctl start LISTCDB1</copy>
 ````
