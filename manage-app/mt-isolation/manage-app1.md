@@ -452,9 +452,8 @@ TENANT_LOCK          OPTION     PARTITIONING                        DISABLE ALL
 TENANT_LOCK          STATEMENT  ALTER SYSTEM  SET   CURSOR_SHARING  DISABLE ALL
 ````
 5. Test permissions before assigning a Lockdown Profile 
-Verify you can change the CURSOR\_SHARING parameter.
 
-Connect to container PDB1 and display the value of CURSOR_SHARING
+Verify you can change the CURSOR\_SHARING parameter in PDB1.  Connect to container PDB1 and display the value of CURSOR_SHARING
 ````
 <copy>alter session set container=PDB1;
 show parameter cursor_sharing</copy>
@@ -468,11 +467,18 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 cursor_sharing                       string      EXACT
 ````
-Change the value oF CURSOR_SHARING to FORCE
+Change the value of parameter CURSOR_SHARING to FORCE
 ````
-SQL> <copy>alter system set cursor_sharing = FORCE; </copy>
+SQL> <copy>alter system set cursor_sharing = FORCE; 
+show parameter cursor_sharing</copy>
 
 System altered.
+
+SQL> show parameter cursor_sharing
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+cursor_sharing                       string      FORCE
 ````
 Verify you can create a partitioned table.
 ````
