@@ -299,7 +299,7 @@ You will see that the connection fails with error ORA-12506 since the local host
 
 8. Add IP address to PDB whitelist.**
 
-So now we are going to add our IP address or alias to the whitelist for the (default) service PDB1.  
+So now we are going to add our IP address or hostname to the whitelist for the (default) service PDB1.  
 
 Connect to PDB1 locally using OS authentication.  **You will notice that you can connect locally using OS authentication.**
 ````
@@ -341,22 +341,19 @@ SELECT service_name,
        con_id
 FROM   v$ip_acl
 ORDER BY 1, 2;
+exit;
 </copy>
+
 
 SERVICE_NAME                   HOST                               CON_ID
 ------------------------------ ------------------------------ ----------
-PDB1                           10.0.0.2                                3
 PDB1                           LOCALHOST                               3
-PDB1                           MTV30.SUB04061927430.MTWORKSHO          3
-                               P.ORACLEVCN.COM
-
 ````
 10. Reset the Listener.ora
 
-This is the end of exercise. Please reset your environment so that it is ready for the next exercise by restoring and restarting the original listener. Exit SQL*Plus with the exit command.  Then run the following linux commands.
+This is the end of the exercise. Reset your environment so that it is ready for the next exercise by restoring and restarting the original listener. 
 ````
-$ <copy>cd $ORACLE_HOME/network/admin
-cp  listener.backup listener.ora
+$ <copy>cp $ORACLE_HOME/network/admin/listener.backup $ORACLE_HOME/network/adminlistener.ora
 lsnrctl stop LISTCDB1
 lsnrctl start LISTCDB1</copy>
 ````
