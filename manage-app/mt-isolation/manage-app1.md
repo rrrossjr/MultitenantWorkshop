@@ -143,7 +143,7 @@ lsnrctl start listcdb1
 lsnrctl status listcdb1 </copy>
 ````
 ````
-[oracle@adb548-oracle-jul16-09 ~]$ <b>lsnrctl stop listcdb1</b>
+[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl stop listcdb1
 
 LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:17:30
 
@@ -153,7 +153,7 @@ Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=adb548-oracle-jul16-09)(
 The command completed successfully
 ````
 ````
-[oracle@adb548-oracle-jul16-09 ~]$ <b>lsnrctl start listcdb1</b>
+[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl start listcdb1
 
 LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:19:24
 
@@ -184,7 +184,7 @@ The listener supports no services
 The command completed successfully
 ````
 ````
-[oracle@adb548-oracle-jul16-09 ~]$ <b>lsnrctl status listcdb1</b>
+[oracle@adb548-oracle-jul16-09 ~]$ lsnrctl status listcdb1
 
 LSNRCTL for Linux: Version 19.0.0.0.0 - Production on 17-JUL-2020 17:21:00
 
@@ -215,15 +215,14 @@ Service "pdb1" has 1 instance(s).
   Instance "CDB1", status READY, has 1 handler(s) for this service...
 The command completed successfully
 ````
-You may not see that the Services were restarted and it can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
+Check to see if your services were restarted.  It can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
 
-Once all the PDB services are available, specifically the PDB1 service, you can continue with the exercise.
+Once all the listener services are available, specifically the 'pdb1' service, you can continue with the exercise.
 
 4. Connect to **CDB1**  
 
 ````
-<copy>sqlplus /nolog
-connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
+<copy>sqlplus sys/oracle@localhost:1523/cdb1 as sysdba</copy>
 ````
 
 5. Register the Services
