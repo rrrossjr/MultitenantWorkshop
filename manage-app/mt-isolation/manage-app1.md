@@ -586,7 +586,7 @@ With the Resource Manager, you can:
 
 ### Memory Resource Management
 
-The advantage of having multitenant is that all the memory in a server can be provided to a single CDB and memory can be optimally utilized. However, the following parameters can be set at the PDB level to better manager resources and ensure that the CDB and the other PDBs have sufficient memory for their operations. 
+The advantage of having multitenant is that all the memory in a server can be provided to a single CDB and memory can be optimally utilized. However, the following parameters can be set at the PDB level to better manage resources and ensure that the CDB and the other PDBs have sufficient memory for their operations. 
 
 #### PDB Memory Parameters
 The following parameters can be set at the PDB level.
@@ -600,30 +600,25 @@ The following parameters can be set at the PDB level.
 
 The initialization parameters control the memory usage of PDBs only if the following conditions are met:
 
-The NONCDB_COMPATIBLE initialization parameter is set to false in the CDB root.
+The NONCDB\_COMPATIBLE initialization parameter is set to false in the CDB root.
 
-The MEMORY_TARGET initialization parameter is not set or is set to 0 (zero) in the CDB root.
+The MEMORY\_TARGET initialization parameter is is set to 0 (zero) or null in the CDB root.
 
-Let us set SGA_TARGET for PDB1 to 1G. First verify the default settings to enable Memory management.
+Let us set SGA\_TARGET for PDB1 to 1G. First verify the default settings to enable Memory management.
 ````
-<copy>conn / as SYSDBA
-show parameter  NONCDB_COMPATIBLE
+<copy>connect / as SYSDBA
+show parameter NONCDB_COMPATIBLE
 show parameter MEMORY_TARGET </copy>
-````
 
-````
-SQL> show parameter NONCDB_COMPATIBLE
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 noncdb_compatible                    boolean     FALSE
 
-SQL> show parameter MEMORY_TARGET
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 memory_target                        big integer 0
 ````
 Next check the value of SGA_TARGET in CDB1 and PDB1.
-
 ````
 <copy>show parameter sga_target
 ALTER SESSION SET CONTAINER=pdb1;
@@ -673,24 +668,36 @@ Two ways to limit CPU resources
 - Instance Caging with CPU\_COUNT
 - Resource Manager with CPU\_MIN\_COUNT ( new in 19c)
 
+#### Instance Caging
+
 Instance caging is a technique that uses an initialization parameter to limit the number of CPUs that an instance can use simultaneously. You can set CPU\_COUNT at the PDB level. If Resource Manager is enabled, then the PDB is **caged** (restricted) to the number of CPUs specified by CPU\_COUNT. This count can be dynamically altered. In an Oracle database hosting environment, the ability to alter CPU\_COUNT is useful to scale cpus up and down in PDBs.  Another advantage is oracle can monitor resource usage. The resource limits can dynamically trigger a change of the CPU\_COUNT. The CPUs will be available in all the sessions in the PDB immediately. This way, we can dynamically scale the CPUs for PDB tenants.
 
 Resource Manager allows one Oracle process per CPU to run at a given time. All other processes wait on an internal Resource Manager run queue, under the wait event "resmgr:cpu quantum". Resource Manager allows an Oracle process to run for a small quantum of time (100 milliseconds). At the end of this quantum or when the Oracle process starts a wait (e.g. for a lock or I/O), Resource Manager selects a new Oracle process to run. Resource Manager uses a round-robin algorithm , and has priority Queues to choose between all runnable processes.
 
-As mentioned above, to setup Instance Caging, we need to enable Resource Manager and set CPU\_COUNT at the PDB level.
+Setup Instance Caging, by enabling Resource Manager and set CPU\_COUNT at the PDB level.
 ````
-<copy>conn / as SYSDBA
+<copy>connect / as SYSDBA
 show parameter CPU_COUNT
 show parameter resource_</copy>
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+cpu_count                            integer     8
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+resource_limit                       boolean     TRUE
+resource_manage_goldengate           boolean     FALSE
+resource_manager_cpu_allocation      integer     8
+resource_manager_plan                string
 ````
 set default resource manager plan
 ````
-SQL> <copy> alter system set resource_manager_plan='DEFAULT_CDB_PLAN' ; </copy>
+SQL> <copy>alter system set resource_manager_plan='DEFAULT_CDB_PLAN' ; </copy>
 
 System altered.
-
 ````
-set CPU count in pdb1
+Set the parameter cpu_count count in pdb1
 ````
 <copy>alter session set container=pdb1;
 alter system set cpu_count=1;
@@ -714,22 +721,21 @@ That is it. By setting the parameter resource\_manager\_plan in the CDB and sett
  SQL> <copy> @/home/oracle/labs/multitenant/cpu_test.sql</copy>
 ````
 You can open a separate terminal and run "top -c " and look at "%Cpu(s):" in your environment.
-It will be limited to the percentage equal to one cpu. In our case, Total cpus were 2, so 1 cpu would be 50% cpu utilization.
+It will be limited to the percentage equal to one cpu. In our case, Total cpus were 8, so 1 cpu would be 12.5% cpu utilization.
 
 In a production system with many CPUs and PDB consolidation, it is possible to over provision. i.e. The total of CPU\_COUNT at PDB level is more than allocated at CDB level. This is a recommended configuration if we want better CPU utilization of the system.
 
-Now unset the CPU caging and rerun the workload. In our test, the cpu utilization peaks to 100% consuming the 2 CPUs available.
-
+Now unset the CPU caging and rerun the workload. In our test, the cpu utilization peaks to 100% consuming all the CPUs available.
 ````
- <copy>conn / as SYSDBA
+ <copy>connect / as SYSDBA
  alter system set resource_manager_plan='';
  alter session set container=PDB1;
  alter system set cpu_count=0;
  @/home/oracle/labs/multitenant/cpu_test.sql</copy>
- ````
+````
 The workload without resource management runs faster as it makes use of all the CPUs.
 
-Resource Manager CPU.
+#### Resource Manager with CPU\_MIN\_COUNT (new in 19c)
 
 Another way of managing CPU resources is through Resource Manager. We allocate a certain number of shares to each PDB. The amount of CPUs allocated to the PDB is equal to the percentage of shares of that PDB compared to the total number of shares across all the PDBS.
 
@@ -746,9 +752,7 @@ The steps to set this is
     -- Set cpu\_min\_count to specify its shares
     -- Set cpu_count to specify its limit
 
-
  ![](./images/CPU_RESOURCEMANAGER.png)
-
 
  Connect to CDB1 and set the resource plan.
 ````
