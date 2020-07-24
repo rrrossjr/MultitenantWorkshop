@@ -819,13 +819,13 @@ cpu_min_count                        string      1
 resource_manager_cpu_allocation      integer     8
 ````
 
-With 2 simple steps, the minimum resource is set. If you need to set instance Caging, you can set CPU\_COUNT at the PDB level as well.
+With 2 simple steps, the minimum resource is set. If you need to set Instance Caging, you can set CPU\_COUNT at the PDB level as well.
 
 By default, CPU\_MIN\_COUNT = CPU\_COUNT, If sum(CPU\_MIN\_COUNT) <= CDBs CPU\_COUNT, then each PDB is guaranteed CPU\_MIN\_COUNT CPUs
 
 To test this let us run some high CPU workload in PDB5. You will observe that the CPU utilization on the system will be 100%. Next when we put the same workload into PDB1, where CPU\_MIN\_COUNT=CPU\_COUNT=8, we will observe that PDB1 will capture a greater percent of CPU.
 
-Note that the workload script is single threaded and has a default of 4 threads. If you are testing this on servers with more cpus, you can increase the thread_count.
+Note that the workload script is single threaded and has a default of 8 threads. If you are testing this on servers with more cpus, you can increase the thread_count.
 ````
 <copy>alter session set container=PDB5;
 @/home/oracle/labs/multitenant/cpu_test.sql </copy>
@@ -866,7 +866,7 @@ order by r.con_id asc; </copy>
     CON_ID PDB_NAME   CPU_UTILIZATION_LIMIT AVG_CPU_UTILIZATION   JOB_SESS
 ---------- ---------- --------------------- ------------------- ----------
          3 PDB1                         100                   0          0
-         4 PDB5                         100                  99          4
+         4 PDB5                         100                  99          8
 ````
 Observe that when there is no load on PDB1, PDB5 is able to use all of the CPUs allocated to the CDB.
 
@@ -881,14 +881,13 @@ alter session set container=pdb1;
 @/home/oracle/labs/multitenant/cpu_test.sql </copy>
 ````
 Rerun the monitoring script in the other session_event and check the output.
-
 ````
 SQL> /
 
     CON_ID PDB_NAME   CPU_UTILIZATION_LIMIT AVG_CPU_UTILIZATION   JOB_SESS
 ---------- ---------- --------------------- ------------------- ----------
-         3 PDB1                         100                  77          4
-         4 PDB5                         100                  20          4
+         3 PDB1                         100                  87          8
+         4 PDB5                         100                  12          8
 ````
 
 
