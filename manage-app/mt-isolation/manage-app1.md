@@ -383,7 +383,7 @@ Some Key Considerations
 
 - If you enable a Lockdown Profile in CDB Root, it affects all PDBs in the CDB. If you enable it in an Application Root (App Root), it affects all Application PDBs (App PDBs) under that App Root. If you enable it within a PDB, it only affects that PDB.
 
-The steps are
+The implementation steps are
 - Create Lockdown Profile
 - Add statements to the Lockdown Profile 
 - Set PDB_LOCKDOWN parameter
