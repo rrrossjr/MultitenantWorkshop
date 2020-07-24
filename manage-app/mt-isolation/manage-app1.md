@@ -785,7 +785,7 @@ alter pluggable database PDB5 open;
 alter session set container=PDB5;
 show parameter cpu_
 alter system set cpu_min_count=1;
-</copy>
+show parameter cpu_ </copy>
 
 SQL> create pluggable database PDB5 admin user admin identified by oracle ;
 
@@ -820,29 +820,29 @@ cpu_min_count                        string      1
 resource_manager_cpu_allocation      integer     8
 ````
 
-That's it. With 2 simple steps, the minimum resource is set. If you need to set instance Caging, you can set CPU\_COUNT in PDB level as well.
+With 2 simple steps, the minimum resource is set. If you need to set instance Caging, you can set CPU\_COUNT at the PDB level as well.
 
-By default, CPU\_MIN\_COUNT = CPU\_COUNT, If sum(CPU\_MIN\_COUNT) <= CDB’s CPU\_COUNT , then each PDB is guaranteed CPU\_MIN\_COUNT CPUs
+By default, CPU\_MIN\_COUNT = CPU\_COUNT, If sum(CPU\_MIN\_COUNT) <= CDBs CPU\_COUNT, then each PDB is guaranteed CPU\_MIN\_COUNT CPUs
 
-To test this let us run some high CPU workload in PDB\_2. You will observer that the CPU utilization on the system will be 100%. Next when we put the same workload into PDB1 , where CPU\_MIN\_COUNT=CPU\_COUNT=4, we will observe that while the PDB1 will capture a greater percent of CPU.
+To test this let us run some high CPU workload in PDB5. You will observe that the CPU utilization on the system will be 100%. Next when we put the same workload into PDB1, where CPU\_MIN\_COUNT=CPU\_COUNT=8, we will observe that PDB1 will capture a greater percent of CPU.
 
 Note that the workload script is single threaded and has a default of 4 threads. If you are testing this on servers with more cpus, you can increase the thread_count.
-
 ````
-<copy>
-alter session set container=PDB5;
+<copy>alter session set container=PDB5;
 @/home/oracle/labs/multitenant/cpu_test.sql </copy>
 ````
 ````
 SQL> alter session set container=PDB5;
-@/home/oracle/labs/multitenant/cpu_test.sql
+
 Session altered.
-SQL>
+
+SQL> @/home/oracle/labs/multitenant/cpu_test.sql
+
 PL/SQL procedure successfully completed.
 ````
 If you open another session and monitor CPU utilization , it should be 100%. However, to find out which PDB is consuming CPUs, we need to look at  V$RSRCPDBMETRIC.
-In a new session , run the following script to see the CPU utilization per PDB.
 
+In a new ssh window, run the following script to see the CPU utilization per PDB.
 ````
 <copy>sqlplus / as SYSDBA
 COLUMN PDB_NAME FORMAT A10
@@ -863,20 +863,17 @@ p.PDB_NAME,
 r.CPU_UTILIZATION_LIMIT,
 r.AVG_CPU_UTILIZATION
 order by r.con_id asc; </copy>
-````
-````
-SQL>
-SQL> /
 
     CON_ID PDB_NAME   CPU_UTILIZATION_LIMIT AVG_CPU_UTILIZATION   JOB_SESS
 ---------- ---------- --------------------- ------------------- ----------
          3 PDB1                         100                   0          0
          4 PDB5                         100                  99          4
 ````
-Observer that when there is no load on PDB1, the PDB5 is able to use all of the CPUs allocated to the CDB.
+Observe that when there is no load on PDB1, PDB5 is able to use all of the CPUs allocated to the CDB.
+
 Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql typing the "/" .
 
-Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 4 in my case. So, when we run load on both PDBs, the CPU utilization should be equal to 80% for PDB1 and 20% for PDB5.
+Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 8 in my case. So, when we run load on both PDBs, the CPU utilization should be equal to 80% for PDB1 and 20% for PDB5.
 
 ````
 <copy>alter session set container=PDB5;
