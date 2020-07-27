@@ -918,8 +918,7 @@ Connect to CDB1 and unset the resource plan manager at the CDB level
 ````
 <copy>connect / as sysdba 
 show parameter resource_manager_plan
-alter system set resource_manager_plan='';
-</copy>
+alter system set resource_manager_plan=''; </copy>
 ````
 Create a pluggable database OE with an admin user of SOE
 ````
