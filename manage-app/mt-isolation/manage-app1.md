@@ -634,7 +634,7 @@ NAME                                 TYPE        VALUE
 sga_target                           big integer 0
 ````
 
-Set SGA_TARGET for pdb1
+Set SGA_TARGET for PDB1.  When this parameter is set for a PDB, it specifies the maximum SGA that the PDB can use at any time. 
 ````
 <copy>ALTER SYSTEM SET sga_target=1G SCOPE=BOTH;
 SHOW PARAMETER sga_target;</copy>
