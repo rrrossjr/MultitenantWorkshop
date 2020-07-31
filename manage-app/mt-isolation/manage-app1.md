@@ -845,7 +845,7 @@ In a new ssh window, run the following script to see the CPU utilization per PDB
 -- Script to find out which PDBs are consuming CPUs 
 <copy>alter session set container = CDB$ROOT;
 COLUMN PDB_NAME FORMAT A10
-COLUMN CPU_UTILIZATION_LIMIT 9999
+COLUMN CPU_UTILIZATION_LIMIT FORMAT 9999
 SELECT r.CON_ID,
        p.PDB_NAME,
        r.CPU_UTILIZATION_LIMIT,
