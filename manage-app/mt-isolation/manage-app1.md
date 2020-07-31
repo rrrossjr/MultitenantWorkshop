@@ -720,6 +720,8 @@ It will be limited to the percentage equal to one cpu. In our case, Total cpus w
 
 ![](./images/top-c-output.png)
 
+<img src="./images/top-c-output.png" width="50" />
+
 In a production system with many CPUs and PDB consolidation, it is possible to over provision. i.e. The total of CPU\_COUNT at PDB level is more than allocated at CDB level. This is a recommended configuration if we want better CPU utilization of the system.
 
 Now unset the CPU caging and rerun the workload. In our test, the cpu utilization peaks to 100% consuming all the CPUs available.
