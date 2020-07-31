@@ -735,13 +735,13 @@ The workload without resource management runs faster as it makes use of all the 
 
 #### Resource Manager with CPU\_MIN\_COUNT (new in 19c)
 
-Another way of managing CPU resources is through Resource Manager. We allocate a certain number of shares to each PDB. The number of CPUs allocated to the PDB is equal to the percentage of shares of that PDB compared to the total number of shares across all the PDBS.
+Another way of managing CPU resources is through Resource Manager CPU shares. We allocate a certain number of shares to each PDB. The number of CPUs allocated to the PDB is equal to the percentage of shares of that PDB compared to the total number of shares across all the PDBS.
 
 To allocate resources among PDBs, assign a share value to each PDB. Until 19c database, the shares were allocated to each pdb through the PL/SQL package DBMS\_RESOURCE\_MANAGER. Since 19c, a new parameter has been introduced called CPU\_MIN\_COUNT. This allows us to set the minimum CPUs available per PDB.
 
 CPU\_MIN\_COUNT is the minimum number of CPUs the Pluggable Database Instance will receive.  The total of CPU\_MIN\_COUNT for all Pluggable Database instances should not exceed the CPU\_COUNT of the Container Database instance. When Database Resource Manager (DBRM) is enabled, and when CPU\_MIN\_COUNT has been set, the CPU\_COUNT parameter defines the maximum number of CPUs that can be used by a Pluggable Database Instance.
 
-CPU\_MIN\_COUNT allows the PDB tenant to utilize 100% of the CPUs allocated to the CDB if there is no load on the system. Only when the workload on the system is more than 100% of the CPUs allocated to the CDB and workload is from more than one PDB, will the resource manager kick in and prioritize CPU resource based on the percentage of shares or CPU\_MIN\_COUNT.
+When there is no load on the system, the parameter CPU\_MIN\_COUNT is ignored allowing the PDB tenant to utilize 100% of the CPUs allocated to the CDB. Only when the workload on the system is more than 100% of the CPUs allocated to the CDB and workload is from more than one PDB, will the resource manager kick in and prioritize CPU resource based on the percentage of shares or CPU\_MIN\_COUNT.
 
 The steps to set this are
 - At the CDB level
