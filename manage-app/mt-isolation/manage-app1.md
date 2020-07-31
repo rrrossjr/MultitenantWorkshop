@@ -712,10 +712,13 @@ cpu_count                            integer     1
 That is it. By setting the parameter resource\_manager\_plan in the CDB and setting the CPU\_COUNT parameter in the PDB, you have setup instance caging.  To test this, you can run the sample workload.
 
 ````
-SQL> <copy>@/home/oracle/labs/multitenant/cpu_test.sql</copy>
+SQL> <copy>alter session set container=pdb1;
+@/home/oracle/labs/multitenant/cpu_test.sql</copy>
 ````
 You can open a separate terminal and run "top -c " and look at "%Cpu(s):" in your environment.
 It will be limited to the percentage equal to one cpu. In our case, Total cpus were 8, so 1 cpu would be 12.5% cpu utilization.
+
+![](./images/top-c-output.png)
 
 In a production system with many CPUs and PDB consolidation, it is possible to over provision. i.e. The total of CPU\_COUNT at PDB level is more than allocated at CDB level. This is a recommended configuration if we want better CPU utilization of the system.
 
