@@ -979,6 +979,8 @@ Open a new terminal and query v$session\_event to see IO resource wait event.
 ````
 -- Connect to sqlplus
 <copy>sqlplus / nolog</copy>
+````
+````
 -- Look at Resource Manager I/O rate limit waits
 <copy>connect / as SYSDBA
 col con_id format 9999
