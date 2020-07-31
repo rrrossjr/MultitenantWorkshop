@@ -977,10 +977,11 @@ Elapsed: 00:01:14.17
 Now the same workload takes much longer to run. You can rerun any number of times.
 Open a new terminal and query v$session\_event to see IO resource wait event.
 ````
--- connect in another window to sqlplus
-<copy>sqlplus / as SYSDBA</copy>
+-- Connect to sqlplus
+<copy>sqlplus / nolog</copy>
 -- Look at Resource Manager I/O rate limit waits
-<copy>col con_id format 9999
+<copy>connect / as SYSDBA
+col con_id format 9999
 col event format a25
 col time_waited format 99,999,999
 select se.con_id,event,time_waited from v$session_event se,v$pdbs pdb where event like 'resmgr: %' and pdb.name='OE' and pdb.con_id=se.con_id ; </copy>
