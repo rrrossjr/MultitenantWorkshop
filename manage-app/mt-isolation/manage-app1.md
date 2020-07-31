@@ -986,7 +986,9 @@ Open a new terminal and query v$session\_event to see IO resource wait event.
 col con_id format 9999
 col event format a25
 col time_waited format 99,999,999
-select se.con_id,event,time_waited from v$session_event se,v$pdbs pdb where event like 'resmgr: %' and pdb.name='OE' and pdb.con_id=se.con_id ; </copy>
+select se.con_id,event,time_waited 
+from v$session_event se,v$pdbs pdb 
+where event like 'resmgr: %' and pdb.name='OE' and pdb.con_id=se.con_id ; </copy>
 
 
     CON_ID EVENT                     TIME_WAITED
