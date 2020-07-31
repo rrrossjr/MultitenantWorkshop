@@ -978,7 +978,7 @@ Now the same workload takes much longer to run. You can rerun any number of time
 Open a new terminal and query v$session\_event to see IO resource wait event.
 ````
 -- Connect to sqlplus
-<copy>sqlplus / nolog</copy>
+<copy>sqlplus /nolog</copy>
 ````
 ````
 -- Look at Resource Manager I/O rate limit waits
