@@ -990,10 +990,9 @@ select se.con_id,event,time_waited
 from v$session_event se,v$pdbs pdb 
 where event like 'resmgr: %' and pdb.name='OE' and pdb.con_id=se.con_id ; </copy>
 
-
-    CON_ID EVENT                     TIME_WAITED
----------- ------------------------- -----------
-         6 resmgr: I/O rate limit          15977
+CON_ID EVENT                     TIME_WAITED
+------ ------------------------- -----------
+     6 resmgr: I/O rate limit          2,520
 ````
 
 You should be seeing time_waited for event "resmgr: I/O rate limit" increasing while the load runs.
