@@ -720,7 +720,8 @@ It will be limited to the percentage equal to one cpu. In our case, Total cpus w
 
 ![](./images/top-c-output.png)
 
-<img src="./images/top-c-output.png" width="300" />
+600
+<img src="./images/top-c-output.png" width="600" />
 
 In a production system with many CPUs and PDB consolidation, it is possible to over provision. i.e. The total of CPU\_COUNT at PDB level is more than allocated at CDB level. This is a recommended configuration if we want better CPU utilization of the system.
 
