@@ -731,6 +731,7 @@ Now unset the CPU caging and rerun the workload. In our test, the cpu utilizatio
  @/home/oracle/labs/multitenant/cpu_test.sql</copy>
 ````
 The workload without resource management runs faster as it makes use of all the CPUs.
+<img src="./images/top-c-output100.png" width="800" />
 
 #### Resource Manager with CPU\_MIN\_COUNT (new in 19c)
 
