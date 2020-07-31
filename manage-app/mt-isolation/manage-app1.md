@@ -663,9 +663,9 @@ There are two ways to limit CPU resources
 - Instance Caging with CPU\_COUNT
 - Resource Manager with CPU\_MIN\_COUNT ( new in 19c)
 
-#### Instance Caging
+#### Instance Caging with parameter CPU_COUNT
 
-Instance caging is a technique that uses an initialization parameter to limit the number of CPUs that an instance can use simultaneously. You can set CPU\_COUNT at the PDB level. If Resource Manager is enabled, then the PDB is **caged** (restricted) to the number of CPUs specified by CPU\_COUNT. This count can be dynamically altered. In an Oracle database hosting environment, the ability to alter CPU\_COUNT is useful to scale cpus up and down in PDBs.  Another advantage is oracle can monitor resource usage. The resource limits can dynamically trigger a change of the CPU\_COUNT. The CPUs will be available in all the sessions in the PDB immediately. This way, we can dynamically scale the CPUs for PDB tenants.
+Instance caging is a technique that uses an initialization parameter to limit the number of CPUs that an instance can use simultaneously. You can set the parameter CPU\_COUNT at the PDB level. If Resource Manager is enabled, then the PDB is **caged** (restricted) to the number of CPUs specified by CPU\_COUNT. This count can be dynamically altered. In an Oracle database hosting environment, the ability to alter CPU\_COUNT is useful to scale cpus up and down in PDBs.  Another advantage is oracle can monitor resource usage. The resource limits can dynamically trigger a change of the CPU\_COUNT. The CPUs will be available in all the sessions in the PDB immediately. This way, we can dynamically scale the CPUs for PDB tenants.
 
 Resource Manager allows one Oracle process per CPU to run at a given time. All other processes wait on an internal Resource Manager run queue, under the wait event "resmgr:cpu quantum". Resource Manager allows an Oracle process to run for a small quantum of time (100 milliseconds). At the end of this quantum or when the Oracle process starts a wait (e.g. for a lock or I/O), Resource Manager selects a new Oracle process to run. Resource Manager uses a round-robin algorithm , and has priority Queues to choose between all runnable processes.
 
