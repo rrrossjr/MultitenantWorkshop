@@ -737,7 +737,9 @@ The workload without resource management runs faster as it makes use of all the 
 
 To allocate minimum CPU resources among PDBs, a new parameter has been introduced in 19C called CPU\_MIN\_COUNT. This allows us to set the minimum CPUs available per PDB.
 
-CPU\_MIN\_COUNT is the minimum number of CPUs the Pluggable Database Instance will receive.  The total of CPU\_MIN\_COUNT for all Pluggable Database instances should not exceed the CPU\_COUNT of the Container Database instance. When Database Resource Manager (DBRM) is enabled, and when CPU\_MIN\_COUNT has been set, the CPU\_COUNT parameter defines the maximum number of CPUs that can be used by a Pluggable Database Instance.
+CPU\_MIN\_COUNT is the minimum number of CPUs the Pluggable Database Instance will receive.  The total of CPU\_MIN\_COUNT for all Pluggable Database instances should not exceed the CPU\_COUNT of the Container Database instance. 
+
+CPU\_MIN\_COUNT is the minimum number of CPUs usable by the Pluggable Database.  CPU_COUNT is the maximum number of CPUs that can be used by the Pluggable Database.
 
 When there is no load on the system, the parameter CPU\_MIN\_COUNT is ignored allowing the PDB tenant to utilize 100% of the CPUs allocated to the CDB. Only when the workload on the system needs more than 100% of the available CPUs and the workload is from more than one PDB, will the resource manager kick in and prioritize CPU resource based on the percentage of shares or CPU\_MIN\_COUNT.
 
