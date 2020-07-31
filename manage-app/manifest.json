@@ -24,7 +24,7 @@
         },
 
         {
-            "title": "Optional: Multitenant Tenant Isolation",
+            "title": "Multitenant Tenant Isolation",
             "description":"Multitenant Tenant isolation",
             "publisheddate": "04/07/2020",
             "filename":"./mt-isolation/manage-app1.md"

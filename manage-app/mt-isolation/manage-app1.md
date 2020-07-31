@@ -604,6 +604,7 @@ Let us set SGA\_TARGET for PDB1 to 1G. First verify the default settings to enab
 show parameter NONCDB_COMPATIBLE
 show parameter MEMORY_TARGET </copy>
 
+-- These are required CDB level settings for Memory Usage
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 noncdb_compatible                    boolean     FALSE
