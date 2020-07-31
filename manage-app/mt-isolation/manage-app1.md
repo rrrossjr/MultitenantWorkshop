@@ -718,7 +718,7 @@ SQL> <copy>alter session set container=pdb1;
 You can open a separate terminal and run "top -c " and look at "%Cpu(s):" in your environment.
 It will be limited to the percentage equal to one cpu. In our case, Total cpus were 8, so 1 cpu would be 12.5% cpu utilization.
 
-![](./images/top-c-output.png)
+<p>![](./images/top-c-output.png)
 
 In a production system with many CPUs and PDB consolidation, it is possible to over provision. i.e. The total of CPU\_COUNT at PDB level is more than allocated at CDB level. This is a recommended configuration if we want better CPU utilization of the system.
 
