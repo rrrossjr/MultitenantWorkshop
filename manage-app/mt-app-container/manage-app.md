@@ -2,28 +2,29 @@
 
 ## Introduction
 
-This is a series self paced labs. Once you are familiar of multitenant basic concepts like plug-in,un-plug, clone, hot clone and refreshable clones, you can learn about Application Container functionality of Oracle Multitenant. In these labs, we will dive into the concepts of Application container, container clause, upgrading and patching and Proxy PDBs. 
+This is a series of self paced hands-on labs. Once you are familiar with multitenant basic concepts like plug, un-plug, clone, hot clone and refreshable clones, you can learn about the Application Container functionality of Oracle Multitenant. In these labs, we will dive into the concepts of Application container, container clause, upgrading and patching and Proxy PDBs. 
+
 Finally see how it all fits together in Root Replicas.
 
+## Step 0: Lab Environment Setup
 
-#### Lab Setup
+At this point, it is assumed that you have a Multitenant workshop environment and you have already run the "Multitenant Basics" section.  If you are starting this section before the "Multitenant Basics" section, then run the following setup script.
 
-At this point, it is assumbed you have already hava a Multitenat workshop environment and you have run the one time  **[setup script.](https://vijaybalebail.github.io/learning-library/data-management-library/database/multitenant/manage-app/index.html?lab=lab-setup#RuntheSetupScriptsasoracle)**
-
+````
+<copy>cd /home/oracle
+wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/Multitenant/o/labs.zip
+chown oracle:oinstall /home/oracle/labs.zip
+unzip -o labs.zip
+chmod -R +x /home/oracle/labs
+/home/oracle/labs/multitenant/resetCDB.sh</copy>
+````
 If you have not reset after the previous lab, you can run resetCDB.sh to start with a clean environment. If any errors about dropping databases appear they can be ignored.
+````
+<copy>cd /home/oracle/labs/multitenant
+./resetCDB.sh </copy>
+````
 
-All the scripts for this lab are located in the /home/oracle/labs/multitenant/scripts folder.
-
-- To access the scripts, secure shell into the OCI compute instance.
-- Change to the ssh directory and ssh into your instance. The public IP address can be found by going to Compute -> Instance.
-
-   ```
-  <copy> cd /home/oracle/labs/multitenant
-   ./resetCDB.sh </copy>
-   ```
-
-
-## Application Container
+## Step 1: Application Container
 
    Creating an Application Root is similar to creating a normal PDB, just with an extra clause "AS APPLICATION CONTAINER". The source of the Application Root can be an existing database or the SEED database on CDB level.
 
