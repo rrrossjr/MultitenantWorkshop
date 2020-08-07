@@ -343,11 +343,45 @@ PDB1                           LOCALHOST                               3
 ````
 10. Reset the Listener.ora
 
-This is the end of the exercise. Reset your environment so that it is ready for the next exercise by restoring and restarting the original listener. 
+This is the end of the exercise. Reset your environment so that it is ready for the next exercise by setting the FIREWALL attribute to OFF and then stopping and restarting the listener.  Once again use "vi" or your favorite editor to edit the listener.ora file.
+
 ````
-$ <copy>cp $ORACLE_HOME/network/admin/listener.backup $ORACLE_HOME/network/admin/listener.ora
-lsnrctl stop LISTCDB1
-lsnrctl start LISTCDB1</copy>
+$ <copy>vi $ORACLE_HOME/network/admin/listener.ora </copy>
+````
+  <pre>
+LISTCDB1 =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS =
+         (PROTOCOL = TCP)
+         (HOST = adb548-oracle-jul16-09 )
+         (PORT = 1523 )
+         <b><font color="red">(FIREWALL = OFF)</font></b>
+      )
+    )
+  )
+
+LISTCDB2 =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS =
+         (PROTOCOL = TCP)
+         (HOST = adb548-oracle-jul16-09 )
+         (PORT = 1524 )
+      )
+    )
+  )
+
+<b>LOCAL_REGISTRATION_ADDRESS_LISTCDB1 = ON</b>
+
+</pre>
+
+11. **Restart listener and verify FIREWALL=OFF.**
+
+````
+<copy>lsnrctl stop listcdb1
+lsnrctl start listcdb1
+lsnrctl status listcdb1 </copy>
 ````
 
 ## Step 2: Multitenant PDB Lockdown Profile
