@@ -43,7 +43,7 @@ You are now able to connect securely using the Putty terminal utility.
 
 Windows 10 users can use Windows PowerShell to run the workshop.
 
-**How to run PowerShell on Windows 10?**  Press WindowsKey+R to open the Run dialog box, and then type “powershell” in the text box. You can either click “OK” (or press the Enter) to open a regular PowerShell window.
+**How to run PowerShell on Windows 10?**  Press WindowsKey+R to open the Run dialog box, and then type "powershell" in the text box. You can either click “OK” (or press the Enter) to open a regular PowerShell window.
 
 <p>
 ![](./images/WinPowerShell.png " ")
