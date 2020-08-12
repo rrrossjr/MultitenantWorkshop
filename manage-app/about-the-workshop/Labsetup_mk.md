@@ -50,7 +50,7 @@ Windows 10 users can use Windows PowerShell to run the workshop.
 2. Your instructor will provide you with an IP address and a secure key file \(MT-WS-key.priv\).  Use the key and IP address to log in to the SSH client as shown in the following example.  **Remember to use your own IP address.**
 
 ````
-ssh -i c:\Users\name\Downloads\MT-WS-key.priv oracle@168.xxx.xx.007
+ssh -i c:\Users\name\Downloads\MT-WS-key.priv oracle@168.xxx.xx.xxx
 ````
 
     ![](./images/WinPowerShell2.png " ")
