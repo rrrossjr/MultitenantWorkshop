@@ -69,7 +69,7 @@ Mac users typically use their favorite terminal (Terminal.app, iTerm, etc) to ru
 2. Use the key and IP address to log in to the SSH client as shown in the following example.  **Remember to use your own IP address.**
 
 ````
-ssh -i MT-WS-key.priv oracle@152.69.98.229
+ssh -i MT-WS-key.priv oracle@168.xxx.xx.xxx
 ````
 <p>
 ![](./images/MACsetup.png " ")
