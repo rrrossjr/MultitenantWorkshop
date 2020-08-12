@@ -95,7 +95,7 @@ The FIREWALL attribute must be added to the listener endpoint to control the act
    - FIREWALL=ON : Only connections matching an ACL are considered valid. All other connections are rejected.
    - FIREWALL=OFF : The firewall functionality is disabled, so all connections are considered valid.
 
-Use your favorite editor \(like "vi"\) to edit listener.ora to make the edits in red shown below. **Just add the text in red, your VM has a different hostname so do not copy the entire box below.**
+Use your favorite editor \(like "vi"\) to edit listener.ora to make the edits in red shown below. <b><font color="red">Just add the text in red, your VM has a different hostname so do not copy the entire box below.</b></font>
 
 <pre>
 $ <copy>vi $ORACLE_HOME/network/admin/listener.ora </copy>
