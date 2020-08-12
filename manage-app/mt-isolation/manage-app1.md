@@ -384,6 +384,20 @@ lsnrctl start listcdb1
 lsnrctl status listcdb1 </copy>
 ````
 
+12. Once again, check to see if your services were restarted.  It can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
+
+Once all the listener services are available, specifically the 'pdb1' service, you can continue with the exercise.
+
+13. Connect to **CDB1** and register the services 
+
+````
+<copy>sqlplus / as sysdba</copy>
+````
+````
+<copy>alter system register; 
+exit;</copy>
+````
+
 ## Step 2: Multitenant PDB Lockdown Profile
 
 Tenant isolation is a key requirement for security in a multitenant environment. A PDB Lockdown Profile allows you to restrict the operations and functionality available from within a PDB. This can be very useful from a security perspective, giving the PDBs a greater degree of separation and allowing different people to manage each PDB, without compromising the security of other PDBs within the same container database.
