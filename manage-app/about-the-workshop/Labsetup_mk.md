@@ -39,39 +39,6 @@ Each lab participant will be provided a unique **IP address** and a download lin
 
 You are now able to connect securely using the Putty terminal utility. 
 
-## Windows Users: Connect using Windows PowerShell
-
-Windows 10 users can use Windows PowerShell to run the workshop.
-
-**How to run PowerShell on Windows 10?**  Press WindowsKey+R to open the Run dialog box, and then type “powershell” in the text box. You can either click “OK” (or press the Enter) to open a regular PowerShell window.
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-switch to WinPowerShell.png
-    ![](./images/keylab-027.png " ")
-=======
-   ![](./images/WinPowerShell.png " ")
->>>>>>> parent of 91ea1e3... Update Labsetup_mk.md
-=======
-![](./images/WinPowerShell.png " ")
->>>>>>> parent of b231526... Update Labsetup_mk.md
-
-1. Your instructor will provide you with an IP address and a secure key file (MT-WS-key.priv).  Use the key and IP address to log in to the SSH client as shown in the following example.  **Remember to use your own IP address.**
-
-````
-ssh -i MT-WS-key.priv oracle@168.xxx.xx.007
-````
-
-<<<<<<< HEAD
-   switch to WinPowerShell2.png
-
-    ![](./images/keylab-027.png " ")
-=======
-   ![](./images/WinPowerShell2.png " ")
->>>>>>> parent of 91ea1e3... Update Labsetup_mk.md
-
-You are now connected securely using your Windows PowerShell utility.
-
 ## Mac Users: Connect using ssh
 
 Mac users typically use their favorite terminal (Terminal.app, iTerm, etc) to run the workshop.
