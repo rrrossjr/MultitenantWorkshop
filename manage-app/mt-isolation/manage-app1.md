@@ -92,13 +92,14 @@ The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added
 
 The FIREWALL attribute must be added to the listener endpoint to control the action of the database firewall.  There are two settings for FIREWALL.
 
-   - FIREWALL\=ON \: Only connections matching an ACL are considered valid. All other connections are rejected.
-   - FIREWALL\=OFF \: The firewall functionality is disabled, so all connections are considered valid.
+   - FIREWALL\=ON : Only connections matching an ACL are considered valid. All other connections are rejected.
+   - FIREWALL\=OFF : The firewall functionality is disabled, so all connections are considered valid.
 
 Use your favorite editor \(like "vi"\) to edit the file listener.ora.  Just add the text in red, your VM has a different hostname so do not copy the entire box below.
 
-````
-````
+</pre>
+</p>
+
 ````
 $ <copy>vi $ORACLE_HOME/network/admin/listener.ora</copy>
 ````
