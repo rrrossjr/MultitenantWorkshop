@@ -45,17 +45,16 @@ Windows 10 users can use Windows PowerShell to run the workshop.
 
 1. **How to run PowerShell on Windows 10** - Press WindowsKey\+R to open the Run Dialog Box, then type powershell in the text box.  You can click OK \(or press Enter\) to open a regular PowerShell window.
 
-    ![](./images/WinPowerShell.png " ")
+![](./images/WinPowerShell.png " ")
 
 2. Your instructor will provide you with an IP address and a secure key file \(MT-WS-key.priv\).  Use the key and IP address to log in to the SSH client as shown in the following example.  **Remember to use your own IP address.**
 
-<p>
 ```
 ssh -i c:\Users\name\Downloads\MT-WS-key.priv oracle@168.xxx.xx.xxx
 ```
-<p>
-    ![](./images/WinPowerShell2.png " ")
-</p>
+
+test
+![](./images/WinPowerShell2.png " ")
 
 You are now connected securely using your Windows PowerShell utility.
 
