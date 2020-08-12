@@ -39,6 +39,10 @@ Each lab participant will be provided a unique **IP address** and a download lin
 
 You are now able to connect securely using the Putty terminal utility. 
 
+## Windows Users: Connect using ssh with Windows PowerShell
+
+Use Windows PowerShell terminal window.
+
 ## Mac Users: Connect using ssh
 
 Mac users typically use their favorite terminal (Terminal.app, iTerm, etc) to run the workshop.
