@@ -85,7 +85,7 @@ SQL> exit;
 **First, make a backup copy of the current listener configuration file.**
 
 ````
-<copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup 
+<copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup</copy>
 ````
 
 The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the listener.ora file.  In our example the CDB1 container DB is listening on listener **LISTCDB1**.  
@@ -96,9 +96,6 @@ The FIREWALL attribute must be added to the listener endpoint to control the act
    - FIREWALL\=OFF : The firewall functionality is disabled, so all connections are considered valid.
 
 Use your favorite editor \(like "vi"\) to edit the file listener.ora.  Just add the text in red, your VM has a different hostname so do not copy the entire box below.
-
-</pre>
-</p>
 
 ````
 $ <copy>vi $ORACLE_HOME/network/admin/listener.ora</copy>
