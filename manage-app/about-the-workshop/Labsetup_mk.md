@@ -37,6 +37,8 @@ Each lab participant will be provided a unique **IP address** and a download lin
 
     ![](./images/keylab-027.png " ")
 
+    ![](./images/WinPowerShell.png " ")
+
 You are now able to connect securely using the Putty terminal utility. 
 
 ## Windows Users: Connect using ssh with Windows PowerShell
