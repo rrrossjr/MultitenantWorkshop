@@ -53,7 +53,6 @@ Windows 10 users can use Windows PowerShell to run the workshop.
 ssh -i c:\Users\name\Downloads\MT-WS-key.priv oracle@168.xxx.xx.xxx
 ```
 
-test
 ![](./images/WinPowerShell2.png " ")
 
 You are now connected securely using your Windows PowerShell utility.
