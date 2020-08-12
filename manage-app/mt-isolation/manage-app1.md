@@ -88,20 +88,20 @@ SQL> exit;
 <copy>cp $ORACLE_HOME/network/admin/listener.ora $ORACLE_HOME/network/admin/listener.backup 
 ````
 
-The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the "listener.ora" file.  In our example the CDB1 container DB is listening on listener **LISTCDB1**.  
+The LOCAL\_REGISTRATION\_ADDRESS\_lsnr\_alias and FIREWALL setting must be added to the <em>listener.ora<em> file.  In our example the CDB1 container DB is listening on listener **LISTCDB1**.  
 
 The FIREWALL attribute must be added to the listener endpoint to control the action of the database firewall.  There are two settings for FIREWALL.
 
    - FIREWALL=ON : Only connections matching an ACL are considered valid. All other connections are rejected.
    - FIREWALL=OFF : The firewall functionality is disabled, so all connections are considered valid.
 
-Use your favorite editor \(like "vi"\) to edit listener.ora to make the edits in red shown below. <b><font color="red">Just add the text in red, your VM has a different hostname so do not copy the entire box below.</b></font>
+Use your favorite editor \(like "vi"\) to edit <em>listener.ora<em> to make the edits in red shown below. <b><font color="red">Just add the text in red, your VM has a different hostname so do not copy the entire box below.</b></font>
+
+````
+$ <copy>vi $ORACLE_HOME/network/admin/listener.ora </copy>
+````
 
 <pre>
-$ <copy>vi $ORACLE_HOME/network/admin/listener.ora </copy>
-</pre>
-
-  <pre>
 LISTCDB1 =
   (DESCRIPTION_LIST =
     (DESCRIPTION =
