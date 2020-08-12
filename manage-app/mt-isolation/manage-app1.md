@@ -97,6 +97,7 @@ The FIREWALL attribute must be added to the listener endpoint to control the act
 
 Use your favorite editor \(like "vi"\) to edit listener.ora to make the edits in red shown below.<b> Just add the text in red, your VM has a different hostname so do not copy the entire box below.</b>
 
+test
 ```
 $ <copy>vi $ORACLE_HOME/network/admin/listener.ora </copy>
 ```
