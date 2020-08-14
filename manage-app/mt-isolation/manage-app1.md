@@ -830,7 +830,7 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- -----------------
 resource_manager_plan                string      DEFAULT_CDB_PLAN
 ````
-8. Create a new PDB and set the CPU\_MIN\_COUNT.
+8. Create PDB5 and set the CPU\_MIN\_COUNT.
 ````
 <copy>create pluggable database PDB5 admin user admin identified by oracle ;
 alter pluggable database PDB5 open;
