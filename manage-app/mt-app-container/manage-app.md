@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a series of self paced hands-on labs. Once you are familiar with multitenant basic concepts like plug, un-plug, clone, hot clone and refreshable clones, you can learn about the Application Container functionality of Oracle Multitenant. In these labs, we will dive into the concepts of Application container, container clause, upgrading and patching and Proxy PDBs. 
+This is a series of self paced hands-on labs. Once you are familiar with multitenant basic concepts like plug, un-plug, clone, hot clone and refreshable clones, you can learn about the Application Container functionality of Oracle Multitenant. In this section, we will dive into the concepts of the Application container, container clause, upgrading and patching and Proxy PDBs. 
 
 Finally see how it all fits together in Root Replicas.
 
@@ -26,15 +26,15 @@ If you have not reset after the previous lab, you can run resetCDB.sh to start w
 
 ## Step 1: Application Container
 
-   Creating an Application Root is similar to creating a normal PDB, just with an extra clause "AS APPLICATION CONTAINER". The source of the Application Root can be an existing database or the SEED database on CDB level.
+Creating an Application Root database is similar to creating a normal PDB, just with an extra clause "AS APPLICATION CONTAINER". The source of the Application Root can be an existing database or the SEED database of the CDB.
 
-   - Create a Application pluggable database **APP\_ROOT** in the container database **CDB1**
+   - Create an Application pluggable database **APP\_ROOT** in the container database **CDB1**
 
    1. Connect to **CDB1**
 
       ```
-      sqlplus /nolog
-      connect sys/oracle@localhost:1523/cdb1 as sysdba
+      <copy>sqlplus /nolog
+      connect sys/oracle@localhost:1523/cdb1 as sysdba</copy>
       ```
 
    2. #### Create application root container APP_ROOT
