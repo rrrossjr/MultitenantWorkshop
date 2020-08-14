@@ -643,12 +643,13 @@ The following parameters can be set at the PDB level.
 
 The initialization parameters control the memory usage of PDBs only if the following conditions are met:
 
-The NONCDB\_COMPATIBLE initialization parameter is set to false in the CDB root.
+The NONCDB\_COMPATIBLE initialization parameter is set to FALSE in the CDB root.
 
-The MEMORY\_TARGET initialization parameter is is set to 0 (zero) or null in the CDB root.
+The MEMORY\_TARGET initialization parameter is set to 0 (zero) or null in the CDB root.
 
-Let us set SGA\_TARGET for PDB1 to 1G. First verify the default settings to enable Memory management.
+1. Verify the parameter settings to enable Memory management.
 ````
+-- Connect to CDB1 as SYSDBA and verify parameters
 <copy>connect / as SYSDBA
 show parameter NONCDB_COMPATIBLE
 show parameter MEMORY_TARGET </copy>
@@ -662,7 +663,7 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 memory_target                        big integer 0
 ````
-Next check the value of SGA_TARGET in CDB1 and PDB1.
+2. Check the value of SGA_TARGET in CDB1 and PDB1.
 ````
 <copy>show parameter sga_target
 ALTER SESSION SET CONTAINER=pdb1;
@@ -682,8 +683,7 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 sga_target                           big integer 0
 ````
-
-Set SGA_TARGET for PDB1.  When this parameter is set for a PDB, it specifies the maximum SGA that the PDB can use at any time. 
+3. Set SGA\_TARGET for PDB1 to 1G.  When this parameter is set for a PDB, it specifies the maximum SGA that the PDB can use at any time. 
 ````
 <copy>ALTER SYSTEM SET sga_target=1G SCOPE=BOTH;
 SHOW PARAMETER sga_target;</copy>
@@ -707,7 +707,7 @@ Oracle now provides views to monitor the resource (CPU, I/O, parallel execution,
 - V$RSRC_PDB : Cumulative statistics since the CDB resource plan ws set.
 - DBA\_HIST\_RSRC\_PDB\_METRIC : AWR snaphots, retained based on the AWR retention period.
 
-### CPU Resources Management
+### CPU Resource Management
 
 There are two ways to limit CPU resources
 - Instance Caging with CPU\_COUNT
