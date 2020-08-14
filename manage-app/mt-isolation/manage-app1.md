@@ -939,7 +939,7 @@ alter session set container=PDB1;
 ````
 Rerun the monitoring script in sql*plus and check the output.
 ````
-SQL> <copy>@cpu_usage</copy>
+SQL> <copy>@check_cpu_usage</copy>
 
     CON_ID PDB_NAME   CPU_UTILIZATION_LIMIT AVG_CPU_UTILIZATION   JOB_SESS
 ---------- ---------- --------------------- ------------------- ----------
