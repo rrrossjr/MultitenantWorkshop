@@ -709,9 +709,12 @@ You have successfully set a limit of memory PDB1 can use.
 
 ### CPU Resource Management
 
-There are two ways to limit CPU resources
-- Instance Caging with CPU\_COUNT
-- Resource Manager with CPU\_MIN\_COUNT ( new in 19c)
+**PDB CPU Parameters**
+
+The following parameters can be set at the PDB level to manage CPU resources.
+
+- CPU\_COUNT : The maximum number of CPUs usable by the PDB.
+- CPU\_MIN\_COUNT : ( new in 19c) The minimum number of CPUs the PDB will receive.
 
 **Instance Caging with parameter CPU_COUNT**
 
@@ -719,7 +722,8 @@ Instance caging is a technique that uses an initialization parameter to limit th
 
 Resource Manager allows one Oracle process per CPU to run at a given time. All other processes wait on an internal Resource Manager run queue, under the wait event "resmgr:cpu quantum". Resource Manager allows an Oracle process to run for a small quantum of time (100 milliseconds). At the end of this quantum or when the Oracle process starts a wait (e.g. for a lock or I/O), Resource Manager selects a new Oracle process to run. Resource Manager uses a round-robin algorithm , and has priority Queues to choose between all runnable processes.
 
-Setup Instance Caging, by enabling Resource Manager and set CPU\_COUNT at the PDB level.
+Setup Instance Caging, by enabling Resource Manager and setting CPU\_COUNT at the PDB level.
+1. Show the CPU parameters at the CDB level
 ````
 <copy>connect / as SYSDBA
 show parameter CPU_COUNT
@@ -736,13 +740,13 @@ resource_manage_goldengate           boolean     FALSE
 resource_manager_cpu_allocation      integer     8
 resource_manager_plan                string
 ````
-Set the parameter resource\_manager\_plan
+2. Set the parameter RESOURCE\_MANAGER\_PLAN at the CDB level
 ````
 <copy>alter system set resource_manager_plan='DEFAULT_CDB_PLAN';</copy>
 
 System altered.
 ````
-Set the parameter cpu\_count count in pdb1
+3. Set the parameter CPU\_COUNT in PDB1
 ````
 <copy>alter session set container=pdb1;
 alter system set cpu_count=1;
@@ -759,20 +763,20 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 cpu_count                            integer     1
 ````
-That is it. By setting the parameter resource\_manager\_plan in the CDB and setting the CPU\_COUNT parameter in the PDB, you have setup instance caging.  To test this, you can run the sample workload.
+That is it. By setting the parameter RESOURCE\_MANAGER\_PLAN in the CDB and setting the CPU\_COUNT parameter in the PDB, you have setup instance caging.  
 
+4. Test Instance Caging by running sample workload.
 ````
 SQL> <copy>alter session set container=pdb1;
 @/home/oracle/labs/multitenant/cpu_test.sql</copy>
 ````
-You can open a separate terminal and run "top -c " and look at "%Cpu(s):" in your environment.
-It will be limited to the percentage equal to one cpu. In our case, Total cpus were 8, so 1 cpu would be 12.5% cpu utilization.
+5.  Open a separate SSH terminal and run "top -c " and look at "%Cpu(s):" in your environment.  It will be limited to the percentage equal to one cpu. In our case, Total cpus were 8, so 1 cpu would be 12.5% cpu utilization.
 
 <img src="./images/top-c-output.png" width="800" />
 
-In a production system with many CPUs and PDB consolidation, it is possible to over provision. i.e. The total of CPU\_COUNT at PDB level is more than allocated at CDB level. This is a recommended configuration if we want better CPU utilization of the system.
+In a production system with many CPUs and PDB consolidation, it is possible to over provision the CPU Count. The total of CPU\_COUNT at the PDB level is more than allocated at the CDB level. This is a recommended configuration when you want better CPU utilization of the system.
 
-Now unset the CPU caging and rerun the workload. In our test, the cpu utilization peaks to 100% consuming all the CPUs available.
+6.  Unset the CPU caging and rerun the workload. In our test, the cpu utilization peaks to 100% consuming all the CPUs available.
 ````
  <copy>connect / as SYSDBA
  alter system set resource_manager_plan='';
@@ -785,15 +789,15 @@ The workload without resource management runs faster as it makes use of all the 
 
 **Resource Manager with CPU\_MIN\_COUNT (new in 19c)**
 
-To allocate minimum CPU resources among PDBs, a new parameter has been introduced in 19C called CPU\_MIN\_COUNT. This allows us to set the minimum CPUs available per PDB.
+To allocate minimum CPU resources among PDBs, a new parameter has been introduced in 19C called CPU\_MIN\_COUNT. This allows us to set the minimum CPUs available per PDB.  The total of CPU\_MIN\_COUNT for all Pluggable Database instances should not exceed the CPU\_COUNT of the Container Database instance. 
 
-CPU\_MIN\_COUNT is the minimum number of CPUs the Pluggable Database Instance will receive.  The total of CPU\_MIN\_COUNT for all Pluggable Database instances should not exceed the CPU\_COUNT of the Container Database instance. 
+You can set both CPU parameters in a PDB.  The CPU\_MIN\_COUNT is the minimum number of CPUs usable by the PDB and CPU_COUNT is the maximum number of CPUs usable by the PDB.
 
-CPU\_MIN\_COUNT is the minimum number of CPUs usable by the Pluggable Database.  CPU_COUNT is the maximum number of CPUs that can be used by the Pluggable Database.
+When there is no load on the system, the parameter CPU\_MIN\_COUNT is ignored allowing the PDB tenant to utilize 100% (or CPU\_COUNT) of the CPUs allocated to the CDB. 
 
-When there is no load on the system, the parameter CPU\_MIN\_COUNT is ignored allowing the PDB tenant to utilize 100% of the CPUs allocated to the CDB. Only when the workload on the system needs more than 100% of the available CPUs and the workload is from more than one PDB, will the resource manager kick in and prioritize CPU resource based on the percentage of shares or CPU\_MIN\_COUNT.
+When the workload on the system needs more than 100% of the available CPUs and the workload is from more than one PDB, will the resource manager kick in and prioritize CPU resource based on the CPU\_MIN\_COUNT.
 
-The steps to set this are
+The steps to set CPU Resource Management are
 - At the CDB level
      - Set the parameter RESOURCE\_MANAGER\_PLAN = DEFAULT\_CDB\_PLAN
 - For each PDB
@@ -802,7 +806,7 @@ The steps to set this are
 
 ![](./images/CPU_RESOURCEMANAGER.png)
 
-Connect to CDB1 and set the resource plan.
+7.  Set CPU Resource Manager parameters. Connect to CDB1 and set the resource plan.
 ````
 <copy>connect / as SYSDBA
 show parameter cpu_
@@ -826,7 +830,7 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- -----------------
 resource_manager_plan                string      DEFAULT_CDB_PLAN
 ````
-Create a new PDB and set the CPU\_MIN\_COUNT.
+8. Create a new PDB and set the CPU\_MIN\_COUNT.
 ````
 <copy>create pluggable database PDB5 admin user admin identified by oracle ;
 alter pluggable database PDB5 open;
@@ -870,9 +874,11 @@ resource_manager_cpu_allocation      integer     8
 
 With 2 simple steps, the minimum resource is set. If you need to set Instance Caging, you can set CPU\_COUNT at the PDB level as well.
 
-By default, CPU\_MIN\_COUNT = CPU\_COUNT, If sum(CPU\_MIN\_COUNT) <= CDBs CPU\_COUNT, then each PDB is guaranteed CPU\_MIN\_COUNT CPUs
+By default, CPU\_MIN\_COUNT = CPU\_COUNT.  If the sum(CPU\_MIN\_COUNT) for all PDBs <= the CDB's CPU\_COUNT, then each PDB is guaranteed it's CPU\_MIN\_COUNT of CPUs.
 
-To test this let us run some high CPU workload in PDB5. You will observe that the CPU utilization on the system will be 100%. Next when we put the same workload into PDB1, where CPU\_MIN\_COUNT=CPU\_COUNT=8, we will observe that PDB1 will capture a greater percent of CPU.
+9. Test the CPU\_MIN\_COUNT by running a high CPU workload in PDB5.
+
+You will observe that the CPU utilization on the system will be 100%. Next when we put the same workload into PDB1, where CPU\_MIN\_COUNT=CPU\_COUNT=8, we will observe that PDB1 will capture a greater percent of CPU.
 
 Note that the workload script is single threaded and has a default of 8 threads. If you are testing this on servers with more cpus, you can increase the thread_count.
 ````
