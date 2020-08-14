@@ -675,7 +675,7 @@ memory_target                        big integer 0
 2. Check the value of SGA_TARGET in CDB1 and PDB1.
 ````
 <copy>show parameter SGA_TARGET
-ALTER SESSION SET CONTAINER=pdb1;
+alter session set container=pdb1;
 show parameter SGA_TARGET</copy>
 ````
 ````
@@ -684,23 +684,23 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 sga_target                           big integer 4432M
 
-SQL> ALTER SESSION SET CONTAINER=pdb1;
+SQL> alter session set container=pdb1;
 Session altered.
 
-SQL> SHOW PARAMETER SGA_TARGET;
+SQL> show parameter SGA_TARGET;
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 sga_target                           big integer 0
 ````
 3. Set SGA\_TARGET for PDB1 to 1G.  When this parameter is set for a PDB, it specifies the maximum SGA that the PDB can use at any time. 
 ````
-<copy>ALTER SYSTEM set SGA_TARGET=1G SCOPE=BOTH;
-SHOW PARAMETER SGA_TARGET;</copy>
+<copy>alter system set SGA_TARGET=1G SCOPE=BOTH;
+show parameter SGA_TARGET;</copy>
 ````
 ````
-SQL> ALTER SYSTEM set SGA_TARGET=1G SCOPE=BOTH;
+SQL> alter system set SGA_TARGET=1G SCOPE=BOTH;
 System altered.
-SQL> SHOW PARAMETER SGA_TARGET;
+SQL> show parameter SGA_TARGET;
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 sga_target                           big integer 1G
@@ -1004,7 +1004,7 @@ alter user soe quota unlimited on system; </copy>
 alter system set  MAX_IOPS=0;
 
 BEGIN
-  EXECUTE IMMEDIATE ' create table test as select * from dba_objects';
+  EXECUTE IMMEDIATE 'create table test as select * from dba_objects';
   FOR i in 1..6  LOOP
     execute immediate 'insert into test select * from test';
     commit;
@@ -1022,9 +1022,9 @@ The workload runs without any resource manager in around 20 seconds.
 Now set MAX\_IOPS=10 and rerun the load.
 
 ````
-<copy>alter system set  MAX_IOPS=10;
+<copy>alter system set MAX_IOPS=10;
 BEGIN
-  EXECUTE IMMEDIATE ' create table test as select * from dba_objects';
+  EXECUTE IMMEDIATE 'create table test as select * from dba_objects';
   FOR i in 1..6  LOOP
     execute immediate 'insert into test select * from test';
     commit;
