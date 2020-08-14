@@ -643,12 +643,12 @@ The advantage of having multitenant is that all the memory in a server can be pr
 
 The following parameters can be set at the PDB level.
 
-- DB\_CACHE\_SIZE : The minimum buffer cache size for the PDB.
-- SHARED\_POOL\_SIZE : The minimum shared pool size for the PDB.
-- PGA\_AGGREGATE\_LIMIT : The maximum PGA size for the PDB.
-- PGA\_AGGREGATE\_TARGET : The target PGA size for the PDB.
-- SGA\_MIN\_SIZE : The minimum SGA size for the PDB.
-- SGA\_TARGET : The maximum SGA size for the PDB.
+- ***DB\_CACHE\_SIZE*** : The minimum buffer cache size for the PDB.
+- ***SHARED\_POOL\_SIZE*** : The minimum shared pool size for the PDB.
+- ***PGA\_AGGREGATE\_LIMIT*** : The maximum PGA size for the PDB.
+- ***PGA\_AGGREGATE\_TARGET*** : The target PGA size for the PDB.
+- ***SGA\_MIN\_SIZE*** : The minimum SGA size for the PDB.
+- ***SGA\_TARGET*** : The maximum SGA size for the PDB.
 
 The initialization parameters control the memory usage of PDBs only if the following conditions are met:
 
@@ -674,12 +674,12 @@ memory_target                        big integer 0
 ````
 2. Check the value of SGA_TARGET in CDB1 and PDB1.
 ````
-<copy>show parameter sga_target
+<copy>show parameter SGA_TARGET
 ALTER SESSION SET CONTAINER=pdb1;
 show parameter SGA_TARGET</copy>
 ````
 ````
-SQL> show parameter sga_target
+SQL> show parameter SGA_TARGET
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 sga_target                           big integer 4432M
@@ -687,20 +687,20 @@ sga_target                           big integer 4432M
 SQL> ALTER SESSION SET CONTAINER=pdb1;
 Session altered.
 
-SQL> SHOW PARAMETER sga_target;
+SQL> SHOW PARAMETER SGA_TARGET;
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 sga_target                           big integer 0
 ````
 3. Set SGA\_TARGET for PDB1 to 1G.  When this parameter is set for a PDB, it specifies the maximum SGA that the PDB can use at any time. 
 ````
-<copy>ALTER SYSTEM SET sga_target=1G SCOPE=BOTH;
-SHOW PARAMETER sga_target;</copy>
+<copy>ALTER SYSTEM set SGA_TARGET=1G SCOPE=BOTH;
+SHOW PARAMETER SGA_TARGET;</copy>
 ````
 ````
-SQL> ALTER SYSTEM SET sga_target=1G SCOPE=BOTH;
+SQL> ALTER SYSTEM set SGA_TARGET=1G SCOPE=BOTH;
 System altered.
-SQL> SHOW PARAMETER sga_target;
+SQL> SHOW PARAMETER SGA_TARGET;
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 sga_target                           big integer 1G
@@ -713,8 +713,8 @@ You have successfully set a limit of memory PDB1 can use.
 
 The following parameters can be set at the PDB level to manage CPU resources.
 
-- CPU\_COUNT : The maximum number of CPUs usable by the PDB.
-- CPU\_MIN\_COUNT : ( new in 19c) The minimum number of CPUs the PDB will receive.
+- ***CPU\_COUNT*** : The maximum number of CPUs usable by the PDB.
+- ***CPU\_MIN\_COUNT*** : ( new in 19c) The minimum number of CPUs the PDB will receive.
 
 **Instance Caging with parameter CPU_COUNT**
 
