@@ -953,11 +953,7 @@ SQL> <copy>alter session set container = CDB$ROOT;
 ````
 Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 8 in this example. So, when you run a workload on both PDBs, the CPU utilization should be approximately 88% (8/9) for PDB1 and 11% (1/9) for PDB5.  
 
-Note: The Average CPU Utilization will take about 60 seconds to update the value. You may need to rerun the following a few times.
-````
-SQL> <copy>alter session set container = CDB$ROOT;
-@check_cpu_usage;</copy>
-````
+Note: The Average CPU Utilization will take about 60 seconds to update the value. You may need to rerun the previous script a few times.
 
 ### I/O Resource Management
 
