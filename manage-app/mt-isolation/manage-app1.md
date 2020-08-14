@@ -897,7 +897,7 @@ PL/SQL procedure successfully completed.
 ````
 If you open another session and monitor CPU utilization (with "top -c"), it should be 100%. However, to find out which PDB is consuming CPUs, we need to look at V$RSRCPDBMETRIC.
 
-In a new ssh window, run the following script to see the CPU utilization per PDB.
+10. Check the CPU utilization per PDB.
 ````
 -- Script to find out which PDBs are consuming CPUs 
 <copy>alter session set container = CDB$ROOT;
@@ -918,7 +918,8 @@ r.CON_ID,
 p.PDB_NAME,
 r.CPU_UTILIZATION_LIMIT,
 r.AVG_CPU_UTILIZATION
-order by r.con_id asc; </copy>
+order by r.con_id asc; 
+save check_cpu_usage</copy>
 
     CON_ID PDB_NAME   CPU_UTILIZATION_LIMIT AVG_CPU_UTILIZATION   JOB_SESS
 ---------- ---------- --------------------- ------------------- ----------
@@ -927,10 +928,9 @@ order by r.con_id asc; </copy>
 ````
 Observe that when there is no load on PDB1, PDB5 is able to use all of the CPUs allocated to the CDB.
 
-Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql periodically by typing the "/" key in sql*plus and hitting \<Enter\>.
+Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql periodically by typing the "/" key in sql*plus and hitting <Enter>.
 
-Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 8 in this example. So, when you run a workload on both PDBs, the CPU utilization should be approximately 88% (8/9) for PDB1 and 11% (1/9) for PDB5.
-
+11. Run the workload script on both PDB1 and PDB5.
 ````
 <copy>alter session set container=PDB5;
 @/home/oracle/labs/multitenant/cpu_test.sql
@@ -939,13 +939,16 @@ alter session set container=PDB1;
 ````
 Rerun the monitoring script in sql*plus and check the output.
 ````
-SQL> /
+SQL> <copy>@cpu_usage</copy>
 
     CON_ID PDB_NAME   CPU_UTILIZATION_LIMIT AVG_CPU_UTILIZATION   JOB_SESS
 ---------- ---------- --------------------- ------------------- ----------
          3 PDB1                         100                  87          8
          4 PDB5                         100                  12          8
 ````
+Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 8 in this example. So, when you run a workload on both PDBs, the CPU utilization should be approximately 88% (8/9) for PDB1 and 11% (1/9) for PDB5.  
+
+Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql periodically by typing the "/" key in sql*plus and hitting <Enter>.
 
 ### I/O Resource Management
 
