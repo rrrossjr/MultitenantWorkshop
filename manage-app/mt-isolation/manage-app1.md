@@ -928,7 +928,11 @@ save check_cpu_usage</copy>
 ````
 Observe that when there is no load on PDB1, PDB5 is able to use all of the CPUs allocated to the CDB.
 
-Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql periodically by typing the "/" key in sql*plus and hitting <Enter>.
+Note: The Average CPU Utilization will take about 60 seconds to update the value. You may need to rerun the following a few times.
+````
+SQL> <copy>alter session set container = CDB$ROOT;
+@check_cpu_usage;</copy>
+````
 
 11. Run the workload script on both PDB1 and PDB5.
 ````
@@ -937,9 +941,10 @@ Note: The Average CPU Utilization will take about 60 seconds to update the value
 alter session set container=PDB1;
 @/home/oracle/labs/multitenant/cpu_test.sql </copy>
 ````
-Rerun the monitoring script in sql*plus and check the output.
+12. Rerun the monitoring script in sql*plus and check the output.
 ````
-SQL> <copy>@check_cpu_usage</copy>
+SQL> <copy>alter session set container = CDB$ROOT;
+@check_cpu_usage</copy>
 
     CON_ID PDB_NAME   CPU_UTILIZATION_LIMIT AVG_CPU_UTILIZATION   JOB_SESS
 ---------- ---------- --------------------- ------------------- ----------
@@ -948,7 +953,11 @@ SQL> <copy>@check_cpu_usage</copy>
 ````
 Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 8 in this example. So, when you run a workload on both PDBs, the CPU utilization should be approximately 88% (8/9) for PDB1 and 11% (1/9) for PDB5.  
 
-Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql periodically by typing the "/" key in sql*plus and hitting <Enter>.
+Note: The Average CPU Utilization will take about 60 seconds to update the value. You may need to rerun the following a few times.
+````
+SQL> <copy>alter session set container = CDB$ROOT;
+@check_cpu_usage;</copy>
+````
 
 ### I/O Resource Management
 
