@@ -765,7 +765,7 @@ cpu_count                            integer     1
 ````
 That is it. By setting the parameter RESOURCE\_MANAGER\_PLAN in the CDB and setting the CPU\_COUNT parameter in the PDB, you have setup instance caging.  PDB1 can now use only 1 CPU.
 
-4. Test Instance Caging by running sample workload.
+4. Test Instance Caging by running a sample workload.
 ````
 SQL> <copy>alter session set container=pdb1;
 @/home/oracle/labs/multitenant/cpu_test.sql</copy>
@@ -875,7 +875,7 @@ resource_manager_cpu_allocation      integer     8
 
 With 2 simple steps, the minimum resource is set. If you need to set Instance Caging, you can set CPU\_COUNT at the PDB level as well.
 
-By default, CPU\_MIN\_COUNT = CPU\_COUNT.  If the sum(CPU\_MIN\_COUNT) for all PDBs <= the CDB's CPU\_COUNT, then each PDB is guaranteed it's CPU\_MIN\_COUNT of CPUs.
+By default, CPU\_MIN\_COUNT = CPU\_COUNT.  If the sum of CPU\_MIN\_COUNT for all PDBs is less than or equal to the CDB's CPU\_COUNT, then each PDB is guaranteed it's CPU\_MIN\_COUNT of CPUs.
 
 9. Test the CPU\_MIN\_COUNT by running a high CPU workload in PDB5.
 
@@ -929,7 +929,7 @@ Observe that when there is no load on PDB1, PDB5 is able to use all of the CPUs 
 
 Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql typing the "/" .
 
-Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 8 in my case. So, when we run load on both PDBs, the CPU utilization should be equal to 80% for PDB1 and 20% for PDB5.
+Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 8 in this example. So, when you run a workload on both PDBs, the CPU utilization should be equal to 80% for PDB1 and 20% for PDB5.
 
 ````
 <copy>alter session set container=PDB5;
