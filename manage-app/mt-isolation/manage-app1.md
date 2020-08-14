@@ -997,7 +997,7 @@ alter session set container = oe;
 grant create session, create table to soe;
 alter user soe quota unlimited on system; </copy>
 ````
-3. Stay connected to the OE database and run a workload with MAX_IOPS=0.
+3. Stay connected to the OE database and run a workload with MAX\_IOPS=0.  When MAX\_IOPS is 0, the I/O is not restricted.
 ````
 <copy>set timing on
 -- unset any IOPS RM
