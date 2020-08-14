@@ -895,7 +895,7 @@ SQL> @/home/oracle/labs/multitenant/cpu_test.sql
 
 PL/SQL procedure successfully completed.
 ````
-If you open another session and monitor CPU utilization , it should be 100%. However, to find out which PDB is consuming CPUs, we need to look at V$RSRCPDBMETRIC.
+If you open another session and monitor CPU utilization (with "top -c"), it should be 100%. However, to find out which PDB is consuming CPUs, we need to look at V$RSRCPDBMETRIC.
 
 In a new ssh window, run the following script to see the CPU utilization per PDB.
 ````
@@ -927,17 +927,17 @@ order by r.con_id asc; </copy>
 ````
 Observe that when there is no load on PDB1, PDB5 is able to use all of the CPUs allocated to the CDB.
 
-Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql typing the "/" .
+Note: The Average CPU Utilization will take about 60 seconds to update the value. You will need to rerun the sql periodically by typing the "/" key in sql*plus and hitting \<Enter\>.
 
-Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 8 in this example. So, when you run a workload on both PDBs, the CPU utilization should be equal to 80% for PDB1 and 20% for PDB5.
+Since we have not set CPU\_MIN\_COUNT in PDB1, it will default to CPU\_COUNT which is 8 in this example. So, when you run a workload on both PDBs, the CPU utilization should be approximately 88% (8/9) for PDB1 and 11% (1/9) for PDB5.
 
 ````
 <copy>alter session set container=PDB5;
 @/home/oracle/labs/multitenant/cpu_test.sql
-alter session set container=pdb1;
+alter session set container=PDB1;
 @/home/oracle/labs/multitenant/cpu_test.sql </copy>
 ````
-Rerun the monitoring script in the other session_event and check the output.
+Rerun the monitoring script in sql*plus and check the output.
 ````
 SQL> /
 
