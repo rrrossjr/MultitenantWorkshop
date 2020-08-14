@@ -203,7 +203,7 @@ The command completed successfully
 ````
 Check to see if your services were restarted.  It can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
 
-Once all the listener services are available, specifically the 'pdb1' service, you can continue with the exercise.
+Once all the listener services are available, specifically the 'PDB1' service, you can continue with the exercise.
 
 4. Connect to **CDB1**  
 
@@ -386,7 +386,7 @@ lsnrctl status listcdb1 </copy>
 
 12. Once again, check to see if your services were restarted.  It can take up to 5 minutes before all services have been registered again. If you want to speed this up, login to the CDB1 using SQL*Plus and execute the command 'alter system register;'.
 
-Once all the listener services are available, specifically the 'pdb1' service, you can continue with the exercise.
+Once all the listener services are available, specifically the 'PDB1' service, you can continue with the exercise.
 
 13. Connect to **CDB1** and register the services 
 
@@ -545,13 +545,13 @@ Table created.
 
 We saw that the DBA could create partitioned tables and alter initialization parameters. Now lets assign the Lockdown Profile TENANT\_LOCK to this PDB.  
 ````
-<copy>show parameter pdb_lockdown
+<copy>show parameter PDB_LOCKDOWN
 alter system set PDB_LOCKDOWN=TENANT_LOCK;
-show parameter pdb_lockdown</copy>
+show parameter PDB_LOCKDOWN</copy>
 ````
 ````
 System altered.
-SQL> show parameter pdb_lockdown
+SQL> show parameter PDB_LOCKDOWN
 
 NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
@@ -675,7 +675,7 @@ memory_target                        big integer 0
 2. Check the value of SGA_TARGET in CDB1 and PDB1.
 ````
 <copy>show parameter SGA_TARGET
-alter session set container=pdb1;
+alter session set container=PDB1;
 show parameter SGA_TARGET</copy>
 ````
 ````
@@ -684,7 +684,7 @@ NAME                                 TYPE        VALUE
 ------------------------------------ ----------- ------------------------------
 sga_target                           big integer 4432M
 
-SQL> alter session set container=pdb1;
+SQL> alter session set container=PDB1;
 Session altered.
 
 SQL> show parameter SGA_TARGET;
@@ -748,11 +748,11 @@ System altered.
 ````
 3. Set the parameter CPU\_COUNT in PDB1
 ````
-<copy>alter session set container=pdb1;
+<copy>alter session set container=PDB1;
 alter system set cpu_count=1;
 show parameter CPU_COUNT</copy>
 
-SQL> alter session set container=pdb1;
+SQL> alter session set container=PDB1;
 Session altered.
 
 SQL> alter system set cpu_count=1;
@@ -767,7 +767,7 @@ That is it. By setting the parameter RESOURCE\_MANAGER\_PLAN in the CDB and sett
 
 4. Test Instance Caging by running a sample workload.
 ````
-SQL> <copy>alter session set container=pdb1;
+SQL> <copy>alter session set container=PDB1;
 @/home/oracle/labs/multitenant/cpu_test.sql</copy>
 ````
 5.  Open a separate SSH terminal and run "top -c " and look at "%Cpu(s):" in your environment.  It will be limited to the percentage equal to one cpu. In our case, Total cpus were 8, so 1 cpu would be 12.5% cpu utilization.
