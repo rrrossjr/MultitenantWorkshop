@@ -983,25 +983,26 @@ The tasks you will accomplish in this lab are:
 - Create a load against the pluggable database OE
 - Compare  wait events and timing of workloads .
 
-1. Connect to CDB1 and set the resource plan manager at the CDB level
+1. Connect to CDB1 and set the parameters.  
 ````
 <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
-show parameter resource_manager_plan
 alter system set resource_manager_plan='DEFAULT_CDB_PLAN';
+alter system set max_iops=0;
+show parameter iops
 show parameter resource_manager_plan </copy>
 ````
 2. Create pluggable database OE with an admin user of SOE
 ````
 <copy>create pluggable database oe admin user soe identified by soe roles=(dba);
 alter pluggable database oe open;
-alter session set container = oe;
-grant create session, create table to soe;
-alter user soe quota unlimited on system; </copy>
+alter session set container = oe;</copy>
 ````
+
 3. Stay connected to the OE database and run a workload with MAX\_IOPS=0.  When MAX\_IOPS is 0, the I/O is not restricted.
 ````
 <copy>set timing on
 -- unset any IOPS RM
+alter session set container = oe;
 alter system set  MAX_IOPS=0;
 
 BEGIN
@@ -1012,7 +1013,7 @@ BEGIN
   END LOOP;
   execute immediate 'drop table test purge';
 END;
-/</copy>
+/ </copy>
 PL/SQL procedure successfully completed.
 
 Elapsed: 00:00:18.48
@@ -1023,7 +1024,8 @@ The workload runs without any resource manager in around 20 seconds.
 Now set MAX\_IOPS=10 and rerun the load.
 
 ````
-<copy>alter system set MAX_IOPS=10;
+<copy>alter session set container = oe;
+alter system set MAX_IOPS=10;
 BEGIN
   EXECUTE IMMEDIATE 'create table test as select * from dba_objects';
   FOR i in 1..6  LOOP
@@ -1032,8 +1034,7 @@ BEGIN
   END LOOP;
   execute immediate 'drop table test purge';
 END;
-/
-</copy>
+/ </copy>
 PL/SQL procedure successfully completed.
 
 Elapsed: 00:01:14.17
