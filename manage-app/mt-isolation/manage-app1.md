@@ -959,7 +959,7 @@ Note: The Average CPU Utilization will take about 60 seconds to update the value
 
 **PDB I/O Parameters**
 
-The following initialization parameters can be set at the PDB level to manage Input/Output resources.  
+The following initialization parameters can be set at the PDB level to manage Input/Output resources.  The resource_manager_plan parameter does not need to be set.
 
 - ***MAX\_IOPS*** : the number of I/O operations for each second.
 - ***MAX\_MBPS*** : limits the megabytes for I/O operations for each second.
