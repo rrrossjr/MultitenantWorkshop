@@ -993,7 +993,8 @@ show parameter iops </copy>
 2. Create pluggable database OE with an admin user of SOE
 ````
 <copy>create pluggable database oe admin user soe identified by soe roles=(dba);
-alter pluggable database oe open; </copy>
+alter pluggable database oe open;
+show pdbs </copy>
 ````
 
 3. Connect to the OE database and run a workload with MAX\_IOPS=0.  When MAX\_IOPS is 0, the I/O is not restricted.
