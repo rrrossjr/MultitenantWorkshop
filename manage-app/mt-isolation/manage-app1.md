@@ -979,31 +979,29 @@ You can use the DBA\_HIST\_RSRC\_PDB\_METRIC view to calculate a reasonable I/O 
 
 The tasks you will accomplish in this lab are:
 
-- Create a pluggable database OE in the container database CDB1
-- Create a load against the pluggable database OE
-- Compare  wait events and timing of workloads .
+- Create a pluggable database OE in the container database CDB1.
+- Create a load against the pluggable database OE.
+- Compare  wait events and timing of workloads.
 
-1. Connect to CDB1 and set the parameters.  
+1. Connect to CDB1 and set the parameter MAX\_IOPS to 0, which removes any throttling of the maximum I/O for PDBs.  
 ````
 <copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
-alter system set resource_manager_plan='DEFAULT_CDB_PLAN';
+alter system set resource_manager_plan='';
 alter system set max_iops=0;
-show parameter iops
-show parameter resource_manager_plan </copy>
+show parameter iops </copy>
 ````
 2. Create pluggable database OE with an admin user of SOE
 ````
 <copy>create pluggable database oe admin user soe identified by soe roles=(dba);
-alter pluggable database oe open;
-alter session set container = oe;</copy>
+alter pluggable database oe open; </copy>
 ````
 
-3. Stay connected to the OE database and run a workload with MAX\_IOPS=0.  When MAX\_IOPS is 0, the I/O is not restricted.
+3. Connect to the OE database and run a workload with MAX\_IOPS=0.  When MAX\_IOPS is 0, the I/O is not restricted.
 ````
 <copy>set timing on
 -- unset any IOPS RM
-alter session set container = oe;
-alter system set  MAX_IOPS=0;
+alter session set container = OE;
+alter system set MAX_IOPS=0;
 
 BEGIN
   EXECUTE IMMEDIATE 'create table test as select * from dba_objects';
