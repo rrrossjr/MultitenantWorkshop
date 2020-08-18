@@ -987,7 +987,8 @@ The tasks you will accomplish in this lab are:
 ````
 <copy>connect / as sysdba 
 show parameter resource_manager_plan
-alter system set resource_manager_plan='DEFAULT_CDB_PLAN';</copy>
+alter system set resource_manager_plan='DEFAULT_CDB_PLAN';
+show parameter resource_manager_plan </copy>
 ````
 2. Create pluggable database OE with an admin user of SOE
 ````
