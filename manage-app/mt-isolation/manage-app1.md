@@ -985,7 +985,7 @@ The tasks you will accomplish in this lab are:
 
 1. Connect to CDB1 and set the resource plan manager at the CDB level
 ````
-<copy>connect / as sysdba 
+<copy>connect sys/oracle@localhost:1523/cdb1 as sysdba
 show parameter resource_manager_plan
 alter system set resource_manager_plan='DEFAULT_CDB_PLAN';
 show parameter resource_manager_plan </copy>
