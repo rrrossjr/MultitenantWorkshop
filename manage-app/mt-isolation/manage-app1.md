@@ -983,11 +983,11 @@ The tasks you will accomplish in this lab are:
 - Create a load against the pluggable database OE
 - Compare  wait events and timing of workloads .
 
-1. Connect to CDB1 and unset the resource plan manager at the CDB level
+1. Connect to CDB1 and set the resource plan manager at the CDB level
 ````
 <copy>connect / as sysdba 
 show parameter resource_manager_plan
-alter system set resource_manager_plan=''; </copy>
+alter system set resource_manager_plan='DEFAULT_CDB_PLAN';</copy>
 ````
 2. Create pluggable database OE with an admin user of SOE
 ````
