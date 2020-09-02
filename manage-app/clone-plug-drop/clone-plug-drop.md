@@ -20,7 +20,7 @@ unzip -o labs.zip
 chmod -R +x /home/oracle/labs
 ## test4
 /home/oracle/labs/multitenant/resetCDB.sh </copy>
-<copy>&nbsp;</copy>
+<copy></copy>
 ````
 
 ## Step 1: Create PDB
