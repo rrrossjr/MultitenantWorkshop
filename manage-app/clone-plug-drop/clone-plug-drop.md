@@ -18,7 +18,7 @@ wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/Mul
 chown oracle:oinstall /home/oracle/labs.zip
 unzip -o labs.zip
 chmod -R +x /home/oracle/labs
-/home/oracle/labs/multitenant/resetCDB.sh</copy>
+/home/oracle/labs/multitenant/resetCDB.sh &nbsp </copy>
 ````
 
 ## Step 1: Create PDB

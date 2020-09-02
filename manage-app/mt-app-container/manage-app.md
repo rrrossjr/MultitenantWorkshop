@@ -74,8 +74,6 @@ Creating an Application Root database is similar to creating a normal PDB, just 
    }
    ```
 
-
-
 **Creating an application**
 
    We can create one or more Applications within the Application Root container. When an Application is created, you need to give it a version number and a name. All statements that are executed after the initial 'BEGIN' clause of the application are captured and can be replayed in the target APP PDB.
