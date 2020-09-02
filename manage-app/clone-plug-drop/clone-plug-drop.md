@@ -823,6 +823,7 @@ Notice that the results of @whoami show the connection being the same same datab
     ````
     <copy>cd /home/oracle/labs/multitenant
     ./resetCDB.sh </copy>
+    <copy>&nbsp;</copy>
     ````
 
 Now you've had a chance to try out the Multitenant option. You were able to create, clone, plug and unplug a pluggable database. You were then able to accomplish some advanced tasks that you could leverage when maintaining a large multitenant environment.
