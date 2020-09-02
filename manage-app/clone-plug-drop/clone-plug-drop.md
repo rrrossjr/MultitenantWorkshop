@@ -18,8 +18,11 @@ wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/Mul
 chown oracle:oinstall /home/oracle/labs.zip
 unzip -o labs.zip
 chmod -R +x /home/oracle/labs
-## test1
-/home/oracle/labs/multitenant/resetCDB.sh</copy>
+## test2
+/home/oracle/labs/multitenant/resetCDB.sh
+&nbsp </copy>
+````
+````
 <copy> 
 &nbsp 
 </copy>
